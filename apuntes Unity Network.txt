@@ -1,3 +1,5 @@
+https://www.youtube.com/watch?v=YCTRI8fqARM&ab_channel=TRINITAsoc.Inform%C3%A1ticosdeZaragoza
+
 DOCUMENTACIÓN EN UNITY DOCS!!!!
 
 CTRL+B === BUILD + RUN SUPER MEGA GUAY!!!
@@ -41,5 +43,9 @@ Se utiliza Cmd (Command) para que el metodo de disparar lo ejecute el servidor (
 [1:14:00]
 IMPORTANTE sincronizar los objetos (que todos podran ver) con el servidor, para ello Network Manager tiene un listado de objetos (Prefabs) spawneables, hay que añadirlos al listado. Esto evita que los clientes hagan trampa creando objetos por su cuenta. 
 
+Componentes que faltan como network animator...
+hay variables para manejar su estado (boolean, enteros, flotantes, trigger) los trigger son genialisimos, te transmiten de manera asíncrona la animación de los personajes :O
+La lista de parámetros se sincronizan automaticamente, además del estado en el que se encuentra, todo perfecto sin hacer nada :D
+problema: la componente trigger no se transmite, cambio de estado con trigger y/o booleano, pero no se transmite por el network animation, hay que recurrir a otros sistemas como scripts que recojan la info del network animation y que la envien, con command o rpc.
 
 ES IMPORTANTE DIFERENCIAR CUANDO USAR COMMAND Y CUANDO USAR CLIENTRPC... y aun no sepo :'(

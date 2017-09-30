@@ -1,0 +1,45 @@
+DOCUMENTACIÓN EN UNITY DOCS!!!!
+
+CTRL+B === BUILD + RUN SUPER MEGA GUAY!!!
+
+
+Cuando un jugador se encuentra en una room, a cada uno se le otorga un objeto de tipo "player" al que puede acceder, es como un "manager" de su sesión.
+
+
+Importante la componente "network identity", todos los objetos sincronizados a nivel online la necesita SIEMPRE. Otorga un identificar a los objetos para que un cliente sepa que ese objeto es ÚNICO.
+Si se trata del jugador, se selecciona "Local Player Authorit" puesto que ese será el objeto que moverá el jugador. Es simplemente para saber cuál es tu cubo, y cuál no es.
+
+Network Manager en el spawn info tiene información sobre el playerprefab, que es el que duplicará en cada uno de los clientes, esto es para que cuando entres en una room el resto de jugadores te vean, y en sus clientes se generen una replica de tu player.
+
+
+[min 24 aprox]
+Sincronizar posición, rotación, y escala son 9 floats. 
+Si un jugador está completamente quieto, esos 9 floats no varían, y no tiene mucho sentido que estén constantemente enviándose.
+Para evitar esto, el sistema que usa Unity para diferenciar datos, se llama Sistema Diferencial, es decir, de tal manera que no se mandan los valores de los floats mencionados, sino que se mandan la diferencia de los floats con respecto al frame anterior, de tal forma que cuando el personaje está quieto y ninguna de las 3 (pos,rot,esca) varía, el tráfico es igual a 0. El ancho de banda se paga y empleando esta técnica se reduce bastante. Unity Network emplea esta técnica de forma automática, pero antes no era así. Es posible incluso ahorrar hasta un 80% del coste del servidor por tráfico.
+
+[min 9 aprox]
+Otro consejo muy útil para ahorrar en los costes por tráfico es en mantener al usuario el máximo tiempo posible sin conexión de datos porque todo el tiempo que esté el jugador inactivo sin consumir ancho de banda eso que se ahorra (partes como en el Lobby o menú de inicio de un juego online, donde el jugador no esté haciendo nada). Antes esto había que controlarlo, actualmente el propio componente (Network Manager) de Unity es capazde detectar cuándo hay una escena online y cuándo hay una escena offline.
+
+[min 26 aprox]
+El número de envío de mensajes por segundo también puede ayudar a reducir costes del servidor por tráfico.
+[min 37]
+Importante la tasa de envíos de mensajes por segundo(primer parametro de Network Transform), un número muy alto puede ocasionar problemas graves en el server.
+Para el jugador  siempre es conveniente tenerlo al máximo (29), pero para otros objetos como una bala no necesitan (0, solo se sabrá la posición inicial, porque solo se envía un mensaje -> la primera vez que se envíe) ya que con saber la posición inicial, en cada cliente se ejecutará el script correspondiente que moverá la bala por el escenario.
+
+Importante activar el "Run in Background" (Edit>Player>Inspector) porque al minimizarlo, si se trata del servidor, se quedaría detenido para todos los clientes también.
+
+[min 34]
+Hay que crear una componente Network Transform, de tal forma que las transformaciones que sufre un player solo se apliquen a sí mismo, según su network identity, porque en caso contrario todos los players se moverían a la vez.
+
+[min 50]
+Una forma de evitar hackeos o cualquier otro tipo de manipulación por parte de los clientes es enviar al servidor únicamente la información sobre los ejes (X,Z)
+
+
+[1:09:00]
+Se utiliza Cmd (Command) para que el metodo de disparar lo ejecute el servidor (y con NetworkServer.Spawn(bullet) la bala apareceria en cada uno de los clientes). Antes, metodos como el destroy era networkDestroy, instantiate era NetworkInstantiate de tal forma que gran parte del codigo era ejecutado en los clientes, los clientes podrian hacer trampas facilmente, ya que podian crear/destruir objetos por su cuenta.
+
+[1:14:00]
+IMPORTANTE sincronizar los objetos (que todos podran ver) con el servidor, para ello Network Manager tiene un listado de objetos (Prefabs) spawneables, hay que añadirlos al listado. Esto evita que los clientes hagan trampa creando objetos por su cuenta. 
+
+
+ES IMPORTANTE DIFERENCIAR CUANDO USAR COMMAND Y CUANDO USAR CLIENTRPC... y aun no sepo :'(

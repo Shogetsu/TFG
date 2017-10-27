@@ -1,0 +1,23 @@
+https://www.youtube.com/watch?v=V0dwkrS6CoI&ab_channel=SystemCult
+
+Para crear terreno procedural es necesario utilizar algún algoritmo de RUIDO.
+
+Método interesante:
+
+Mathf.PerlinNoise(float x, float y)
+
+Es el método Perlin Noise, si se combinan varios de estos, y se escalan de manera diferente (variando las variables x, y) se obtienen resultados chachipirulis.
+
+https://es.wikipedia.org/wiki/Ruido_Perlin
+
+El ruido Perlin produce una secuencia naturalmente ordenada (“suave”) de números pseudoaleatorios, a diferencia de numeros aleatorios PUROS.
+
+También se pueden emplear librerias externas como LibNoise.
+
+
+Técnica interesante:
+Superponer varios y diferentes texturas de ruido.
+
+Empezar poniendo un plano de agua.
+
+Se juega con el contraste entre los colores blancos y negros para generar terrenos más altos o más bajos (montañas, acantilados, playas), y lugares aislados como islas.

@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 37fd6649d30e9a94f949b4259d8e9eaa
+timeCreated: 1507156511
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - GrassTexture: {instanceID: 0}
+  - RockTexture: {instanceID: 0}
+  - waterPrefab: {fileID: 1200070190225952, guid: 613f967e8df2aaf4786272093ddf0fff,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

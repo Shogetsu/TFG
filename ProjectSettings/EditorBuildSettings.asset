@@ -5,6 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
+    path: Assets/pruebaTerrenoProcedural2.unity
+    guid: abb7167e8baf7fe4a808089a00a89e8b
+  - enabled: 0
     path: Assets/multiplayerOnline.unity
     guid: a570f72d30f556542ad487b1c8e70b69
+  - enabled: 1
+    path: Assets/offlineScene.unity
+    guid: 733c10eca9a2ef148b45e925df9c229b
+  - enabled: 1
+    path: Assets/onlineScene.unity
+    guid: 07d7d35774c07f744abdecbd9392d8df

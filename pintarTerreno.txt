@@ -1,0 +1,18 @@
+Capa 1: sand
+Capa 2: dirt
+Capa 3: grass
+Capa 4: rock
+Capa 5: snow
+
+IMPORTANTE:
+
+Terrain>Ajustes>Control Texture Resolution = Heightmap Resolution -1
+
+-
+Mountain Settings
+
+Side Slope cuanto mas pequeño, mas gruesas son las montañas.
+-
+
+River: No se crean.
+Hole: No se crean.

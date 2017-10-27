@@ -1,0 +1,28 @@
+https://www.youtube.com/watch?v=r9AM3ZS6w8Q&ab_channel=SystemCult
+
+*Se distinguen texturas diferentes para la zona alta (hierba), y los acantilados y zonas bajas (rocas).
+*Texturas más realistas con splatmaps (combinando con transparencia).
+*No es aleatorio
+*En las pendientes aparecen picos pequeñitos y feos.
+
+TERRAIN GENERATOR
+-
+
+https://www.youtube.com/watch?v=MyuZC40vNr4&ab_channel=AtherOmar
+
+Si xCoord y yCoord no se multiplican por 4, terreno muy poco curvado, casi plano.
+Si se hace lo anterior, se obtiene un terreno con curvas muy uniforme (PERFECTO PARA DESIERTO).
+
+ height *= mHeight;
+
+PERLINOISETERRAIN
+-
+
+https://www.youtube.com/watch?v=vFvwyu_ZKfU&ab_channel=Brackeys
+
+*Sin texturas.
+*Es aleatorio.
+*Facil de modificar para hacer terrenos más planos.
+*No hay pendientes muy pronunciadas, todo demasiado suave.
+
+TERRAIN GENERATION

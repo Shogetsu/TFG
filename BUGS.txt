@@ -1,0 +1,8 @@
+BUGS IMPORTANTES:
+
+-Los jugadores al alcanzar una determinada altura, se quedan anclados en el sitio y con la animación de salto (piernas encogidas) eternamente.
+
+
+BUGS MENORES:
+
+-El jugador principal no visualiza la animación final del salto (piernas encogidas) el resto de jugadores.

@@ -9,19 +9,31 @@
 
 using System;
 using System.Runtime.InteropServices;
+using UnityEngine.Networking.Types;
 
 namespace Steamworks {
 	public static class SteamMatchmaking {
-		/// <summary>
-		/// <para> game server favorites storage</para>
-		/// <para> saves basic details about a multiplayer game server locally</para>
-		/// <para> returns the number of favorites servers the user has stored</para>
-		/// </summary>
+        /// <summary>
+        /// <para> game server favorites storage</para>
+        /// <para> saves basic details about a multiplayer game server locally</para>
+        /// <para> returns the number of favorites servers the user has stored</para>
+        /// </summary>
+        public static NetworkID matchID;
+
 		public static int GetFavoriteGameCount() {
 			InteropHelp.TestIfAvailableClient();
 			return NativeMethods.ISteamMatchmaking_GetFavoriteGameCount();
 		}
 
+        public static void SetUNETMatchID(NetworkID ID)
+        {
+            matchID = ID;
+        }
+        public static NetworkID GetUNETMatchID()
+        {
+            return matchID;
+        }
+        
 		/// <summary>
 		/// <para> returns the details of the game server</para>
 		/// <para> iGame is of range [0,GetFavoriteGameCount())</para>

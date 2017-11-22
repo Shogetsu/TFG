@@ -84,22 +84,58 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Bullet.cs" />
+    <Compile Include="Assets\Bullet2.cs" />
     <Compile Include="Assets\Combat.cs" />
     <Compile Include="Assets\CustomNetworkManager.cs" />
+    <Compile Include="Assets\CustomNetworkTransform.cs" />
     <Compile Include="Assets\DisplayName.cs" />
     <Compile Include="Assets\HealthBar.cs" />
+    <Compile Include="Assets\HookNetworkLobby.cs" />
+    <Compile Include="Assets\Lobby\Scripts\DraggablePanel.cs" />
+    <Compile Include="Assets\Lobby\Scripts\Lobby\LobbyCountdownPanel.cs" />
+    <Compile Include="Assets\Lobby\Scripts\Lobby\LobbyHook.cs" />
+    <Compile Include="Assets\Lobby\Scripts\Lobby\LobbyInfoPanel.cs" />
+    <Compile Include="Assets\Lobby\Scripts\Lobby\LobbyMainMenu.cs" />
+    <Compile Include="Assets\Lobby\Scripts\Lobby\LobbyManager.cs" />
+    <Compile Include="Assets\Lobby\Scripts\Lobby\LobbyPlayer.cs" />
+    <Compile Include="Assets\Lobby\Scripts\Lobby\LobbyPlayerList.cs" />
+    <Compile Include="Assets\Lobby\Scripts\Lobby\LobbyServerEntry.cs" />
+    <Compile Include="Assets\Lobby\Scripts\Lobby\LobbyServerList.cs" />
+    <Compile Include="Assets\Lobby\Scripts\Lobby\LobbyTopPanel.cs" />
     <Compile Include="Assets\PaintTerrain.cs" />
     <Compile Include="Assets\PaintTerrain2.cs" />
     <Compile Include="Assets\PerlinNoiseTerrain.cs" />
     <Compile Include="Assets\PlayerMove.cs" />
+    <Compile Include="Assets\PreventClickDrag.cs" />
+    <Compile Include="Assets\SampleScenes\Scripts\NetworkAsteroid.cs" />
+    <Compile Include="Assets\SampleScenes\Scripts\NetworkGameManager.cs" />
+    <Compile Include="Assets\SampleScenes\Scripts\NetworkLobbyHook.cs" />
+    <Compile Include="Assets\SampleScenes\Scripts\NetworkSpaceship.cs" />
+    <Compile Include="Assets\SampleScenes\Scripts\NetworkSpaceshipBullet.cs" />
     <Compile Include="Assets\Scripts\Steamworks.NET\SteamManager.cs" />
+    <Compile Include="Assets\Scripts\UNETSteamworks\Gameplay\Bullet.cs" />
+    <Compile Include="Assets\Scripts\UNETSteamworks\Gameplay\NetworkPlayer.cs" />
+    <Compile Include="Assets\Scripts\UNETSteamworks\Network\NetworkMessages.cs" />
+    <Compile Include="Assets\Scripts\UNETSteamworks\Network\SteamNetworkClient.cs" />
+    <Compile Include="Assets\Scripts\UNETSteamworks\Network\SteamNetworkConnection.cs" />
+    <Compile Include="Assets\Scripts\UNETSteamworks\Network\SteamNetworkManager.cs" />
+    <Compile Include="Assets\Scripts\UNETSteamworks\Network\UNETExtensions.cs" />
+    <Compile Include="Assets\Scripts\UNETSteamworks\Network\UNETServerController.cs" />
+    <Compile Include="Assets\Scripts\UNETSteamworks\UI\Console.cs" />
+    <Compile Include="Assets\Scripts\UNETSteamworks\UI\FindMatchButton.cs" />
+    <Compile Include="Assets\Scripts\UNETSteamworks\UI\InviteFriendButton.cs" />
+    <Compile Include="Assets\SetupLocalPlayer.cs" />
     <Compile Include="Assets\spawnTerrain.cs" />
+    <Compile Include="Assets\SteamLobby.cs" />
+    <Compile Include="Assets\SteamNetworkManager2.cs" />
+    <Compile Include="Assets\SteamServerManager.cs" />
     <Compile Include="Assets\TerrainGeneration.cs" />
     <Compile Include="Assets\TerrainGenerator.cs" />
     <Compile Include="Assets\TerrainGeneratorPRO.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Lobby\Documentation.txt" />
+    <None Include="Assets\Lobby\Instruction.txt" />
     <None Include="Assets\Plugins\Steamworks.NET\redist\steam_appid.txt" />
     <None Include="Assets\Standard Assets\Cameras\CameraGuidelines.txt" />
     <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />

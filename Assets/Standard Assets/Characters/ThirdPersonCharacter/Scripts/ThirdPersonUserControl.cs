@@ -18,6 +18,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
         private void Start()
         {
+           
             // get the transform of the main camera
             if (Camera.main != null)
             {
@@ -29,10 +30,11 @@ namespace UnityStandardAssets.Characters.ThirdPerson
                     "Warning: no main camera found. Third person character needs a Camera tagged \"MainCamera\", for camera-relative controls.", gameObject);
                 // we use self-relative controls in this case, which probably isn't what the user wants, but hey, we warned them!
             }
-
+            
             // get the third person character ( this should never be null due to require component )
             m_Character = GetComponent<ThirdPersonCharacter>();
-
+            
+           // Debug.Log(GameObject.FindObjectOfType<ThirdPersonCamera>());
             _thirdPCam = GameObject.FindObjectOfType<ThirdPersonCamera>();
 
         }
@@ -43,15 +45,26 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         {
             if (!isLocalPlayer)
                 return;
-            
+
+            if(GameObject.FindObjectOfType<ThirdPersonCamera>() != null && _thirdPCam==null)
+            {
+                m_Cam = Camera.main.transform;
+                _thirdPCam = GameObject.FindObjectOfType<ThirdPersonCamera>();
+                Debug.Log("Camara establecida");
+            }
+
+            if(m_Cam==null)
+                m_Cam = Camera.main.transform;
+
             if (_thirdPCam.target != transform.GetChild(0).GetChild(0)) //Se obtiene la posicion del gameobject target dentro del body del modelo
                 _thirdPCam.target = transform.GetChild(0).GetChild(0); //Se le asigna al target del script de la camara en tercera persona
-
 
             if (!m_Jump)
             {
                 m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
             }
+
+            
         }
 
 
@@ -72,21 +85,24 @@ namespace UnityStandardAssets.Characters.ThirdPerson
                 // calculate camera relative direction to move:
                 m_CamForward = Vector3.Scale(m_Cam.forward, new Vector3(1, 0, 1)).normalized;
                 m_Move = v*m_CamForward + h*m_Cam.right;
+                //Debug.Log("Sigo la direccion de la camara");
             }
             else
             {
                 // we use world-relative directions in the case of no main camera
                 m_Move = v*Vector3.forward + h*Vector3.right;
+                //Debug.Log("Ni caso a la camara");
             }
 #if !MOBILE_INPUT
-			// walk speed multiplier
-	        if (Input.GetKey(KeyCode.LeftShift)) m_Move *= 0.5f;
+            // walk speed multiplier
+            if (Input.GetKey(KeyCode.LeftShift)) m_Move *= 0.5f;
 #endif
 
             
 
             // pass all parameters to the character control script
             m_Character.Move(m_Move, crouch, m_Jump);
+
             m_Jump = false;
         }
     }

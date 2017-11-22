@@ -22,17 +22,18 @@ public class TerrainGeneration : NetworkBehaviour
 
     public float scale = 20f;
 
+    /*Sincronizacion de las variables aleatorias del terreno, asi todos los jugadores veran el mismo terreno estando en la misma partida*/
     [SyncVar]
     public float offsetX = 100f;
     [SyncVar]
     public float offsetY = 100f;
 
     [Header("Tree Settings")]
-    public GameObject tree;
+    public GameObject treePrefab;
     public int numForest;
     public int numTrees;
     [Range(3f, 50f)]
-    public float maxForestRadius; //pendiente lateral
+    public float maxForestRadius;
 
 
     [Header("Mountain Settings")]
@@ -60,24 +61,33 @@ public class TerrainGeneration : NetworkBehaviour
     [Range(0.00001f, 0.05f)]
     public float bankSlope;
 
-    Vector3 RandomCircle(Vector3 center, float radius)
+    Vector3 RandomCircle(Vector3 center, float radius, int start, int overlap)
     {
-        float ang = Random.value * 360;
-        Vector3 pos;
-        pos.x = center.x + radius * Mathf.Sin(ang * Mathf.Deg2Rad); // pos x aleatoria
-       // pos.y = center.y + radius * Mathf.Cos(ang * Mathf.Deg2Rad);
-        pos.z = center.z + radius * Mathf.Cos(ang * Mathf.Deg2Rad); // pos z aleatoria
-        pos.y = terrain.SampleHeight(new Vector3(pos.x, 0, pos.z)); //Cada arbol se pone a la altura que le corresponda segun el terreno (NO aleatoria)
+        Vector3 pos = new Vector3(0, 0, 0);
+        bool posicionado = false;
+
+        while (posicionado == false)
+        {
+            float ang = Random.value * 360;
+            float radiusRandom = Random.Range(1, radius); //minimo 1, maximo el radio indicado
+
+              pos.x = center.x + radiusRandom * Mathf.Sin(ang * Mathf.Deg2Rad); // pos x aleatoria
+                                                                                // pos.y = center.y + radius * Mathf.Cos(ang * Mathf.Deg2Rad);
+              pos.z = center.z + radiusRandom * Mathf.Cos(ang * Mathf.Deg2Rad); // pos z aleatoria
+              pos.y = terrain.SampleHeight(new Vector3(pos.x, 0, pos.z)); //Cada arbol se pone a la altura que le corresponda segun el terreno (NO aleatoria)
+
+           
+            if (pos.y >= start - overlap && pos.y <= start + overlap) //Se controla la altura en la que se estan creando, siempre deben de crearse en la altura que corresponde
+            {
+                posicionado = true;
+            }
+        }
+
         return pos;
-        /*Vector3 pos;
-        transform.position = Random.insideUnitCircle * radius;
-        pos.x = center.x + transform.position.x;
-        pos.z = center.z + transform.position.y;
-        pos.y = terrain.SampleHeight(new Vector3(pos.x, 0, pos.z));
-        return pos;*/
     }
 
-    void spawnTree()
+    [Command]
+    void CmdSpawnTree()
     {
         int auxForest = 0;
         //Se establece el rango de altura donde se van a generar los arboles
@@ -85,19 +95,26 @@ public class TerrainGeneration : NetworkBehaviour
         int overlap = GetComponent<PaintTerrain2>().splatHeights[2].overlap; //solapamiento
         while (auxForest<numForest) //Se crean los bosques
         {
-            
+
             //Posicion aleatoria del bosque
             float xpos = Random.Range(2, terrain.terrainData.alphamapWidth - 10);
             float zpos = Random.Range(2, terrain.terrainData.alphamapHeight - 10);
             float ypos = terrain.SampleHeight(new Vector3(xpos, 0, zpos)); //Importante situar el bosque a la altura correspondiente del terreno
+
             Vector3 center = new Vector3(xpos, ypos, zpos); //Se obtiene el centro del terreno
-            if (ypos>=start-overlap && ypos <= start+overlap) // Se comprueba si el bosque se esta situando dentro del rango de altura donde se deben generar los bosques
+           if (ypos>=start-overlap && ypos <= start+overlap) // Se comprueba si el bosque se esta situando dentro del rango de altura donde se deben generar los bosques
             {
-                for(int t=0; t < numTrees; t++) //Se crean los arboles de cada bosque
+                int t = 0;
+                while(t < numTrees) //Se crean los arboles de cada bosque
                 {
-                    float r = Random.Range(3, maxForestRadius);
-                    Vector3 treePos = RandomCircle(center, r); //Con el centro y un radio, se "traza" un circulo sobre el terreno y se obtienen posiciones aleatorias dentro de ese circulo
-                    Instantiate(tree, treePos, Quaternion.identity);
+                    //float r = Random.Range(3, maxForestRadius);
+                    Vector3 treePos = RandomCircle(center, maxForestRadius, start, overlap); //Con el centro y un radio, se "traza" un circulo sobre el terreno y se obtienen posiciones aleatorias dentro de ese circulo
+                    if (!Physics.CheckSphere(treePos, 0.5f))
+                    {
+                        GameObject tree = Instantiate(treePrefab, treePos, Quaternion.identity);
+                        NetworkServer.Spawn(tree);
+                        t++;
+                    }                
                 }
                 auxForest++;
             }
@@ -238,10 +255,13 @@ public class TerrainGeneration : NetworkBehaviour
        // RpcTerrain(offsetX, offsetY);
         terrain = GetComponent<Terrain>(); //Accedemos al objeto Terreno
         GenerateTerrain(terrain.terrainData); //Crearemos un nuevo terreno a partir de un nuevo 
-                                              //terrain.terrainData.SetHeights(0, 0, heights); //Se asigna el array de alturas al terreno
-        
+                                              //terrain.terrainData.SetHeights(0, 0, heights); //Se asigna el array de alturas al terreno  
         Debug.Log("Terreno creado");
-     
+
+        CmdSpawnTree();
+        Debug.Log("Árboles creados");
+
+
     }
 
     void Update()
@@ -320,22 +340,23 @@ public class TerrainGeneration : NetworkBehaviour
                 //heights[x, y] = Mathf.Round(CalculateHeights(x, y) * 21) / 21; //Para crear pequenyas terrazas, sirve para escalar montanyas
                
                 heights[x, y] = Mathf.Pow(Mathf.Round(CalculateHeights(x, y) * 32) / 32,3);
+               // heights[x, y] = Mathf.Pow(CalculateHeights(x, y), 3);
 
-                    // Debug.Log("x: " + x +"| y: "+y+ "| altura: "+heights[x,y] );
-                    /*  if(x==360 && (y >= 360 && y<=365))
-                      {
-                          SyncListHeightsClient.Add(heights[x, y]);
-                          Debug.Log("NANI??? "+ SyncListHeightsClient.IndexOf(y));
-                      }*/
-                    // Debug.Log("indice: "+heightsClient.IndexOf(y) + " | altura: "+ heightsClient.GetItem(y));
-                    //heights[x, y] = Mathf.Round(CalculateHeights(x, y) * 12) / 12;
-                    //heights[x, y] = Mathf.Pow(CalculateHeights(x, y),3);
-                    //e = e + a - b*d^c  ...... a=0.05 b=1 c=2.4
-                    // d = 2*max(abs(nx), abs(ny))
+                // Debug.Log("x: " + x +"| y: "+y+ "| altura: "+heights[x,y] );
+                /*  if(x==360 && (y >= 360 && y<=365))
+                  {
+                      SyncListHeightsClient.Add(heights[x, y]);
+                      Debug.Log("NANI??? "+ SyncListHeightsClient.IndexOf(y));
+                  }*/
+                // Debug.Log("indice: "+heightsClient.IndexOf(y) + " | altura: "+ heightsClient.GetItem(y));
+                //heights[x, y] = Mathf.Round(CalculateHeights(x, y) * 12) / 12;
+                //heights[x, y] = Mathf.Pow(CalculateHeights(x, y),3);
+                //e = e + a - b*d^c  ...... a=0.05 b=1 c=2.4
+                // d = 2*max(abs(nx), abs(ny))
 
-                    //e = (e + 0.05 ) * (1 - 1.00 *pow(d, 2.00 ))
+                //e = (e + 0.05 ) * (1 - 1.00 *pow(d, 2.00 ))
 
-                }
+            }
         }
 
         // ApplyMountains(); *******************************************************************************************************************************************************************************

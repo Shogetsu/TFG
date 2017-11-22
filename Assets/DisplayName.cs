@@ -22,12 +22,11 @@ public class DisplayName : MonoBehaviour {
         }
 
         //Nombre de usuario
+        
         displayName.text = SteamFriends.GetPersonaName();
-
-
         //Avatar
         StartCoroutine(_FetchAvatar());
-	}
+    }
 
     int avatarInt;
     uint width, height;

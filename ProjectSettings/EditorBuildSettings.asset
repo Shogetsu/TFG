@@ -17,3 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/onlineScene.unity
     guid: 07d7d35774c07f744abdecbd9392d8df
+  - enabled: 0
+    path: Assets/testScene.unity
+    guid: 73f7ff3a0e21df74d8fc0ab0e5a6365c

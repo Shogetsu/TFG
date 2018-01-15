@@ -339,7 +339,7 @@ public class TerrainGeneration : NetworkBehaviour
 
                 //heights[x, y] = Mathf.Round(CalculateHeights(x, y) * 21) / 21; //Para crear pequenyas terrazas, sirve para escalar montanyas
                
-                heights[x, y] = Mathf.Pow(Mathf.Round(CalculateHeights(x, y) * 32) / 32,3);
+                heights[x, y] = Mathf.Pow(Mathf.Round(CalculateHeights(x, y) * 128) / 128,3);
                // heights[x, y] = Mathf.Pow(CalculateHeights(x, y), 3);
 
                 // Debug.Log("x: " + x +"| y: "+y+ "| altura: "+heights[x,y] );

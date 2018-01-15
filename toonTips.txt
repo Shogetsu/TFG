@@ -1,0 +1,8 @@
+Tips cartoon:
+
+-Color correction lookup/curves (Camera)
+-Fog (Terrain)
+-Wind zones (Terrain)
+-Screen Overlay (Camera)
+-Deph of Field (Camera) [Focal distance/size;aperture;max blur distance...]
+-Bloom (Camera)

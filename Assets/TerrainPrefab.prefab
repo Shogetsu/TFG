@@ -107,10 +107,10 @@ MonoBehaviour:
   scale: 2
   offsetX: 100.89
   offsetY: 100
-  treePrefab: {fileID: 1261230205106332, guid: 0d59413c5c725414fbe8534df6ae7bc1, type: 2}
-  numForest: 1
-  numTrees: 20
-  maxForestRadius: 50
+  treePrefab: {fileID: 1101610387663514, guid: 8d3f1366d7a35374d9b4aa85abc07f39, type: 2}
+  numForest: 10
+  numTrees: 60
+  maxForestRadius: 10.6
   numMountains: 0
   heightChange: 0.001
   sideSlope: 0.0001
@@ -200,7 +200,7 @@ Terrain:
   m_Enabled: 1
   serializedVersion: 3
   m_TerrainData: {fileID: 15600000, guid: 800b571f1f6e8e1459b12221c2fa033b, type: 2}
-  m_TreeDistance: 2000
+  m_TreeDistance: 5000
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
   m_TreeMaximumFullLODCount: 50

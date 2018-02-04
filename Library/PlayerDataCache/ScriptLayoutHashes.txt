@@ -134,6 +134,7 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.VR.WSA.Spa
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.VR.WSA.SpatialMappingRenderer
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.DragRigidbody
 8748b7702a656da51ab99cc505f1cdd8 Assembly-CSharp.dll:.SteamNetworkManager
+c8ece97148673d8a5a7eca09bc546fd4 Assembly-CSharp.dll:.Respawn
 78ebae5ed9b3edeb216da437b99754a4 Assembly-CSharp-firstpass.dll:UnityStandardAssets.CrossPlatformInput.Joystick
 ff6ae78c3346e782ba725255eb7e189d Assembly-CSharp.dll:.SteamNetworkManager2
 149e538468c9a609cf26b23682c996c7 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.PlatformSpecificContent
@@ -166,6 +167,7 @@ ad0843dc5844295eb779e75691b6f0e1 Assembly-CSharp.dll:.Combat
 48247cab628492b59480aa10096b0431 Assembly-CSharp.dll:Prototype.NetworkLobby.SteamLobby
 0e0671daccfdc07c5a4a410c6329cba4 Assembly-CSharp.dll:Prototype.NetworkLobby.LobbyTopPanel
 6b973c80afbeacaca6a94a2f4f151b57 Assembly-CSharp.dll:Prototype.NetworkLobby.LobbyPlayer
+92ef303b0214b3a081054880757d8ec8 Assembly-CSharp.dll:.Pickup
 16756866ef08c5c05c6229db9418c551 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Cameras.FreeLookCam
 35a85271514203b44e5f0317c842c90b Assembly-CSharp.dll:.PreventClickDrag
 a7b097692cb6833d368335195960c2aa Assembly-CSharp.dll:.CustomNetworkTransform
@@ -189,6 +191,7 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 9df66eabd13ec25662ca2cc97dec33c3 Assembly-CSharp.dll:.NetworkGameManager
 48718eef89369acea1a78774e6908099 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Cameras.TargetFieldOfView
 61804239b44efa2a0e466b0a9e219b2b Assembly-CSharp.dll:.DisplayName
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Use
 2c62b9ae79b8b54dd7b55fa7d311452b Assembly-CSharp-firstpass.dll:UnityStandardAssets.Water.Water
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.HealthBar
 aa275709698319038b8a8a66a67db850 Assembly-CSharp.dll:.PlayerMove
@@ -218,6 +221,7 @@ a8796ecdc9d5c260bbe32f30c4b10708 Assembly-CSharp-firstpass.dll:UnityStandardAsse
 cd0167d7ce4ff561cc6218371f7c3c68 Assembly-CSharp.dll:.CameraLogic
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:UnityStandardAssets.Water.GerstnerDisplace
 6746ad828d32ad6e5c07a63950fd4be6 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Water.WaterTile
+d0ee1e6819011e6810b3e81ffc447a6a Assembly-CSharp.dll:.SpawnFruit
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.FPSCounter
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Prototype.NetworkLobby.DraggablePanel
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Bullet2

@@ -117,13 +117,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="TFG.Plugins.csproj">
-      <Project>{F6139B05-111A-8234-28D9-E718C8571AF6}</Project>
-      <Name>TFG.Plugins</Name>
-    </ProjectReference>
     <ProjectReference Include="TFG.csproj">
       <Project>{DE9173B2-58E8-2CF2-65D4-1F8EF341895B}</Project>
       <Name>TFG</Name>
+    </ProjectReference>
+    <ProjectReference Include="TFG.Plugins.csproj">
+      <Project>{F6139B05-111A-8234-28D9-E718C8571AF6}</Project>
+      <Name>TFG.Plugins</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -132,6 +132,7 @@
   <ItemGroup>
     <None Include="Assets\Lobby\Documentation.txt" />
     <None Include="Assets\Lobby\Instruction.txt" />
+    <None Include="Assets\Modelos\PASOS TEXTURIZAR 3DSMAX.txt" />
     <None Include="Assets\Plugins\Steamworks.NET\redist\steam_appid.txt" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\HistogramCompute.compute" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\HistogramRender.shader" />
@@ -174,6 +175,7 @@
     <None Include="Assets\PostProcessing\Resources\Shaders\Uber.shader" />
     <None Include="Assets\PostProcessing\Resources\Shaders\UberSecondPass.cginc" />
     <None Include="Assets\PostProcessing\Utilities\CustomMotionTexture\Shaders\CustomMotionVectorTexture.shader" />
+    <None Include="Assets\Shaders\Standard.shader" />
     <None Include="Assets\Standard Assets\Cameras\CameraGuidelines.txt" />
     <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
     <None Include="Assets\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />

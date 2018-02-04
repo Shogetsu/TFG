@@ -579,7 +579,10 @@ GameObject:
   - component: {fileID: 136946418281810224}
   - component: {fileID: 95372402425519556}
   - component: {fileID: 114009591856241664}
+  - component: {fileID: 114133146615114734}
   - component: {fileID: 114337578599755212}
+  - component: {fileID: 114464081403211800}
+  - component: {fileID: 114611888704121218}
   m_Layer: 0
   m_Name: MaleFreeSimpleMovement1
   m_TagString: Player
@@ -1259,6 +1262,22 @@ MonoBehaviour:
   m_rigidBody: {fileID: 54961645788226128}
   m_controlMode: 1
   _thirdPCam: {fileID: 0}
+--- !u!114 &114133146615114734
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1836009212970428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef09fbf8013e72a4e886086f5caf08ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryPanel: {fileID: 0}
+  inventoryIcons:
+  - {fileID: 1892372234861638, guid: b25a6382c0bded24c942bf65f9bbdd1b, type: 2}
+  - {fileID: 1748065309094822, guid: 575842fed0428b14ca254209b10f912a, type: 2}
+  - {fileID: 1841934343336202, guid: 00b0d40b9e40060449c0cabe31657a48, type: 2}
 --- !u!114 &114337578599755212
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1291,6 +1310,46 @@ MonoBehaviour:
     i15: 214
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
+--- !u!114 &114464081403211800
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1836009212970428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 3
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
+--- !u!114 &114611888704121218
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1836009212970428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1590678366, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: 95372402425519556}
+  m_ParameterSendBits: 0
+  param0: 
+  param1: 
+  param2: 
+  param3: 
+  param4: 
+  param5: 
 --- !u!136 &136946418281810224
 CapsuleCollider:
   m_ObjectHideFlags: 1

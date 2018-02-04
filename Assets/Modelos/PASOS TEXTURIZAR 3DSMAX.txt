@@ -1,0 +1,5 @@
+1. Asignar material (difuso-> bitmap)
+2. unwrap modify
+3. mapping>normal map
+4. reshape elements (opcion derecha, mantener pulsado, abajo)
+5. relax by polygon angles>start

@@ -22,6 +22,11 @@ public class PjControl : MonoBehaviour {
         transform.Translate(0, 0, translation);
         transform.Rotate(0, rotation, 0);
 
+        /*mover en la misma direccion*/
+       /*Vector3 movement = new Vector3(rotation, 0.0f, translation);
+        transform.rotation = Quaternion.LookRotation(movement);
+        transform.Translate(movement, Space.World);*/
+        
         if (Input.GetButtonDown("Jump")) //La tecla "espacio" es por defecto JUMP
         {
             anim.SetTrigger("isJumping");

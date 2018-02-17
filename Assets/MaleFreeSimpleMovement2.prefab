@@ -1257,6 +1257,7 @@ MonoBehaviour:
   m_animator: {fileID: 95372402425519556}
   m_rigidBody: {fileID: 54961645788226128}
   m_controlMode: 1
+  _thirdPCam: {fileID: 0}
 --- !u!136 &136946418281810224
 CapsuleCollider:
   m_ObjectHideFlags: 1

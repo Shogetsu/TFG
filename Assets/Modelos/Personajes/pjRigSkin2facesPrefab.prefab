@@ -382,9 +382,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4249210252260730}
   - component: {fileID: 95856089420473752}
-  - component: {fileID: 54231896189806872}
   - component: {fileID: 136421281170853590}
   - component: {fileID: 114730693308352086}
+  - component: {fileID: 143622480365800350}
   m_Layer: 0
   m_Name: pjRigSkin2facesPrefab
   m_TagString: Untagged
@@ -799,21 +799,6 @@ Transform:
   m_Father: {fileID: 4567029880427928}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &54231896189806872
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1955823103864840}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 5
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
 --- !u!95 &95856089420473752
 Animator:
   serializedVersion: 3
@@ -842,8 +827,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3e1d007aade76b4f993f1a417730b76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 200
   speed: 5
-  rotationSpeed: 100
+  jumpForce: 50
+  controller: {fileID: 0}
+  _thirdPCam: {fileID: 0}
 --- !u!136 &136421281170853590
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -852,7 +840,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1955823103864840}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2.7499213
   m_Direction: 1
@@ -989,3 +977,20 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.022510052, y: 0.39954922, z: 0.00044204388}
     m_Extent: {x: 1.2336636, y: 1.3381784, z: 0.0014031527}
   m_DirtyAABB: 0
+--- !u!143 &143622480365800350
+CharacterController:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1955823103864840}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}

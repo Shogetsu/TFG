@@ -258,8 +258,10 @@ public class TerrainGeneration : NetworkBehaviour
                                               //terrain.terrainData.SetHeights(0, 0, heights); //Se asigna el array de alturas al terreno  
         Debug.Log("Terreno creado");
 
-        CmdSpawnTree();
-        Debug.Log("Árboles creados");
+
+       CmdSpawnTree();
+       Debug.Log("Árboles creados");
+         
 
 
     }

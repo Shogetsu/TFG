@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4226275226773654}
   - component: {fileID: 95278207440591752}
   - component: {fileID: 114236950735301846}
+  - component: {fileID: 114183101290267020}
   m_Layer: 0
   m_Name: arbol01prefab
   m_TagString: Untagged
@@ -338,6 +339,38 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114183101290267020
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1148186193318646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 227
+    i1: 208
+    i2: 34
+    i3: 81
+    i4: 15
+    i5: 149
+    i6: 113
+    i7: 4
+    i8: 122
+    i9: 43
+    i10: 166
+    i11: 255
+    i12: 233
+    i13: 134
+    i14: 119
+    i15: 26
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114236950735301846
 MonoBehaviour:
   m_ObjectHideFlags: 1

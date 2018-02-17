@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 135911485929278318}
   - component: {fileID: 23693110204367888}
   - component: {fileID: 114137850259817100}
+  - component: {fileID: 114645156954320230}
   m_Layer: 0
   m_Name: fruta2
   m_TagString: blue
@@ -94,6 +95,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnTime: 2
+--- !u!114 &114645156954320230
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1234218157194866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 1
+    i1: 49
+    i2: 112
+    i3: 124
+    i4: 97
+    i5: 32
+    i6: 33
+    i7: 196
+    i8: 121
+    i9: 187
+    i10: 1
+    i11: 197
+    i12: 121
+    i13: 18
+    i14: 160
+    i15: 125
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!135 &135911485929278318
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -101,7 +134,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1234218157194866}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5

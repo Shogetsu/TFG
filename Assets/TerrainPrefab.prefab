@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 114284777595107550}
   m_Layer: 0
   m_Name: TerrainPrefab
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -107,7 +107,7 @@ MonoBehaviour:
   scale: 2
   offsetX: 100.89
   offsetY: 100
-  treePrefab: {fileID: 1148186193318646, guid: e063313ae54627249804cfba9ef3e628, type: 2}
+  treePrefab: {fileID: 1148186193318646, guid: e3d022510f9571047a2ba6ffe986771a, type: 2}
   numForest: 10
   numTrees: 60
   maxForestRadius: 10.6

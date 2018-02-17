@@ -1,0 +1,7 @@
+SPAWN DE OBJETOS CON POSICION SINCRONIZADA EN TODOS LOS JUGADORES!!!
+
+
+1. Componente Network Identity
+2. Añadir objeto a la lista de Spawnable Prefabs de Lobby Manager
+3. El metodo de spawn debe ser [Command] CmdSpawn(...)
+4. Dentro del metodo de spawn, incluir NetworkServer.Spawn(objeto)

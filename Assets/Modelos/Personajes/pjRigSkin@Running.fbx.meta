@@ -299,13 +299,13 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: pjRigSkin(Clone)
+    - name: pjRigSkin2faces(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Character1_Reference
-      parentName: pjRigSkin(Clone)
+      parentName: pjRigSkin2faces(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
@@ -420,9 +420,14 @@ ModelImporter:
       rotation: {x: 0, y: 0, z: 0.4810064, w: 0.8767171}
       scale: {x: 1, y: 1, z: 1}
     - name: Object001
-      parentName: pjRigSkin(Clone)
+      parentName: pjRigSkin2faces(Clone)
       position: {x: -0, y: 1.6460251, z: 0.00000021918149}
       rotation: {x: 0.00000006657903, y: -0, z: -0, w: 1}
+      scale: {x: 2.54, y: 2.54, z: 2.54}
+    - name: Object002
+      parentName: pjRigSkin2faces(Clone)
+      position: {x: -0, y: 1.6460251, z: 0.00000021918149}
+      rotation: {x: 6.1232336e-17, y: 1, z: -0.00000006657903, w: -6.123234e-17}
       scale: {x: 2.54, y: 2.54, z: 2.54}
     armTwist: 0.5
     foreArmTwist: 0.5
@@ -436,7 +441,7 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: d2e8f5c98b35f50418b1a5d5277a1450,
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 4d8966b72061f184a8ce38e60df4dd02,
     type: 3}
   animationType: 3
   humanoidOversampling: 1

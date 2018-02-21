@@ -25,9 +25,11 @@ public class PjControl : NetworkBehaviour
 
     // Use this for initialization
     void Start () {
-        if (!isLocalPlayer)
+        if (!isLocalPlayer) //Si no se trata del jugador, se desactivan gameObject del resto de jugadores
         {
-            transform.GetChild(0).gameObject.SetActive(false);
+            transform.GetChild(0).gameObject.SetActive(false); //camara
+            transform.GetChild(2).gameObject.SetActive(false); //canvas
+            transform.GetChild(2).transform.GetChild(0).gameObject.SetActive(false); //panel
             return;
         }
            

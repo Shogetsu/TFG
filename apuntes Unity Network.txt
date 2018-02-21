@@ -49,3 +49,8 @@ La lista de parámetros se sincronizan automaticamente, además del estado en el q
 problema: la componente trigger no se transmite, cambio de estado con trigger y/o booleano, pero no se transmite por el network animation, hay que recurrir a otros sistemas como scripts que recojan la info del network animation y que la envien, con command o rpc.
 
 ES IMPORTANTE DIFERENCIAR CUANDO USAR COMMAND Y CUANDO USAR CLIENTRPC... y aun no sepo :'(
+
+... ya si sepo
+
+[Command] Ejecuta la función en el servidor usando los datos del cliente. (cliente->SERVIDOR)
+[ClientRpc] Ejecuta la función en todos los clientes usando los datos del servidor. (servidor->CLIENTES)

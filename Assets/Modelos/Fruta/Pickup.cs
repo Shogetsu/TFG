@@ -13,7 +13,7 @@ public class Pickup : MonoBehaviour {
 
     private void Start()
     {
-        inventoryPanel = GameObject.Find("Panel");    
+       // inventoryPanel = GameObject.Find("Panel");    
     }
 
     void OnCollisionEnter(Collision collision) //para rigidbody

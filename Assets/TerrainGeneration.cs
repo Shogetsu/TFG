@@ -30,6 +30,7 @@ public class TerrainGeneration : NetworkBehaviour
 
     [Header("Tree Settings")]
     public GameObject treePrefab;
+    public GameObject treePrefab2;
     public int numForest;
     public int numTrees;
     [Range(3f, 50f)]
@@ -111,8 +112,26 @@ public class TerrainGeneration : NetworkBehaviour
                     Vector3 treePos = RandomCircle(center, maxForestRadius, start, overlap); //Con el centro y un radio, se "traza" un circulo sobre el terreno y se obtienen posiciones aleatorias dentro de ese circulo
                     if (!Physics.CheckSphere(treePos, 0.5f))
                     {
-                        GameObject tree = Instantiate(treePrefab, treePos, Quaternion.identity);
+                      //  Debug.Log("Instancio el arbol...");
+
+                        GameObject[] trees =
+                        {
+                            treePrefab, treePrefab2
+                        };
+                        int rnd = Random.Range(0, 2);
+                       // Debug.Log(rnd);
+                        float rndscale = Random.Range(2f, 5f);
+                        trees[rnd].transform.localScale = new Vector3(rndscale, rndscale, rndscale);
+
+                        float rndrota = Random.Range(0f, 5f);
+                        trees[rnd].transform.Rotate(new Vector3(rndrota, 0, 0));
+
+                        GameObject tree = Instantiate(trees[rnd], treePos, Quaternion.identity);
+
+                       // Debug.Log("...Instanciado con exito");
+
                         NetworkServer.Spawn(tree);
+                        //Debug.Log("Arbol spawneado");
                         t++;
                     }                
                 }
@@ -258,8 +277,11 @@ public class TerrainGeneration : NetworkBehaviour
                                               //terrain.terrainData.SetHeights(0, 0, heights); //Se asigna el array de alturas al terreno  
         Debug.Log("Terreno creado");
 
-
-       CmdSpawnTree();
+        if (isClient)
+        {
+            CmdSpawnTree();
+        }
+       
        Debug.Log("Árboles creados");
          
 

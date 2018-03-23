@@ -1,4 +1,6 @@
 WindowsStandalone
+69d12ec179b207ea9f020492ac0cc6f2 Assembly-CSharp.dll:.InventoryUI
+9966df6a3e8c630076b8bf430c33aa2e Assembly-CSharp.dll:.Item
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.NetworkLobbyHook
 fa4b83c80c7ca53ee38c7f6eec291dc7 Assembly-CSharp.dll:Prototype.NetworkLobby.LobbyMainMenu
 dc07d7ad69b399a46e92c483bf1c04ca UnityEngine.Analytics.dll:UnityEngine.Analytics.AnalyticsTracker
@@ -18,6 +20,7 @@ c24a21b131bfa67be1162db2cba4b52b UnityEngine.Timeline.dll:UnityEngine.Timeline.T
 7481472d4e57e8477d484d43a43b79dc Assembly-CSharp-firstpass.dll:UnityStandardAssets.Characters.FirstPerson.FirstPersonController
 2b4ee1fc14f90ef2465230265b6864ae Assembly-CSharp.dll:.NetworkSpaceshipBullet
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:Prototype.NetworkLobby.EventSystemChecker
+ac7eaf50f08f01f911a75dffdb4ebb71 Assembly-CSharp.dll:.ItemPickup
 a35dc9cca2faebc5f5f1aeb9e8e47bbe UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
 49cd62a578efc0a599b810a2b66cd49c UnityEngine.UI.dll:UnityEngine.UI.Button
@@ -123,6 +126,7 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 c67c441a5cb22b3ef7368e31a7e76caf Assembly-CSharp.dll:.SimpleCharacterControl
 db782f22d720a4e9886ccd9125d81b92 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Cameras.ProtectCameraFromWallClip
 78a2a366a0a3b585e1178d2dd9d006ab Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.WaypointProgressTracker
+5da672ca1c49ffcf3f8dde2fda9b9183 Assembly-CSharp.dll:.PjControlTest
 ab2d4e5de048fc26f205b5f37bb57f9a Assembly-CSharp.dll:.PaintTerrain
 813668be395bcdd1bf7b85a09080a0f3 Assembly-CSharp.dll:.spawnTerrain
 6e714b24188cddfc9ae1e07d05ed4ddd Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.ParticleSystemDestroyer
@@ -137,6 +141,7 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.VR.WSA.Spa
 c8ece97148673d8a5a7eca09bc546fd4 Assembly-CSharp.dll:.Respawn
 78ebae5ed9b3edeb216da437b99754a4 Assembly-CSharp-firstpass.dll:UnityStandardAssets.CrossPlatformInput.Joystick
 ff6ae78c3346e782ba725255eb7e189d Assembly-CSharp.dll:.SteamNetworkManager2
+90f09d132c3eb7d3b66eae9ff3642b3e Assembly-CSharp.dll:.textureRandom
 149e538468c9a609cf26b23682c996c7 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.PlatformSpecificContent
 37bf4d6a6d424731cb4a9b998783e5c6 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Characters.ThirdPerson.ThirdPersonCharacter
 4df86f437a61b08c14fd0adff88ddf71 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.ActivateTrigger
@@ -158,6 +163,7 @@ cfa93710d56cd4da2a3b2eec27bc1139 Assembly-CSharp-firstpass.dll:UnityStandardAsse
 205965134a5874db410d674ebdf33ba7 Assembly-CSharp.dll:.ExampleWheelController
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:UnityStandardAssets.Water.Displace
 96f42378c8bd9936fa83ba2f4c4d9edd Assembly-CSharp.dll:.PerlinNoiseTerrain
+42dabb22d99895420875874b73526afd Assembly-CSharp.dll:.Owner
 9c49f3ca2fae9d15ec5d3021c6973443 Assembly-CSharp.dll:.CustomNetworkManager
 ad0843dc5844295eb779e75691b6f0e1 Assembly-CSharp.dll:.Combat
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:UnityStandardAssets.CrossPlatformInput.MobileControlRig
@@ -188,6 +194,7 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 3f32f08a64daf40b09ed864d96fe3840 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransform
 73843688b51256aed059f049c540bca8 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformChild
 528ea1fd7c01796fc60c4e2f172ea229 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Prueba
 21984f001d5a114ee9fbf62810ee8eb7 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Water.SpecularLighting
 2dbfd4f7836c7f6a79e17be5f4bf7969 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.WaypointCircuit
 9df66eabd13ec25662ca2cc97dec33c3 Assembly-CSharp.dll:.NetworkGameManager
@@ -216,6 +223,7 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.VR.WSA.Spa
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SteamServerManager
 dc5fa02202409049bc420a7b6efe5183 Assembly-CSharp.dll:.NetworkSpaceship
 f671a42aea5f34fec6a4450a3668c615 Assembly-CSharp.dll:UnityEngine.PostProcessing.PostProcessingProfile
+3ba981c5cb25530d3a93a140dd93efd4 Assembly-CSharp.dll:.Inventory
 db3b233e35a88802fed1717d19c3d9ec Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.FollowTarget
 a8796ecdc9d5c260bbe32f30c4b10708 Assembly-CSharp-firstpass.dll:UnityStandardAssets.CrossPlatformInput.TouchPad
 0ad469aca31264c6140b1e503c43ab6b Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.TimedObjectDestructor
@@ -223,11 +231,14 @@ a8796ecdc9d5c260bbe32f30c4b10708 Assembly-CSharp-firstpass.dll:UnityStandardAsse
 cd0167d7ce4ff561cc6218371f7c3c68 Assembly-CSharp.dll:.CameraLogic
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:UnityStandardAssets.Water.GerstnerDisplace
 6746ad828d32ad6e5c07a63950fd4be6 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Water.WaterTile
+cee5cf52f5fe78326e181f4e098608e0 Assembly-CSharp.dll:.InventorySlot
 d0ee1e6819011e6810b3e81ffc447a6a Assembly-CSharp.dll:.SpawnFruit
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.FPSCounter
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Prototype.NetworkLobby.DraggablePanel
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Bullet2
-ab2780cb424582ab0f47043b4b4129d9 Assembly-CSharp.dll:.TerrainGeneration
+fdde746c8a70b313aaaf7867917e1982 Assembly-CSharp.dll:.TerrainGeneration
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SteamManager
 239d2cc8d353bbfcbefc27fa8f0221cc Assembly-CSharp.dll:Prototype.NetworkLobby.LobbyServerList
+efe78774255e0887a40e19922e277bad Assembly-CSharp.dll:.InventoryPlayer
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.KeyboardInventory
 0f3d4bb7128a287827d041c696039525 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.AutoMobileShaderSwitch

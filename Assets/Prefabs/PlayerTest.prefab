@@ -382,6 +382,7 @@ GameObject:
   - component: {fileID: 114747008906532060}
   - component: {fileID: 54095747503429230}
   - component: {fileID: 136126459002212194}
+  - component: {fileID: 114414940165712040}
   m_Layer: 0
   m_Name: PlayerTest
   m_TagString: Player
@@ -734,7 +735,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1731669520624958}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 202.82669, y: 3.66, z: 211.12955}
+  m_LocalPosition: {x: 202.81311, y: 3.471, z: 211.22577}
   m_LocalScale: {x: 0.3678083, y: 0.3678082, z: 0.3678082}
   m_Children:
   - {fileID: 4181727481137162}
@@ -968,6 +969,38 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114414940165712040
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1731669520624958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 49
+    i1: 213
+    i2: 145
+    i3: 233
+    i4: 187
+    i5: 92
+    i6: 27
+    i7: 36
+    i8: 169
+    i9: 5
+    i10: 239
+    i11: 1
+    i12: 76
+    i13: 222
+    i14: 170
+    i15: 13
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114468507810968070
 MonoBehaviour:
   m_ObjectHideFlags: 1

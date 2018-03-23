@@ -23,7 +23,7 @@ namespace Prototype.NetworkLobby
         public InputField ipInput;
         public InputField matchNameInput;
 
-       
+
 
         // ulong current_lobbyID;
 
@@ -31,6 +31,7 @@ namespace Prototype.NetworkLobby
         {
             // Callback_lobbyCreated = Callback<LobbyCreated_t>.Create(OnLobbyCreated);
             //Callback_lobbyEnter = Callback<LobbyEnter_t>.Create(OnLobbyEntered);
+
 
             lobbyManager.topPanel.ToggleVisibility(true);
 

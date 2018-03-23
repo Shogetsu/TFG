@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4226275226773654}
   - component: {fileID: 95278207440591752}
   - component: {fileID: 114236950735301846}
+  - component: {fileID: 114659232301852346}
   m_Layer: 0
   m_Name: arbol01prefabTest
   m_TagString: Untagged
@@ -350,3 +351,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fruit: {fileID: 1234218157194866, guid: 0131707c612021c479bb01c57912a07d, type: 2}
+--- !u!114 &114659232301852346
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1148186193318646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0b16795c405b8b4c962a9bb7d4289a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  green: {fileID: 0}
+  blue: {fileID: 0}

@@ -8,6 +8,7 @@ TagManager:
   - blue
   - green
   - ground
+  - Item
   layers:
   - Default
   - TransparentFX

@@ -91,6 +91,8 @@
     <Compile Include="Assets\DisplayName.cs" />
     <Compile Include="Assets\HealthBar.cs" />
     <Compile Include="Assets\HookNetworkLobby.cs" />
+    <Compile Include="Assets\InventoryPlayer.cs" />
+    <Compile Include="Assets\KeyboardInventory.cs" />
     <Compile Include="Assets\Lobby\Scripts\DraggablePanel.cs" />
     <Compile Include="Assets\Lobby\Scripts\Lobby\LobbyCountdownPanel.cs" />
     <Compile Include="Assets\Lobby\Scripts\Lobby\LobbyHook.cs" />
@@ -107,6 +109,8 @@
     <Compile Include="Assets\Modelos\Fruta\SpawnFruit.cs" />
     <Compile Include="Assets\Modelos\Fruta\Use.cs" />
     <Compile Include="Assets\Modelos\Personajes\PjControl.cs" />
+    <Compile Include="Assets\Modelos\Personajes\PjControlTest.cs" />
+    <Compile Include="Assets\Owner.cs" />
     <Compile Include="Assets\PaintTerrain.cs" />
     <Compile Include="Assets\PaintTerrain2.cs" />
     <Compile Include="Assets\PerlinNoiseTerrain.cs" />
@@ -157,11 +161,17 @@
     <Compile Include="Assets\PostProcessing\Runtime\Utils\RenderTextureFactory.cs" />
     <Compile Include="Assets\PostProcessing\Utilities\CustomMotionTexture\ExampleWheelController.cs" />
     <Compile Include="Assets\PreventClickDrag.cs" />
+    <Compile Include="Assets\Prueba.cs" />
     <Compile Include="Assets\SampleScenes\Scripts\NetworkAsteroid.cs" />
     <Compile Include="Assets\SampleScenes\Scripts\NetworkGameManager.cs" />
     <Compile Include="Assets\SampleScenes\Scripts\NetworkLobbyHook.cs" />
     <Compile Include="Assets\SampleScenes\Scripts\NetworkSpaceship.cs" />
     <Compile Include="Assets\SampleScenes\Scripts\NetworkSpaceshipBullet.cs" />
+    <Compile Include="Assets\Scripts\Inventory\Inventory.cs" />
+    <Compile Include="Assets\Scripts\Inventory\InventorySlot.cs" />
+    <Compile Include="Assets\Scripts\Inventory\InventoryUI.cs" />
+    <Compile Include="Assets\Scripts\Items\Item.cs" />
+    <Compile Include="Assets\Scripts\Items\ItemPickup.cs" />
     <Compile Include="Assets\Scripts\Steamworks.NET\SteamManager.cs" />
     <Compile Include="Assets\Scripts\UNETSteamworks\Gameplay\Bullet.cs" />
     <Compile Include="Assets\Scripts\UNETSteamworks\Gameplay\NetworkPlayer.cs" />
@@ -185,6 +195,7 @@
     <Compile Include="Assets\TerrainGeneration.cs" />
     <Compile Include="Assets\TerrainGenerator.cs" />
     <Compile Include="Assets\TerrainGeneratorPRO.cs" />
+    <Compile Include="Assets\textureRandom.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Lobby\Documentation.txt" />

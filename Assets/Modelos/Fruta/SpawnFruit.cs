@@ -12,8 +12,10 @@ public class SpawnFruit : NetworkBehaviour {
     // Use this for initialization
     void Start()
     {
-        
-        CmdSpawn();
+        if (isServer)
+        {
+            CmdSpawn();
+        }
     }
 
     [Command]

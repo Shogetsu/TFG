@@ -1,0 +1,90 @@
+TITULOS SECCIONES
+Helvética 20 n 
+
+PÁRRAFOS NORMALES
+Times New Roman 13
+
+PORCIONES DE CÓDIGO
+
+
+**MARCO TEORICO**
+En este apartado voy a hacer blablabla...
+
+¿Qué es un videojuego?
+Un poco de historia y tal, generos...
+¿Qué es un videojuego de supervivencia?
+¿Referencias de videojuegos de supervivencia?
+¿Motores gráficos de videojuegos?
+
+
+***OBJETIVOS***
+Aqui debo decir objetivos del proyecto y de las herramientas anteriores por qué unity, por qué unet, por qué steam, por qué de supervivencia? 
+
+***METODOLOGÍA***
+Metodología kanban, he usado trello. 
+En qué consiste el kanban, una fotico, y mencionar el repositorio en github con sourcetree.
+
+
+***Cuerpo del trabajo***
+Todos los programas y herramientas utilizadas para la creación del proyecto. Programas de modelado, motor, dibujo....¿Networking? Photon, UNET...
+¿Social platforms? Steam, Origin...
+Voy a hablar del GDD.
+Voy a hablar del desarrollo e implementacion del videogüejo.
+
+*apartado todo el GDD
+*creasion videogüejo:
+   crear proyecto
+   .
+   .
+   .
+	como he creado animaciones en el motor,
+	he usado rigidbody para el control de los personajes, en lugar de character controller (explicar),
+	camara en tercera persona,
+	lobby manager,
+	como funciona todo el tema de UNET, sincronizacion de variables, posiciones
+	mapa procedural, con su texturizado basado en alturas, mapas de ruido (noise), perlin noise, spawn de cosas en el mapa...
+	inventario SIMPLE (y clickable) y recolección de recursos,
+	materiales, shader, mapa de normales (texturas)
+	postprocesado de camara (blurr, enfoque, etc etc)
+	como uso steamworks (steam manager), invitar a jugadores...
+	modelado, texturizado, rigging, skinning...
+
+
+	-lo que falta-
+	HUD, más modelado, sistema dia/noche, sistema de construcción, sistema de color(hambre) y vida, crafting y equipar objetos, fauna viva, lluvia, fin de la partida.
+
+-Survival games-
+
+ark
+portal knight?
+don't starve
+dayz
+rust
+minecraft
+terraria
+zelda breath of the wild?
+PUBG
+Fortnite
+
+(Podría distinguir juegos 100% survival y otros que cuentan con algunas de las características pero no se consideran como tal)
+
+-networking-
+
+Unet
+Photon PUN
+Photon BOLT
+Forge Networking
+uLink
+TCP / UDP Sockets
+TNet
+RakNet
+
+-social platforms-
+Steam
+Game center 
+Google Play Games Servies
+Uplay
+Origin
+Gog?
+
+(Distinguir las que cuentan con soporte y API para Unity de las que no)

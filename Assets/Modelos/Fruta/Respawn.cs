@@ -19,6 +19,7 @@ public class Respawn : MonoBehaviour {
     {
         other.gameObject.GetComponent<Pickup>().PickItem(GetComponent<Collider>()); //el personaje coge el objeto
 
+
         //Al colisionar con la fruta, desaparece su maya y colision
         this.GetComponent<SphereCollider>().enabled = false;
         this.GetComponent<MeshRenderer>().enabled = false;

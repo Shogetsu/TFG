@@ -1,0 +1,165 @@
+fileFormatVersion: 2
+guid: c1e17ee54721e1f4db92df8e1b631d96
+timeCreated: 1521417734
+licenseType: Free
+ModelImporter:
+  serializedVersion: 21
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Helix001
+    100004: Object001
+    100006: Object002
+    100008: Object003
+    100010: Object004
+    100012: pie
+    100014: pie001
+    100016: pie002
+    100018: pie003
+    100020: Plane003
+    100022: Plane004
+    100024: Plane005
+    100026: Plane006
+    100028: Plane007
+    100030: Sphere001
+    100032: Sphere002
+    400000: //RootNode
+    400002: Helix001
+    400004: Object001
+    400006: Object002
+    400008: Object003
+    400010: Object004
+    400012: pie
+    400014: pie001
+    400016: pie002
+    400018: pie003
+    400020: Plane003
+    400022: Plane004
+    400024: Plane005
+    400026: Plane006
+    400028: Plane007
+    400030: Sphere001
+    400032: Sphere002
+    2300000: Helix001
+    2300002: Object001
+    2300004: Object002
+    2300006: Object003
+    2300008: Object004
+    2300010: pie
+    2300012: pie001
+    2300014: pie002
+    2300016: pie003
+    2300018: Plane003
+    2300020: Plane004
+    2300022: Plane005
+    2300024: Plane006
+    2300026: Plane007
+    2300028: Sphere001
+    2300030: Sphere002
+    3300000: Helix001
+    3300002: Object001
+    3300004: Object002
+    3300006: Object003
+    3300008: Object004
+    3300010: pie
+    3300012: pie001
+    3300014: pie002
+    3300016: pie003
+    3300018: Plane003
+    3300020: Plane004
+    3300022: Plane005
+    3300024: Plane006
+    3300026: Plane007
+    3300028: Sphere001
+    3300030: Sphere002
+    4300000: Plane003
+    4300002: Plane004
+    4300004: Plane005
+    4300006: Object001
+    4300008: pie
+    4300010: Object002
+    4300012: pie001
+    4300014: Object003
+    4300016: Object004
+    4300018: pie002
+    4300020: pie003
+    4300022: Sphere001
+    4300024: Sphere002
+    4300026: Plane006
+    4300028: Plane007
+    4300030: Helix001
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

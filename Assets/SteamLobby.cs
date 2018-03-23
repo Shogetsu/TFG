@@ -97,7 +97,7 @@ namespace Prototype.NetworkLobby
             // JoinLobby(pCallback.m_steamIDLobby);
 
             LeftLobby();
-            Debug.Log("He aseptao la partidika siguiente: ");
+            Debug.Log("Aceptada la siguiente partida: ");
             CSteamID lobbyID = pCallback.m_steamIDLobby;
             SteamMatchmaking.RequestLobbyData(lobbyID);
 
@@ -173,7 +173,7 @@ namespace Prototype.NetworkLobby
             current_lobbyID = result.m_ulSteamIDLobby;
 
             if (result.m_EChatRoomEnterResponse == 1) {
-                Debug.Log("Lobby joined! "+ current_lobbyID);
+                Debug.Log("Steam Lobby joined! "+ current_lobbyID);
             }
             else
             {
@@ -183,7 +183,7 @@ namespace Prototype.NetworkLobby
 
         public void OnClick()
         {
-            Debug.Log("Invitar a la partida con codigo: "+current_lobbyID);
+            Debug.Log("Invitar a la partida con ID: "+current_lobbyID);
             SteamFriends.ActivateGameOverlayInviteDialog((CSteamID)current_lobbyID);
         }
     }

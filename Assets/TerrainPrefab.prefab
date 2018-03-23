@@ -108,6 +108,8 @@ MonoBehaviour:
   offsetX: 100.89
   offsetY: 100
   treePrefab: {fileID: 1148186193318646, guid: e3d022510f9571047a2ba6ffe986771a, type: 2}
+  treePrefab2: {fileID: 1148186193318646, guid: 728e5235d785dc741b057e5294f68d0b,
+    type: 2}
   numForest: 10
   numTrees: 60
   maxForestRadius: 10.6

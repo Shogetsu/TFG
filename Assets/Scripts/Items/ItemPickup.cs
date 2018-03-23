@@ -16,13 +16,4 @@ public class ItemPickup : NetworkBehaviour {
 	void Update () {
 		
 	}
-
-    
-
-    /*[Command]
-    void CmdAddItem()
-    {
-       
-    }*/
-
 }

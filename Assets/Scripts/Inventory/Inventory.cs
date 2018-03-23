@@ -31,7 +31,17 @@ public class Inventory : NetworkBehaviour {
     public Transform itemsParent;
     public int space = 9;
     InventorySlot[] slots;
-    public SyncListString items = new SyncListString();
+
+    //public SyncListString items = new SyncListString();
+    public struct ItemStruct
+    {
+        public string itemName;
+        public int quantity;
+    };
+
+    public class SyncListItem : SyncListStruct<ItemStruct> { }
+    public SyncListItem items = new SyncListItem();
+
     //  public Transform inventory;
 
 
@@ -91,7 +101,7 @@ public class Inventory : NetworkBehaviour {
         int num;
         if (int.TryParse(Input.inputString, out num))
         {
-            Debug.Log("Estoy aqui "+num);
+            Debug.Log("Estoy aca "+num);
             CmdUseItem(num);
         }
 
@@ -116,7 +126,7 @@ public class Inventory : NetworkBehaviour {
         {
             if (num >= 1 && num <= 9)
             {
-                Debug.Log("Se va a usar el objeto " + num);
+                Debug.Log("Se va a usar el objeto de la posicion " + num);
                 RpcUseItem(num);
                 //items.Remove("Espada");
                 items.RemoveAt(num-1);
@@ -167,8 +177,35 @@ public class Inventory : NetworkBehaviour {
             Debug.Log("No hay espacio en el inventario");
             return false;
         }
-        items.Add(itemName);
+
+        bool exist = false;
+       for(int i=0; i<items.Count; i++)
+        {
+            if(itemName.Equals(items[i].itemName)){
+                //Si existe, se suma en 1 la cantidad
+                exist = true;
+                items[i] = new ItemStruct()
+                    {
+                    itemName =items[i].itemName,
+                    quantity=items[i].quantity+1
+                    };
+                //Debug.Log(items[i].itemName + ", " + items[i].quantity);
+                Debug.Log("Ya existe " + items[i].itemName + " y tiene " + items[i].quantity);
+            }
+        }
+
+        if(exist==false)
+        {
+            //Se agrega nuevo item
+            items.Add(new ItemStruct()
+                {
+                itemName =itemName,
+                quantity=1
+                });
+        }
+
         Debug.Log("Inventario a " + items.Count + " de " + space);
+
 
       /*  if (onItemChangedCallback != null)
         {
@@ -189,17 +226,9 @@ public class Inventory : NetworkBehaviour {
         if (collision.gameObject.tag == "Item")
         {
 
-            
-
-            /*   Debug.Log("****************");
-               Debug.Log("Soy el servidor? " + isServer);
-               Debug.Log("Soy el cliente? " + isClient);
-               Debug.Log("Soy localplayer? " + isLocalPlayer);
-               Debug.Log("****************");*/
-
             bool itemExist = ItemExist(collision.gameObject.GetComponent<ItemPickup>().item.name);
 
-            if (!itemExist) //No existe el objeto
+            if (!itemExist) //No existe el objeto en los archivos del juego
             {
                 Debug.Log("El objeto "+ collision.gameObject.GetComponent<ItemPickup>().item.name+" no existe");
                 return;
@@ -272,6 +301,7 @@ public class Inventory : NetworkBehaviour {
                 //slots[i].AddItem(CmdAddItem(inventory.items[i]));
                 //CmdAddItem(items[i], i);
                 // slots[i].AddItem(item);
+
                 AddItemHUD(items[i], i);
             }
             else
@@ -305,21 +335,21 @@ public class Inventory : NetworkBehaviour {
 
 
 
-    void AddItemHUD(string itemName, int pos)
+    void AddItemHUD(ItemStruct item, int pos)
     {
         Object[] allitems = Resources.LoadAll("Items", typeof(Item));
 
         for (int i = 0; i < allitems.Length; i++)
         {
-            if (itemName.Equals(allitems[i].name))
+            if (item.itemName.Equals(allitems[i].name))
             {
                 Debug.Log(allitems[i].name + " encontrado");
-                slots[pos].AddItem((Item)allitems[i]);
+                slots[pos].AddItem((Item)allitems[i], item.quantity);
             }
         }
     }
 
-    [Command]
+   /* [Command]
     void CmdAddItem(string itemName, int pos)
     {
         Debug.Log("Hola");
@@ -334,6 +364,6 @@ public class Inventory : NetworkBehaviour {
             }
         }
 
-    }
+    }*/
 
 }

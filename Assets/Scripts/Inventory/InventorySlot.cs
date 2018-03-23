@@ -6,14 +6,18 @@ public class InventorySlot : MonoBehaviour {
     public Image icon;
     public Button removeButton;
 
+    public Text quantityText;
+
     Item item; //item actual en este slot
 
-    public void AddItem(Item newItem)
+    public void AddItem(Item newItem, int quantity)
     {
         item = newItem;
         icon.sprite = item.icon; //se asigna el icono del item al slot actual
         icon.enabled = true;
         removeButton.interactable = true;
+        quantityText.color = new Color(50, 50, 50, 255);
+        quantityText.text = quantity.ToString();
     }
 
     public void ClearSlot() //vaciar el slot
@@ -22,6 +26,7 @@ public class InventorySlot : MonoBehaviour {
         icon.sprite = null;
         icon.enabled = false;
         removeButton.interactable = false;
+        quantityText.color = new Color(0,0,0,0);
     }
 
     public void OnRemoveButton()

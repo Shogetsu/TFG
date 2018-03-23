@@ -1,6 +1,5 @@
 WindowsStandalone
-69d12ec179b207ea9f020492ac0cc6f2 Assembly-CSharp.dll:.InventoryUI
-9966df6a3e8c630076b8bf430c33aa2e Assembly-CSharp.dll:.Item
+1244eebfc650c9552b68083e61376a0a Assembly-CSharp.dll:.Item
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.NetworkLobbyHook
 fa4b83c80c7ca53ee38c7f6eec291dc7 Assembly-CSharp.dll:Prototype.NetworkLobby.LobbyMainMenu
 dc07d7ad69b399a46e92c483bf1c04ca UnityEngine.Analytics.dll:UnityEngine.Analytics.AnalyticsTracker
@@ -231,7 +230,7 @@ a8796ecdc9d5c260bbe32f30c4b10708 Assembly-CSharp-firstpass.dll:UnityStandardAsse
 cd0167d7ce4ff561cc6218371f7c3c68 Assembly-CSharp.dll:.CameraLogic
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:UnityStandardAssets.Water.GerstnerDisplace
 6746ad828d32ad6e5c07a63950fd4be6 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Water.WaterTile
-cee5cf52f5fe78326e181f4e098608e0 Assembly-CSharp.dll:.InventorySlot
+d362430e362595ad1d12ad6faf90191c Assembly-CSharp.dll:.InventorySlot
 d0ee1e6819011e6810b3e81ffc447a6a Assembly-CSharp.dll:.SpawnFruit
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.FPSCounter
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Prototype.NetworkLobby.DraggablePanel

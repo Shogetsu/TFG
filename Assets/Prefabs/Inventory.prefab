@@ -317,10 +317,25 @@ GameObject:
   m_Component:
   - component: {fileID: 224416894642783930}
   - component: {fileID: 222349973700365250}
-  - component: {fileID: 114173714907376200}
-  - component: {fileID: 114548493164315340}
   m_Layer: 5
   m_Name: Inventory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1429823542939324
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224978564768141084}
+  - component: {fileID: 222119876460853296}
+  - component: {fileID: 114976661773454492}
+  m_Layer: 5
+  m_Name: Quantity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -911,17 +926,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1387661890411592}
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114126949162690542
@@ -1028,38 +1032,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114173714907376200
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1387661890411592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 236
-    i1: 7
-    i2: 147
-    i3: 156
-    i4: 242
-    i5: 68
-    i6: 60
-    i7: 180
-    i8: 9
-    i9: 133
-    i10: 244
-    i11: 86
-    i12: 210
-    i13: 245
-    i14: 85
-    i15: 193
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!114 &114180033560654510
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1422,6 +1394,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 114715602287790442}
   removeButton: {fileID: 114441447747020842}
+  quantityText: {fileID: 0}
 --- !u!114 &114395237126917060
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1487,6 +1460,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 114276200485938864}
   removeButton: {fileID: 114029751339603608}
+  quantityText: {fileID: 0}
 --- !u!114 &114414892898563150
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1500,6 +1474,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 114451792229071284}
   removeButton: {fileID: 114719162926796674}
+  quantityText: {fileID: 0}
 --- !u!114 &114423485425457002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1725,6 +1700,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 114682441448532144}
   removeButton: {fileID: 114042063746355362}
+  quantityText: {fileID: 0}
 --- !u!114 &114541884575523428
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1804,19 +1780,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114548493164315340
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1387661890411592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0db48f2cc8d84664e99eab8da2255d19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemsParent: {fileID: 0}
-  space: 9
 --- !u!114 &114567495879648194
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1895,6 +1858,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 114310185073341150}
   removeButton: {fileID: 114204335377235782}
+  quantityText: {fileID: 0}
 --- !u!114 &114641896143078428
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1908,6 +1872,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 114974434369476404}
   removeButton: {fileID: 114985683479461216}
+  quantityText: {fileID: 0}
 --- !u!114 &114657151654188514
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2291,6 +2256,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 114942363653249906}
   removeButton: {fileID: 114657151654188514}
+  quantityText: {fileID: 0}
 --- !u!114 &114724529944945854
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2324,7 +2290,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1021023600174664}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -2412,6 +2378,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 114249393020124138}
   removeButton: {fileID: 114395237126917060}
+  quantityText: {fileID: 0}
 --- !u!114 &114878630863992504
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2452,6 +2419,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 114701001731026384}
   removeButton: {fileID: 114675934611358846}
+  quantityText: {fileID: 114976661773454492}
 --- !u!114 &114942363653249906
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2558,6 +2526,41 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114976661773454492
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1429823542939324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: '
+
+'
 --- !u!114 &114985683479461216
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2692,6 +2695,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1582245652548822}
+--- !u!222 &222119876460853296
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1429823542939324}
 --- !u!222 &222137518687353132
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -3143,6 +3152,7 @@ RectTransform:
   m_Children:
   - {fileID: 224878797491530976}
   - {fileID: 224839641972839654}
+  - {fileID: 224978564768141084}
   m_Father: {fileID: 224935310993678862}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3606,4 +3616,22 @@ RectTransform:
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.0000076294, y: -140}
   m_SizeDelta: {x: -93.65, y: -300.9}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224978564768141084
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1429823542939324}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224388941295843152}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 21.32, y: 22.06}
+  m_SizeDelta: {x: 17.36, y: 15.88}
   m_Pivot: {x: 0.5, y: 0.5}

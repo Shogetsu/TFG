@@ -9,9 +9,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1c0c400d1fa25b458d1ecf0820e96de, type: 3}
-  m_Name: Armadura
+  m_Name: TilePaperCraft
   m_EditorClassIdentifier: 
-  name: Armadura
-  id: 2
-  icon: {fileID: 21300000, guid: efdd93574b306984cb1e01955bd5d37b, type: 3}
-  isDefaultItem: 0
+  name: TilePaperCraft
+  icon: {fileID: 21300000, guid: 4209d792cba8ba348a51bd9ccc6066c0, type: 3}
+  iconBlue: {fileID: 0}
+  iconGreen: {fileID: 0}
+  isResource: 0
+  quantityNeeded: 15
+  color: 
+  isPaper: 1
+  isCardboard: 0
+  isPlastic: 0
+  material: Paper

@@ -6,10 +6,20 @@ using UnityEngine;
 public class Item : ScriptableObject {
 
     new public string name = "New item";
-    public int id = 0;
     public Sprite icon = null;
-    public bool isDefaultItem = false;
+    public Sprite iconBlue = null;
+    public Sprite iconGreen = null;
 
+    public bool isResource;
+
+    public int quantityNeeded;
+
+    public string color;
+    public bool isPaper;
+    public bool isCardboard;
+    public bool isPlastic;
+
+    public string material;
 
     public virtual void Use() //es virtual para poder sobreescribirlo en funcion del objeto que se este utilizando
     {

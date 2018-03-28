@@ -23,6 +23,9 @@ public class PjControl : NetworkBehaviour
 
     public GameObject playerModel;
 
+    CursorLockMode wantedMode;
+
+
     // Use this for initialization
     void Start () {
         if (!isLocalPlayer) //Si no se trata del jugador, se desactivan gameObject del resto de jugadores
@@ -58,6 +61,8 @@ public class PjControl : NetworkBehaviour
              _thirdPCam = GameObject.FindObjectOfType<ThirdPersonCamera>();
              Debug.Log("Camara establecida");
          }*/
+
+        ShowMouse();
 
         float translation = Input.GetAxis("Vertical")*speed;
          float rotation = Input.GetAxis("Horizontal")*speed;
@@ -95,7 +100,7 @@ public class PjControl : NetworkBehaviour
           if (isGrounded) //TODO modificar para RIGIDBODY
           {
               moveDirection.y = 0f;
-              if (Input.GetButtonDown("Jump")) //La tecla "espacio" es por defecto JUMP
+              if (Input.GetButtonDown("Jump")) //La tecla "espacio" es por defecto Jump
               {
                 // RB.velocity = new Vector3(RB.velocity.x, jumpForce, RB.velocity.z);
                   rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
@@ -145,6 +150,71 @@ public class PjControl : NetworkBehaviour
             playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, newRotation, rotationSpeed * Time.deltaTime);
         }
     }
+
+    // Apply requested cursor state
+    void SetCursorState()
+    {
+        Cursor.lockState = wantedMode;
+        // Hide cursor when locking
+        Cursor.visible = (CursorLockMode.Locked != wantedMode);
+    }
+
+    void ShowMouse()
+    {
+        if (Input.GetButton("ShowMouse"))
+        {
+            Cursor.lockState = wantedMode = CursorLockMode.None;
+        }
+        else
+        {
+            Cursor.lockState = wantedMode = CursorLockMode.Locked;
+        }
+
+        SetCursorState();
+    }
+
+   /* void OnGUI()
+    {
+        GUILayout.BeginVertical();
+        // Release cursor on escape keypress
+        if (Input.GetButton("ShowMouse"))
+        {
+            Cursor.lockState = wantedMode = CursorLockMode.None;
+        }
+        else
+        {
+            Cursor.lockState = wantedMode = CursorLockMode.Locked;
+        }
+
+        switch (Cursor.lockState)
+        {
+            case CursorLockMode.None:
+                GUILayout.Label("Cursor is normal");
+                if (GUILayout.Button("Lock cursor"))
+                    wantedMode = CursorLockMode.Locked;
+                if (GUILayout.Button("Confine cursor"))
+                    wantedMode = CursorLockMode.Confined;
+                break;
+            case CursorLockMode.Confined:
+                GUILayout.Label("Cursor is confined");
+                if (GUILayout.Button("Lock cursor"))
+                    wantedMode = CursorLockMode.Locked;
+                if (GUILayout.Button("Release cursor"))
+                    wantedMode = CursorLockMode.None;
+                break;
+            case CursorLockMode.Locked:
+                GUILayout.Label("Cursor is locked");
+                if (GUILayout.Button("Unlock cursor"))
+                    wantedMode = CursorLockMode.None;
+                if (GUILayout.Button("Confine cursor"))
+                    wantedMode = CursorLockMode.Confined;
+                break;
+        }
+
+        GUILayout.EndVertical();
+
+        SetCursorState();
+    }*/
 
     void OnCollisionEnter(Collision collision)
     {

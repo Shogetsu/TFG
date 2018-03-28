@@ -9,9 +9,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1c0c400d1fa25b458d1ecf0820e96de, type: 3}
-  m_Name: Espada
+  m_Name: PaperBlue
   m_EditorClassIdentifier: 
-  name: Espada
-  id: 1
-  icon: {fileID: 21300000, guid: 0087c149f3854f444b5a85411f159f1c, type: 3}
-  isDefaultItem: 0
+  name: PaperBlue
+  icon: {fileID: 21300000, guid: 64744af73af414d419729664423f19aa, type: 3}
+  iconBlue: {fileID: 21300000, guid: 64744af73af414d419729664423f19aa, type: 3}
+  iconGreen: {fileID: 0}
+  isResource: 1
+  quantityNeeded: 0
+  color: Blue
+  isPaper: 1
+  isCardboard: 0
+  isPlastic: 0
+  material: Paper

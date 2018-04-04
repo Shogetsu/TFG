@@ -22,6 +22,9 @@ GameObject:
   - component: {fileID: 95278207440591752}
   - component: {fileID: 114236950735301846}
   - component: {fileID: 114183101290267020}
+  - component: {fileID: 114195492589695804}
+  - component: {fileID: 114063342690811332}
+  - component: {fileID: 65790984841099880}
   m_Layer: 0
   m_Name: arbol01prefab
   m_TagString: Untagged
@@ -142,9 +145,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1148186193318646}
-  m_LocalRotation: {x: 0.9911032, y: 0, z: 0, w: -0.13309592}
-  m_LocalPosition: {x: 200.28033, y: 1.0888448, z: 208.49896}
-  m_LocalScale: {x: 4.902911, y: 4.902911, z: 4.902911}
+  m_LocalRotation: {x: -0.28925034, y: 0, z: 0, w: -0.9572535}
+  m_LocalPosition: {x: 207.23955, y: -3.8959708, z: 437.07437}
+  m_LocalScale: {x: 2.2849429, y: 2.2849429, z: 2.2849429}
   m_Children:
   - {fileID: 4162071350701980}
   - {fileID: 4263631966203938}
@@ -322,6 +325,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1501699179289726}
   m_Mesh: {fileID: 4300000, guid: 96610d88713291244847f9cd817a57c5, type: 3}
+--- !u!65 &65790984841099880
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1148186193318646}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.14, y: 0.57, z: 0.19}
+  m_Center: {x: 0, y: 0.4, z: 0}
 --- !u!95 &95278207440591752
 Animator:
   serializedVersion: 3
@@ -339,6 +354,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114063342690811332
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1148186193318646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d0cfca7b33d0dc4bb3807e3c5016b44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vit: 10
+  healthBar: {fileID: 0}
 --- !u!114 &114183101290267020
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -371,6 +399,18 @@ MonoBehaviour:
     i15: 26
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!114 &114195492589695804
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1148186193318646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30eaad5cd5dea5e41a41e2dcc63a2d9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 1234218157194866, guid: a203b05d0ab1e744cbd41a41023b0fd3, type: 2}
 --- !u!114 &114236950735301846
 MonoBehaviour:
   m_ObjectHideFlags: 1

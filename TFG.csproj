@@ -84,19 +84,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Billboard.cs" />
     <Compile Include="Assets\Bullet2.cs" />
     <Compile Include="Assets\Combat.cs" />
     <Compile Include="Assets\CraftingSlot.cs" />
     <Compile Include="Assets\CustomNetworkManager.cs" />
     <Compile Include="Assets\CustomNetworkTransform.cs" />
     <Compile Include="Assets\DisplayName.cs" />
-    <Compile Include="Assets\Drop.cs" />
     <Compile Include="Assets\EventManager.cs" />
-    <Compile Include="Assets\Health.cs" />
     <Compile Include="Assets\HealthBar.cs" />
-    <Compile Include="Assets\Hit.cs" />
-    <Compile Include="Assets\HitCollider.cs" />
     <Compile Include="Assets\HookNetworkLobby.cs" />
     <Compile Include="Assets\InventoryPlayer.cs" />
     <Compile Include="Assets\KeyboardInventory.cs" />

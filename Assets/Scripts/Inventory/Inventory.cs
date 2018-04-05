@@ -70,7 +70,6 @@ public class Inventory : NetworkBehaviour {
 
         if (InventorySlots != null)
         {
-            /*Usar item equipado con clic izquierdo*/
             if (Input.GetMouseButtonDown(0) && Input.GetButton("ShowMouse") == false)
             {
                 for (int i = 0; i < InventorySlots.Length; i++)
@@ -78,26 +77,12 @@ public class Inventory : NetworkBehaviour {
                     if (InventorySlots[i].equip.activeSelf)
                     {
                         CmdUseItem(i);
-                        break; //Solo habra un item equipado al mismo tiempo, por lo que solo se usara un item a la vez
+                        break; //Solo habra un item equipado al mismo tiempo
                     }
                 }
             }
-
-            /*Desequipar item con clic derecho*/
-            if (Input.GetMouseButtonDown(1) && Input.GetButton("ShowMouse") == false)
-            {
-                for (int i = 0; i < InventorySlots.Length; i++)
-                {
-                    if (InventorySlots[i].equip.activeSelf)
-                    {
-                        InventorySlots[i].SetEquipped(false);
-                        break;
-                    }
-                }
-            }
-
         }
-
+        
 
     }
 
@@ -109,31 +94,15 @@ public class Inventory : NetworkBehaviour {
            
             if (InventorySlots[num - 1].item != null)
             {
-                for (int i = 0; i < InventorySlots.Length; i++) //Se desequipan todos los items...
+                for (int i = 0; i < InventorySlots.Length; i++)
                 {
                     InventorySlots[i].SetEquipped(false);
                 }
-                //...excepto el item deseado
+
                 InventorySlots[num - 1].SetEquipped(true);
             }
            
         }
-    }
-
-    public bool Equipped()
-    {
-        bool equipped = false;
-        if (InventorySlots != null)
-        {
-            for (int i = 0; i < InventorySlots.Length; i++)
-            {
-                if (InventorySlots[i].equip.activeSelf)
-                {
-                    equipped = true;
-                }
-            }
-        }
-        return equipped;
     }
 
     [Command]

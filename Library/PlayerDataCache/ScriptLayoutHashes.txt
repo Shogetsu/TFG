@@ -164,7 +164,6 @@ cfa93710d56cd4da2a3b2eec27bc1139 Assembly-CSharp-firstpass.dll:UnityStandardAsse
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:UnityStandardAssets.Water.Displace
 96f42378c8bd9936fa83ba2f4c4d9edd Assembly-CSharp.dll:.PerlinNoiseTerrain
 42dabb22d99895420875874b73526afd Assembly-CSharp.dll:.Owner
-e9a926081f437980abec41c4d05b2e65 Assembly-CSharp.dll:.Health
 9c49f3ca2fae9d15ec5d3021c6973443 Assembly-CSharp.dll:.CustomNetworkManager
 ad0843dc5844295eb779e75691b6f0e1 Assembly-CSharp.dll:.Combat
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:UnityStandardAssets.CrossPlatformInput.MobileControlRig
@@ -226,7 +225,6 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.VR.WSA.Spa
 dc5fa02202409049bc420a7b6efe5183 Assembly-CSharp.dll:.NetworkSpaceship
 f671a42aea5f34fec6a4450a3668c615 Assembly-CSharp.dll:UnityEngine.PostProcessing.PostProcessingProfile
 54fe1faca7f6f29bfe34b4c07b9f708a Assembly-CSharp.dll:.Inventory
-26599a031f3f9f494b747da8aa2f6a57 Assembly-CSharp.dll:.Drop
 db3b233e35a88802fed1717d19c3d9ec Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.FollowTarget
 a8796ecdc9d5c260bbe32f30c4b10708 Assembly-CSharp-firstpass.dll:UnityStandardAssets.CrossPlatformInput.TouchPad
 0ad469aca31264c6140b1e503c43ab6b Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.TimedObjectDestructor
@@ -245,6 +243,3 @@ fdde746c8a70b313aaaf7867917e1982 Assembly-CSharp.dll:.TerrainGeneration
 efe78774255e0887a40e19922e277bad Assembly-CSharp.dll:.InventoryPlayer
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.KeyboardInventory
 0f3d4bb7128a287827d041c696039525 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.AutoMobileShaderSwitch
-2b5bd81c259c691324a17af9a3e97e85 Assembly-CSharp.dll:.HitCollider
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Hit
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Billboard

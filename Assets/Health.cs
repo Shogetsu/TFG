@@ -25,6 +25,7 @@ public class Health : NetworkBehaviour {
     [ClientRpc]
     void RpcUpdateHealthBar()
     {
+        Debug.Log("Duele");
         if (healthBar != null)
         {
             healthBar.sizeDelta = new Vector2(vit, healthBar.sizeDelta.y);

@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="Assets\Billboard.cs" />
     <Compile Include="Assets\Bullet2.cs" />
+    <Compile Include="Assets\ColorLevel.cs" />
     <Compile Include="Assets\Combat.cs" />
     <Compile Include="Assets\CraftingSlot.cs" />
     <Compile Include="Assets\CustomNetworkManager.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Assets\PaintTerrain2.cs" />
     <Compile Include="Assets\PerlinNoiseTerrain.cs" />
     <Compile Include="Assets\PlayerMove.cs" />
+    <Compile Include="Assets\PlayerName.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\GetSetAttribute.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\MinAttribute.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\TrackballAttribute.cs" />

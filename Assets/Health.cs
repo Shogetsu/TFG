@@ -10,7 +10,9 @@ public class Health : NetworkBehaviour {
 
     public RectTransform healthBar;
 
-	void Start () {
+
+
+    void Start () {
 
     }
 	
@@ -25,10 +27,42 @@ public class Health : NetworkBehaviour {
     [ClientRpc]
     void RpcUpdateHealthBar()
     {
-        Debug.Log("Duele");
+        //Debug.Log("Duele");
         if (healthBar != null)
         {
+            Debug.Log("Me queda: " + vit + " de vida");
             healthBar.sizeDelta = new Vector2(vit, healthBar.sizeDelta.y);
+        }
+    }
+
+    public void CmdStartLosingHealth()
+    {
+        //Esta co-rutina se ejecuta a traves de un Command en ColorLevel
+        StartCoroutine(CmdLosingHealth());
+    }
+
+    public void StopLosingHealth()
+    {
+        StopCoroutine(CmdLosingHealth());
+    }
+
+    IEnumerator CmdLosingHealth()
+    {
+        for (; ; )
+        {
+            if (vit > 0)
+            {
+                vit = vit - 1;
+                RpcUpdateHealthBar();
+            }
+            else
+            {
+                RpcUpdateHealthBar();
+                StopCoroutine(CmdLosingHealth());
+                print("Stopped " + Time.time);
+                break;
+            }
+        yield return new WaitForSeconds(0.1f);
         }
     }
 

@@ -128,6 +128,7 @@ c67c441a5cb22b3ef7368e31a7e76caf Assembly-CSharp.dll:.SimpleCharacterControl
 db782f22d720a4e9886ccd9125d81b92 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Cameras.ProtectCameraFromWallClip
 78a2a366a0a3b585e1178d2dd9d006ab Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.WaypointProgressTracker
 5da672ca1c49ffcf3f8dde2fda9b9183 Assembly-CSharp.dll:.PjControlTest
+e2af59c6758c9d1f8b47dd51fcccb05a Assembly-CSharp.dll:.ColorLevel
 ab2d4e5de048fc26f205b5f37bb57f9a Assembly-CSharp.dll:.PaintTerrain
 813668be395bcdd1bf7b85a09080a0f3 Assembly-CSharp.dll:.spawnTerrain
 6e714b24188cddfc9ae1e07d05ed4ddd Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.ParticleSystemDestroyer
@@ -155,7 +156,7 @@ fe76270bd84ec3b6f2f6f92c69cf69da Assembly-CSharp-firstpass.dll:UnityStandardAsse
 e902b37cfb4c2c79cc3fe88c1130e5b8 Assembly-CSharp-firstpass.dll:.ThirdPersonCamera
 c99104cca6f33db39d236f8efb9aafb4 Assembly-CSharp.dll:Prototype.NetworkLobby.LobbyCountdownPanel
 a7d3c6c6948d99dd4116e659ddcf5ac4 Assembly-CSharp-firstpass.dll:UnityStandardAssets.CrossPlatformInput.ButtonHandler
-5da672ca1c49ffcf3f8dde2fda9b9183 Assembly-CSharp.dll:.PjControl
+121792a7a7969d4c226de1f1af0932ab Assembly-CSharp.dll:.PjControl
 83877f03b51b3b13fa0d6c51291e0575 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Characters.FirstPerson.HeadBob
 81f1a7b485ed7c17904c4739b2d0d8d7 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Characters.ThirdPerson.ThirdPersonUserControl
 a90e94673f50d2237c1b971c138660c6 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.AutoMoveAndRotate
@@ -249,4 +250,3 @@ fdde746c8a70b313aaaf7867917e1982 Assembly-CSharp.dll:.TerrainGeneration
 efe78774255e0887a40e19922e277bad Assembly-CSharp.dll:.InventoryPlayer
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.KeyboardInventory
 0f3d4bb7128a287827d041c696039525 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.AutoMobileShaderSwitch
-e2af59c6758c9d1f8b47dd51fcccb05a Assembly-CSharp.dll:.ColorLevel

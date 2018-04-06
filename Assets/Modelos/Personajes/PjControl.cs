@@ -15,7 +15,7 @@ public class PjControl : NetworkBehaviour
     public CharacterController controller;
     public Rigidbody rb;
     private Vector3 moveDirection;
-    private bool isGrounded = true;
+    public bool isGrounded = true;
     //public ThirdPersonCamera _thirdPCam;
     public float gravityScale;
 
@@ -129,6 +129,11 @@ public class PjControl : NetworkBehaviour
 
               anim.SetTrigger("isJumping");
           }*/
+
+        if (GetComponent<Health>().vit <= 0)
+        {
+            anim.SetBool("isDead", true);
+        }
 
         if (translation != 0 || rotation !=0)
         {

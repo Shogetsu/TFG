@@ -11,7 +11,11 @@ public class ColorLevel : NetworkBehaviour {
 
     // Use this for initialization
     void Start () {
-        StartCoroutine("LosingColorLevel");
+        if (!isLocalPlayer)
+            return;
+
+        //if(GetComponent<PjControl>().isGrounded) //En el momento en el que el jugador toque el suelo, empieza a perder nivel de color | Esto no parece que funcione
+            CmdStartCoroutine();
     }
 
     // Update is called once per frame
@@ -19,27 +23,37 @@ public class ColorLevel : NetworkBehaviour {
 
     }
 
-    IEnumerator LosingColorLevel()
+    [Command]
+    void CmdStartCoroutine()
     {
-
-        for (; ; )
-        {
-            CmdLosingColorLevel();
-            yield return new WaitForSeconds(2f);
-        }
+        //Las co-rutinas deben ser ejecutadas a traves del servidor
+        StartCoroutine(CmdLosingColorLevel());
     }
 
-    [Command]
-    void CmdLosingColorLevel()
+    IEnumerator CmdLosingColorLevel()
     {
-        colorLevel = colorLevel - 1;
-        RpcUpdateColorLevelBar();
+        for (; ; )
+        {
+            if (colorLevel > 0)
+            {
+                colorLevel = colorLevel - 1;
+                RpcUpdateColorLevelBar();
+            }
+            else
+            {
+                RpcUpdateColorLevelBar();
+                StopCoroutine(CmdLosingColorLevel());
+                print("Stopped " + Time.time);
+                GetComponent<Health>().CmdStartLosingHealth(); //Cuando el nivel de color llega a 0, se empieza a perder vida
+                break;
+            }
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 
     [ClientRpc]
     void RpcUpdateColorLevelBar()
     {
-        Debug.Log("Duele");
         if (colorLevelBar != null)
         {
             colorLevelBar.sizeDelta = new Vector2(colorLevel, colorLevelBar.sizeDelta.y);

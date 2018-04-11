@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4995802699883442}
   - component: {fileID: 33212726067631250}
-  - component: {fileID: 135911485929278318}
   - component: {fileID: 23693110204367888}
   - component: {fileID: 114137850259817100}
   - component: {fileID: 114645156954320230}
@@ -108,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a54c11b18ecb8ca40997a4432f9330bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: c886580fa0e4c1743af446dea8acd726, type: 2}
+  item: {fileID: 11400000, guid: 19c1af02383d9224da8934f56d501634, type: 2}
 --- !u!114 &114137850259817100
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -153,15 +152,3 @@ MonoBehaviour:
     i15: 125
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
---- !u!135 &135911485929278318
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1234218157194866}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}

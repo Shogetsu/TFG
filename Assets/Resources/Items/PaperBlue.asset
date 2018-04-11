@@ -8,17 +8,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1c0c400d1fa25b458d1ecf0820e96de, type: 3}
+  m_Script: {fileID: 11500000, guid: bbbdf9eef7bcd3f43a65112554c0916b, type: 3}
   m_Name: PaperBlue
   m_EditorClassIdentifier: 
   name: PaperBlue
   icon: {fileID: 21300000, guid: 64744af73af414d419729664423f19aa, type: 3}
   iconBlue: {fileID: 21300000, guid: 64744af73af414d419729664423f19aa, type: 3}
   iconGreen: {fileID: 0}
-  isResource: 1
   quantityNeeded: 0
   color: Blue
-  isPaper: 1
-  isCardboard: 0
-  isPlastic: 0
   material: Paper

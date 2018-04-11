@@ -26,6 +26,8 @@ public class InventorySlot : MonoBehaviour {
        // removeButton.interactable = true;
         quantityText.color = new Color(50, 50, 50, 255);
         quantityText.text = quantity.ToString();
+
+        Debug.Log("El item anyadido es del tipo: " + item.GetType().Name);
     }
 
     public void ClearSlot() //vaciar el slot
@@ -44,12 +46,13 @@ public class InventorySlot : MonoBehaviour {
         //Inventory.instance.Remove(item);
     }*/
 
-    public void UseItem()
+    public void UseItem(GameObject player)
     {
         if (item != null)
         {
-            item.Use();
-            Debug.Log("Has usado " + item.name);
+            Debug.Log("Estoy usando el item del tipo " + item.GetType().Name);
+            item.Use(player);
+            //Debug.Log("El jugador "+player.GetComponent<SetupLocalPlayer>().colorString+" ha usado " + item.name);
         }
     }
 

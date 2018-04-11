@@ -5,6 +5,9 @@ using UnityEngine.Networking;
 
 public class Hit : NetworkBehaviour {
 
+    [SyncVar]
+    public int damage = 1;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -15,21 +18,27 @@ public class Hit : NetworkBehaviour {
 		
 	}
 
+    [Command]
+    public void CmdSetDamage(int dmg)
+    {
+        damage = dmg;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
             Debug.Log("Golpeo a " + other.gameObject.name);
-            CmdHitted(other.gameObject); //IMPORTANTE - SOLO los gameObject con NetworkId ya instanciados en el servidor son los unicos gameObject que se pueden pasar por parametro en un Command o Rcp, de lo contrario seran NULL
+            CmdHitted(other.gameObject, damage); //IMPORTANTE - SOLO los gameObject con NetworkId ya instanciados en el servidor son los unicos gameObject que se pueden pasar por parametro en un Command o Rcp, de lo contrario seran NULL
     }
 
     [Command]
-    void CmdHitted(GameObject other)
+    void CmdHitted(GameObject other, int damage)
     {
         if (other == null) return;
 
         if (other.gameObject.GetComponent<Health>() != null)
         {
-            other.gameObject.GetComponent<Health>().TakeDamage();
-            if (other.gameObject.GetComponent<Health>().vit <= 0)
+            other.gameObject.GetComponent<Health>().TakeDamage(damage);
+            if (other.gameObject.GetComponent<Health>().GetVit() <= 0)
             {
                 other.GetComponent<Drop>().DropItem();
                 NetworkServer.Destroy(other);

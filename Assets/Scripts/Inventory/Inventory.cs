@@ -42,6 +42,8 @@ public class Inventory : NetworkBehaviour {
         public int quantity;
         public string color;
         public string material;
+        public string itemType;
+        public string baseType;
     };
 
     public class SyncListItem : SyncListStruct<ItemStruct> { }
@@ -64,27 +66,26 @@ public class Inventory : NetworkBehaviour {
             if(num>=1 && num <= 9)
             {
                 EquipItem(num);
-                //CmdUseItem(num);
             }
         }
 
         if (InventorySlots != null)
         {
-            /*Usar item equipado con clic izquierdo*/
-            if (Input.GetMouseButtonDown(0) && Input.GetButton("ShowMouse") == false)
+            /*Usar con clic derecho el item equipado en mano*/
+            if (Input.GetMouseButtonDown(1) && Input.GetButton("ShowMouse") == false)
             {
                 for (int i = 0; i < InventorySlots.Length; i++)
                 {
                     if (InventorySlots[i].equip.activeSelf)
                     {
                         CmdUseItem(i);
-                        break; //Solo habra un item equipado al mismo tiempo, por lo que solo se usara un item a la vez
+                        break; //Solo habra un item equipado en mano al mismo tiempo, por lo que solo se usara un item a la vez
                     }
                 }
             }
 
-            /*Desequipar item con clic derecho*/
-            if (Input.GetMouseButtonDown(1) && Input.GetButton("ShowMouse") == false)
+            /*Desequipar item equipado en mano con clic rueda del raton*/
+            if (Input.GetMouseButtonDown(2) && Input.GetButton("ShowMouse") == false)
             {
                 for (int i = 0; i < InventorySlots.Length; i++)
                 {
@@ -115,6 +116,15 @@ public class Inventory : NetworkBehaviour {
                 }
                 //...excepto el item deseado
                 InventorySlots[num - 1].SetEquipped(true);
+                if (InventorySlots[num - 1].item.GetType().Name.Equals("Weapon")) //Si se equipa en mano un arma, los golpes que ocasione el jugador seran mas fuertes
+                {
+                    Weapon weapon = InventorySlots[num - 1].item as Weapon;
+                    GetComponent<Hit>().CmdSetDamage(weapon.Damage);
+                }
+                else
+                {
+                    GetComponent<Hit>().CmdSetDamage(1);
+                }
             }
            
         }
@@ -144,25 +154,50 @@ public class Inventory : NetworkBehaviour {
         {
             Debug.Log("Se va a usar el objeto de la posicion " + num);
             RpcUseItem(num);
-                
-            //Se resta 1 objeto al inventario, solo si tienes 2 o mas
-            if (items[num].quantity >= 2)
+
+            if (items[num].baseType.Equals("FabricableItem") == false) //Se comprueba si es hijo de la clase FabricableItem, porque estos no se consumen de igual forma que el resto
             {
-                items[num] = new ItemStruct()
+                if(items[num].material.Equals("Paper") || items[num].itemType.Equals("ConsumableItem"))
                 {
-                    itemName = items[num].itemName,
-                    quantity = items[num].quantity - 1,
-                    color = items[num].color,
-                    material = items[num].material
-                };
+                    /*Se consume el item utilizado solo si NO es un item fabricable, y si es de papel (los recursos de papel se pueden consumir tambien) o si es un item consumible*/
+
+                    //Se resta 1 objeto al inventario, solo si tienes 2 o mas
+                    if (items[num].quantity >= 2)
+                    {
+                        items[num] = new ItemStruct()
+                        {
+                            itemName = items[num].itemName,
+                            quantity = items[num].quantity - 1,
+                            color = items[num].color,
+                            material = items[num].material,
+                            itemType = items[num].itemType,
+                            baseType = items[num].baseType
+                        };
+                    }
+                    else //Si se tiene 1, se borra por completo del inventario y se desequipa
+                    {
+
+                        RpcUnequipAll();
+                        items.RemoveAt(num);
+                    }
+
+                    Debug.Log("Inventario a " + items.Count + " de " + space);
+                    
+                }
             }
-            else //Si se tiene 1, se borra por completo del inventario
+            RpcUpdateHUD();
+        }
+    }
+
+    [ClientRpc]
+    void RpcUnequipAll()
+    {
+        if (InventorySlots != null)
+        {
+            for (int i = 0; i < InventorySlots.Length; i++) //Se desequipan todos los items
             {
-                items.RemoveAt(num);
+                InventorySlots[i].SetEquipped(false);
             }
-                
-            Debug.Log("Inventario a " + items.Count + " de " + space);
-            RpcUpdateHUD(); 
         }
     }
 
@@ -175,11 +210,11 @@ public class Inventory : NetworkBehaviour {
             return;
         }
 
-        InventorySlots[num].UseItem();
+        InventorySlots[num].UseItem(this.gameObject);
     }
 
  
-    public bool Add(string itemName, bool isResource, string color, string material)
+    public bool Add(string itemName, bool isResource, string color, string material, string itemType, string baseType)
     {
 
         if (items.Count >= space)
@@ -199,7 +234,9 @@ public class Inventory : NetworkBehaviour {
                     itemName =items[i].itemName,
                     quantity=items[i].quantity+1,
                     color=items[i].color,
-                    material=items[i].material
+                    material=items[i].material,
+                    itemType=items[i].itemType,
+                    baseType=items[i].baseType
                     };
                 //Debug.Log(items[i].itemName + ", " + items[i].quantity);
                 Debug.Log("Ya existe " + items[i].itemName + " y tiene " + items[i].quantity);
@@ -214,7 +251,9 @@ public class Inventory : NetworkBehaviour {
                 itemName = itemName,
                 quantity = 1,
                 color = color,
-                material=material
+                material=material,
+                itemType=itemType,
+                baseType=baseType
                 });
         }
 
@@ -243,7 +282,8 @@ public class Inventory : NetworkBehaviour {
                 return;
             }
             ItemPickup itemPickedUp = collision.gameObject.GetComponent<ItemPickup>();
-            bool wasPickedUp = Add(itemPickedUp.item.name, itemPickedUp.item.isResource, itemPickedUp.item.color, itemPickedUp.item.material);
+            
+            bool wasPickedUp = Add(itemPickedUp.item.name, itemPickedUp.item.GetType().Name.Equals("Resource"), itemPickedUp.item.color, itemPickedUp.item.material, itemPickedUp.item.GetType().Name, itemPickedUp.item.GetType().BaseType.Name);
 
             if (wasPickedUp == true)
             {
@@ -311,31 +351,24 @@ public class Inventory : NetworkBehaviour {
     void UpdateCraftingMenu(InventorySlot[] inventorySlots, CraftingSlot[] craftingSlots)
     {
         Debug.Log("Actualizando menu de fabricacion");
-       
 
         for (int i=0; i<craftingSlots.Length; i++)
         {
             bool fabricable = false;
-
-            if (craftingSlots[i].item.isPaper)
-            {
                 for(int j=0; j<inventorySlots.Length; j++)
                 {
                     if (inventorySlots[j].item != null)
                     {
-                        if (inventorySlots[j].item.isPaper)
+                        if (inventorySlots[j].item.material.Equals(craftingSlots[i].item.material))
                         {
-                            if (int.Parse(inventorySlots[j].quantityText.text) >= craftingSlots[i].item.quantityNeeded)
+                        FabricableItem fabricableItem = craftingSlots[i].item as FabricableItem;
+                            if (int.Parse(inventorySlots[j].quantityText.text) >= fabricableItem.quantityNeeded)
                             {
                                 Debug.Log("El item " + craftingSlots[i].item.name + " ahora es fabricable gracias a " + inventorySlots[j].item.name + " con una cantidad de " + int.Parse(inventorySlots[j].quantityText.text));
                                 fabricable = true;
                                 craftingSlots[i].Fabricable(fabricable);
                                 craftingSlots[i].UpdateColorsCraft(inventorySlots[j].item.color);
                             }
-                           /* else
-                            {
-                              craftingSlots[i].UpdateColorsCraft(inventorySlots[j].item.color);
-                            }*/
                         }
                     }
                 }
@@ -344,55 +377,8 @@ public class Inventory : NetworkBehaviour {
                     craftingSlots[i].Fabricable(fabricable);
                     craftingSlots[i].UpdateColorsCraft(null);
                 }
-            }
-
-            if (craftingSlots[i].item.isCardboard) {
-                for (int j = 0; j < inventorySlots.Length; j++)
-                {
-                    if (inventorySlots[j].item != null)
-                    {
-                        if (inventorySlots[j].item.isCardboard)
-                        {
-                            if (int.Parse(inventorySlots[j].quantityText.text) >= craftingSlots[i].item.quantityNeeded)
-                            {
-                                Debug.Log("El item " + craftingSlots[i].item.name + " ahora es fabricable gracias a " + inventorySlots[j].item.name + " con una cantidad de " + int.Parse(inventorySlots[j].quantityText.text));
-                                fabricable = true;
-                                craftingSlots[i].Fabricable(fabricable);
-                                break;
-                            }
-                        }
-                    }
-                }
-                if (!fabricable)
-                    craftingSlots[i].Fabricable(fabricable);
-            }
-
-            if (craftingSlots[i].item.isPlastic) {
-                for (int j = 0; j < inventorySlots.Length; j++)
-                {
-                    if (inventorySlots[j].item != null)
-                    {
-                        if (inventorySlots[j].item.isPlastic)
-                        {
-                            if (int.Parse(inventorySlots[j].quantityText.text) >= craftingSlots[i].item.quantityNeeded)
-                            {
-                                Debug.Log("El item " + craftingSlots[i].item.name + " ahora es fabricable gracias a " + inventorySlots[j].item.name + " con una cantidad de " + int.Parse(inventorySlots[j].quantityText.text));
-                                fabricable = true;
-                                craftingSlots[i].Fabricable(fabricable);
-                                break;
-                            }
-                        }
-                    }
-                }
-                if (!fabricable)
-                    craftingSlots[i].Fabricable(fabricable);
-            }
-
-
         }
     }
-
-    
 
     void AddItemHUD(ItemStruct item, int pos)
     {
@@ -402,7 +388,6 @@ public class Inventory : NetworkBehaviour {
         {
             if (item.itemName.Equals(allitems[i].name))
             {
-                Debug.Log(allitems[i].name + " encontrado");
                 InventorySlots[pos].AddItem((Item)allitems[i], item.quantity, item.color);
             }
         }
@@ -419,19 +404,18 @@ public class Inventory : NetworkBehaviour {
             CraftingSlot craftingSlot = go.transform.parent.transform.parent.transform.parent.GetComponent<CraftingSlot>();
             Debug.Log("Clicked on : " + craftingSlot.item.name);
             Debug.Log("Clicked on : " + go.name);
-
-            //CmdCraftingItem(go.transform.parent.GetComponent<CraftingSlot>().item.name, go.transform.parent.GetComponent<CraftingSlot>().item.isResource);
-            CmdCraftingItem(craftingSlot.item.name, craftingSlot.item.isResource, go.name, craftingSlot.item.material, craftingSlot.item.quantityNeeded);
+            FabricableItem fabricableItem = craftingSlot.item as FabricableItem;
+            CmdCraftingItem(craftingSlot.item.name, craftingSlot.item.GetType().Name.Equals("Resource"), go.name, craftingSlot.item.material, fabricableItem.quantityNeeded, craftingSlot.item.GetType().Name, craftingSlot.item.GetType().BaseType.Name);
         }
         else
             Debug.Log("currentSelectedGameObject is null");
     }
 
     [Command]
-    void CmdCraftingItem(string itemName, bool isResource, string color, string material, int quantityNeeded)
+    void CmdCraftingItem(string itemName, bool isResource, string color, string material, int quantityNeeded, string itemType, string baseType)
     {
         RemoveResources(color, material, quantityNeeded);
-        if (Add(itemName, isResource, color, material))
+        if (Add(itemName, isResource, color, material, itemType, baseType))
         {
             RpcUpdateHUD();
         }
@@ -456,7 +440,9 @@ public class Inventory : NetworkBehaviour {
                             itemName = items[i].itemName,
                             quantity = items[i].quantity - quantityNeeded,
                             color = items[i].color,
-                            material = items[i].material
+                            material = items[i].material,
+                            itemType = items[i].itemType,
+                            baseType = items[i].baseType
                         };
 
                         if (items[i].quantity == 0)

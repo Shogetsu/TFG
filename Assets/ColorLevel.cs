@@ -4,8 +4,12 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 public class ColorLevel : NetworkBehaviour {
+
+    [SerializeField]
     [SyncVar]
-    public int colorLevel;
+    int colorLevel;
+
+    public int colorLevelMAX = 150;
 
     public RectTransform colorLevelBar;
 
@@ -15,7 +19,14 @@ public class ColorLevel : NetworkBehaviour {
             return;
 
         //if(GetComponent<PjControl>().isGrounded) //En el momento en el que el jugador toque el suelo, empieza a perder nivel de color | Esto no parece que funcione
-            CmdStartCoroutine();
+        CmdSetColorLevelMAX();
+        CmdStartCoroutine();
+    }
+
+    [Command]
+    void CmdSetColorLevelMAX()
+    {
+        colorLevel = colorLevelMAX;
     }
 
     // Update is called once per frame
@@ -27,6 +38,7 @@ public class ColorLevel : NetworkBehaviour {
     void CmdStartCoroutine()
     {
         //Las co-rutinas deben ser ejecutadas a traves del servidor
+
         StartCoroutine(CmdLosingColorLevel());
     }
 
@@ -47,7 +59,7 @@ public class ColorLevel : NetworkBehaviour {
                 GetComponent<Health>().CmdStartLosingHealth(); //Cuando el nivel de color llega a 0, se empieza a perder vida
                 break;
             }
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(1f);
         }
     }
 
@@ -58,5 +70,12 @@ public class ColorLevel : NetworkBehaviour {
         {
             colorLevelBar.sizeDelta = new Vector2(colorLevel, colorLevelBar.sizeDelta.y);
         }
+    }
+
+    [Command]
+    public void CmdModifyColorLevel(int cl)
+    {
+        colorLevel = colorLevel + cl;
+        RpcUpdateColorLevelBar();
     }
 }

@@ -9,7 +9,7 @@ public class Respawn : MonoBehaviour {
      void OnCollisionEnter() //con rigidbody
      {
          //Al colisionar con la fruta, desaparece su maya y colision
-         this.GetComponent<SphereCollider>().enabled = false;
+         //this.GetComponent<SphereCollider>().enabled = false;
          this.GetComponent<MeshRenderer>().enabled = false;
         
          Invoke("BoomRespawn", respawnTime); //A los 5 seg, reaparece
@@ -29,7 +29,7 @@ public class Respawn : MonoBehaviour {
 
     void BoomRespawn()
     {
-        this.GetComponent<SphereCollider>().enabled = true;
+        //this.GetComponent<SphereCollider>().enabled = true;
         this.GetComponent<MeshRenderer>().enabled = true;
     }
 

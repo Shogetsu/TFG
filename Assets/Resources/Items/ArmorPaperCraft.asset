@@ -8,17 +8,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1c0c400d1fa25b458d1ecf0820e96de, type: 3}
+  m_Script: {fileID: 11500000, guid: 09682a9f8889f3f46b2cd88aa7d9575b, type: 3}
   m_Name: ArmorPaperCraft
   m_EditorClassIdentifier: 
   name: ArmorPaperCraft
   icon: {fileID: 21300000, guid: efeee3714766da74990dbdc13c6d2967, type: 3}
-  iconBlue: {fileID: 0}
-  iconGreen: {fileID: 0}
-  isResource: 0
-  quantityNeeded: 5
+  iconBlue: {fileID: 21300000, guid: 0087c149f3854f444b5a85411f159f1c, type: 3}
+  iconGreen: {fileID: 21300000, guid: efdd93574b306984cb1e01955bd5d37b, type: 3}
   color: 
-  isPaper: 1
-  isCardboard: 0
-  isPlastic: 0
   material: Paper
+  quantityNeeded: 10
+  levelColor: 150
+  Def: 1

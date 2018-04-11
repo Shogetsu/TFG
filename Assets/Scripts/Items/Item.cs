@@ -10,27 +10,17 @@ public class Item : ScriptableObject {
     public Sprite iconBlue = null;
     public Sprite iconGreen = null;
 
-    public bool isResource;
+    //public int quantityNeeded; //solo item fabricables
 
-    public int quantityNeeded;
+    public string color; //todos
 
-    public string color;
-    public bool isPaper;
-    public bool isCardboard;
-    public bool isPlastic;
+    public string material; //todos
 
-    public string material;
-
-    public virtual void Use() //es virtual para poder sobreescribirlo en funcion del objeto que se este utilizando
+    public virtual void Use(GameObject player) //es virtual para poder sobreescribirlo en funcion del objeto que se este utilizando
     {
-        //Usar el objeto
 
-        //Algo debe ocurrir
-
-       // Debug.Log("Usando "+name);
-
-        //Inventory.instance.Remove(this);
-
+        string playerColor = player.GetComponent<SetupLocalPlayer>().colorString;
+        Debug.Log("Soy el jugador " + playerColor+" ...");
     }
 
 }

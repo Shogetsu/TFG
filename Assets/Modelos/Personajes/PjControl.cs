@@ -38,7 +38,7 @@ public class PjControl : NetworkBehaviour
         //controller = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
-
+        //GetComponent<Health>().CmdSetVITMAX();
         
         //transform.GetChild(0).GetComponent<Camera>().enabled = false;
 
@@ -48,6 +48,9 @@ public class PjControl : NetworkBehaviour
     void Update () {
 
         if (!isLocalPlayer)
+            return;
+
+        if(anim.GetBool("isDead"))
             return;
 
         /* if (_thirdPCam.target != transform.GetChild(0)) //Se obtiene la posicion del gameobject target dentro del body del modelo
@@ -112,8 +115,9 @@ public class PjControl : NetworkBehaviour
                 //  anim.SetTrigger("isJumping");
               }
 
-            if (Input.GetMouseButtonDown(0) && GetComponent<Inventory>().Equipped()==false && Input.GetButton("ShowMouse") == false)
+            if (Input.GetMouseButtonDown(0) && Input.GetButton("ShowMouse") == false)
             {
+                //El jugador golpea si presiona clic izquierdo y el raton no se esta mostrando en pantalla
                 GetComponent<NetworkAnimator>().SetTrigger("isHitting");
                 
                 if (isServer) //El host ejecuta las animaciones Trigger 2 veces, esto lo soluciona
@@ -130,7 +134,7 @@ public class PjControl : NetworkBehaviour
               anim.SetTrigger("isJumping");
           }*/
 
-        if (GetComponent<Health>().vit <= 0)
+        if (GetComponent<Health>().GetVit() <= 0)
         {
             anim.SetBool("isDead", true);
         }

@@ -11,6 +11,8 @@ public class SetupLocalPlayer : NetworkBehaviour {
     [SyncVar]
     public Color playerColor = Color.white;
 
+    public string colorString;
+
     private void OnGUI()
     {
         if (isLocalPlayer)
@@ -33,13 +35,27 @@ public class SetupLocalPlayer : NetworkBehaviour {
 
     private void Start()
     {
-        if (isLocalPlayer)
-        {
-            
-        }
-
         Renderer[] rends = GetComponentsInChildren<Renderer>(); // Se obtienen todos los renders del GameObject, incluido el texto de encima del jugador
         foreach (Renderer r in rends) //Se recorren todos los renders y se les asigna el color del jugador en cuestion
             r.material.color = playerColor;
+
+        SetColorString(playerColor);
+    }
+
+
+    void SetColorString(Color playerColor)
+    {
+        if (playerColor == Color.magenta)
+            colorString = "Magenta";
+        if (playerColor == Color.red)
+            colorString = "Red";
+        if (playerColor == Color.cyan)
+            colorString = "Cyan";
+        if (playerColor == Color.blue)
+            colorString = "Blue";
+        if (playerColor == Color.green)
+            colorString = "Green";
+        if (playerColor == Color.yellow)
+            colorString = "Yellow";
     }
 }

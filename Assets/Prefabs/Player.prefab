@@ -1195,6 +1195,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pname: player
   playerColor: {r: 1, g: 1, b: 1, a: 1}
+  colorString: 
 --- !u!114 &114094795083926302
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1278,6 +1279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vit: 150
+  vitMAX: 150
   healthBar: {fileID: 224952271545098172}
 --- !u!114 &114193274099769092
 MonoBehaviour:
@@ -1291,6 +1293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colorLevel: 150
+  colorLevelMAX: 150
   colorLevelBar: {fileID: 224221946651267262}
 --- !u!114 &114247178205262182
 MonoBehaviour:
@@ -1542,6 +1545,7 @@ MonoBehaviour:
   jumpForce: 4
   controller: {fileID: 0}
   rb: {fileID: 54363991301086536}
+  isGrounded: 1
   gravityScale: 2
   pivot: {fileID: 4756408639073000}
   playerModel: {fileID: 1169825971295810}

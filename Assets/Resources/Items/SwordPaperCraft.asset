@@ -8,17 +8,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1c0c400d1fa25b458d1ecf0820e96de, type: 3}
+  m_Script: {fileID: 11500000, guid: dd88d7b68c69c8846b629e8f19144f70, type: 3}
   m_Name: SwordPaperCraft
   m_EditorClassIdentifier: 
   name: SwordPaperCraft
   icon: {fileID: 21300000, guid: 70845295b3324424b8d5948066c9095f, type: 3}
   iconBlue: {fileID: 21300000, guid: 0087c149f3854f444b5a85411f159f1c, type: 3}
   iconGreen: {fileID: 21300000, guid: efdd93574b306984cb1e01955bd5d37b, type: 3}
-  isResource: 0
-  quantityNeeded: 5
   color: 
-  isPaper: 1
-  isCardboard: 0
-  isPlastic: 0
   material: Paper
+  quantityNeeded: 5
+  levelColor: 150
+  Damage: 2

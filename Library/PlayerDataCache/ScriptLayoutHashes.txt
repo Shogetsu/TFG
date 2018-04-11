@@ -1,5 +1,5 @@
 WindowsStandalone
-9a0c2c21c7a7422970be015b3d82b106 Assembly-CSharp.dll:.Item
+92d08a146a7d717885a8498dbaca0168 Assembly-CSharp.dll:.Item
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.NetworkLobbyHook
 fa4b83c80c7ca53ee38c7f6eec291dc7 Assembly-CSharp.dll:Prototype.NetworkLobby.LobbyMainMenu
 dc07d7ad69b399a46e92c483bf1c04ca UnityEngine.Analytics.dll:UnityEngine.Analytics.AnalyticsTracker
@@ -17,7 +17,7 @@ ff05dcdf90651c3d98a9cad3df5e471e UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 c24a21b131bfa67be1162db2cba4b52b UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
 0ea7e3a1b65cd933d7a007e6774c4eaa Assembly-CSharp-firstpass.dll:UnityStandardAssets.Characters.ThirdPerson.AICharacterControl
 7481472d4e57e8477d484d43a43b79dc Assembly-CSharp-firstpass.dll:UnityStandardAssets.Characters.FirstPerson.FirstPersonController
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Hit
+ce09cb02e2f857c8aa562f2552261f90 Assembly-CSharp.dll:.Hit
 2b4ee1fc14f90ef2465230265b6864ae Assembly-CSharp.dll:.NetworkSpaceshipBullet
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:Prototype.NetworkLobby.EventSystemChecker
 ac7eaf50f08f01f911a75dffdb4ebb71 Assembly-CSharp.dll:.ItemPickup
@@ -107,7 +107,7 @@ ff05dcdf90651c3d98a9cad3df5e471e UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 7b848b7feaa524953d09fc1851efa6da UnityEngine.Timeline.dll:UnityEngine.Timeline.GroupTrack
 7b848b7feaa524953d09fc1851efa6da UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 c24a21b131bfa67be1162db2cba4b52b UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
-a5373d9aecf508951d9fc6a50577433c Assembly-CSharp.dll:.SetupLocalPlayer
+5f3afc8dca5e01fb31d455032ac53b36 Assembly-CSharp.dll:.SetupLocalPlayer
 7596e1d3ea7cab0498399338977e65e4 Assembly-CSharp.dll:.Demo
 ffdd0db7a32fa4144fa2f99b000a68df Assembly-CSharp.dll:.Console
 fc1e0f4d8439d9928083474691511a13 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
@@ -128,7 +128,7 @@ c67c441a5cb22b3ef7368e31a7e76caf Assembly-CSharp.dll:.SimpleCharacterControl
 db782f22d720a4e9886ccd9125d81b92 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Cameras.ProtectCameraFromWallClip
 78a2a366a0a3b585e1178d2dd9d006ab Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.WaypointProgressTracker
 5da672ca1c49ffcf3f8dde2fda9b9183 Assembly-CSharp.dll:.PjControlTest
-e2af59c6758c9d1f8b47dd51fcccb05a Assembly-CSharp.dll:.ColorLevel
+5d41dd34e9784a1b20238f50a7166d9b Assembly-CSharp.dll:.ColorLevel
 ab2d4e5de048fc26f205b5f37bb57f9a Assembly-CSharp.dll:.PaintTerrain
 813668be395bcdd1bf7b85a09080a0f3 Assembly-CSharp.dll:.spawnTerrain
 6e714b24188cddfc9ae1e07d05ed4ddd Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.ParticleSystemDestroyer
@@ -167,7 +167,7 @@ cfa93710d56cd4da2a3b2eec27bc1139 Assembly-CSharp-firstpass.dll:UnityStandardAsse
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:UnityStandardAssets.Water.Displace
 96f42378c8bd9936fa83ba2f4c4d9edd Assembly-CSharp.dll:.PerlinNoiseTerrain
 42dabb22d99895420875874b73526afd Assembly-CSharp.dll:.Owner
-e9a926081f437980abec41c4d05b2e65 Assembly-CSharp.dll:.Health
+ad53658bd167deb49428fec529051559 Assembly-CSharp.dll:.Health
 9c49f3ca2fae9d15ec5d3021c6973443 Assembly-CSharp.dll:.CustomNetworkManager
 ad0843dc5844295eb779e75691b6f0e1 Assembly-CSharp.dll:.Combat
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:UnityStandardAssets.CrossPlatformInput.MobileControlRig
@@ -250,3 +250,8 @@ fdde746c8a70b313aaaf7867917e1982 Assembly-CSharp.dll:.TerrainGeneration
 efe78774255e0887a40e19922e277bad Assembly-CSharp.dll:.InventoryPlayer
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.KeyboardInventory
 0f3d4bb7128a287827d041c696039525 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.AutoMobileShaderSwitch
+92d08a146a7d717885a8498dbaca0168 Assembly-CSharp.dll:.Resource
+2481cfe438c52a713f2430779729f855 Assembly-CSharp.dll:.FabricableItem
+d2788ceaaa94fa931e464c7793f1ad30 Assembly-CSharp.dll:.Weapon
+8c9bb579507d0e480702bfc4092f329d Assembly-CSharp.dll:.Armor
+2481cfe438c52a713f2430779729f855 Assembly-CSharp.dll:.PlaneCraft

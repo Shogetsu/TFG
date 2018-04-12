@@ -35,6 +35,9 @@ public class Inventory : NetworkBehaviour {
     InventorySlot[] InventorySlots;
     CraftingSlot[] CraftingSlots;
 
+    [SyncVar]
+    public int numItemEquipped; // 0 si no hay item equipado
+
     //public SyncListString items = new SyncListString();
     public struct ItemStruct
     {
@@ -44,6 +47,7 @@ public class Inventory : NetworkBehaviour {
         public string material;
         public string itemType;
         public string baseType;
+        public int colorLevel;
     };
 
     public class SyncListItem : SyncListStruct<ItemStruct> { }
@@ -92,14 +96,45 @@ public class Inventory : NetworkBehaviour {
                     if (InventorySlots[i].equip.activeSelf)
                     {
                         InventorySlots[i].SetEquipped(false);
+                        CmdSetNumItemEquipped(0);
+                        GetComponent<Hit>().CmdSetDamage(1); //Al desequipar el item en mano, el danyo del jugador se restablece a 1 
                         break;
                     }
                 }
             }
 
         }
+    }
 
+    public void LosingColorLevelItem()
+    { //Este metodo se invoca a partir de un Command en Hit
+        if (items[numItemEquipped].itemType.Equals("Weapon")) //Solo baja el nivel de color de las armas al golpear
+        {
+            items[numItemEquipped] = new ItemStruct()
+            {
+                itemName = items[numItemEquipped].itemName,
+                quantity = items[numItemEquipped].quantity,
+                color = items[numItemEquipped].color,
+                material = items[numItemEquipped].material,
+                itemType = items[numItemEquipped].itemType,
+                baseType = items[numItemEquipped].baseType,
+                colorLevel = items[numItemEquipped].colorLevel - 5
+            };
 
+            if (items[numItemEquipped].colorLevel <= 0)
+            {
+                RemoveItemEquipped(numItemEquipped);
+                GetComponent<Hit>().CmdSetDamage(1);
+            }
+
+            RpcUpdateHUD();
+        }
+    }
+
+    [Command]
+    void CmdSetNumItemEquipped(int num)
+    {
+        numItemEquipped = num;
     }
 
     void EquipItem(int num)
@@ -116,6 +151,9 @@ public class Inventory : NetworkBehaviour {
                 }
                 //...excepto el item deseado
                 InventorySlots[num - 1].SetEquipped(true);
+                CmdSetNumItemEquipped(num - 1);
+                Debug.Log("Item equipado num: "+numItemEquipped);
+
                 if (InventorySlots[num - 1].item.GetType().Name.Equals("Weapon")) //Si se equipa en mano un arma, los golpes que ocasione el jugador seran mas fuertes
                 {
                     Weapon weapon = InventorySlots[num - 1].item as Weapon;
@@ -146,6 +184,20 @@ public class Inventory : NetworkBehaviour {
         return equipped;
     }
 
+    void ModifyQuantityItem(int num, int quantity)
+    {
+        items[num] = new ItemStruct()
+        {
+            itemName = items[num].itemName,
+            quantity = items[num].quantity + quantity,
+            color = items[num].color,
+            material = items[num].material,
+            itemType = items[num].itemType,
+            baseType = items[num].baseType,
+            colorLevel = items[num].colorLevel
+        };
+    }
+
     [Command]
     public void CmdUseItem(int num)
     {
@@ -164,21 +216,21 @@ public class Inventory : NetworkBehaviour {
                     //Se resta 1 objeto al inventario, solo si tienes 2 o mas
                     if (items[num].quantity >= 2)
                     {
-                        items[num] = new ItemStruct()
-                        {
-                            itemName = items[num].itemName,
-                            quantity = items[num].quantity - 1,
-                            color = items[num].color,
-                            material = items[num].material,
-                            itemType = items[num].itemType,
-                            baseType = items[num].baseType
-                        };
+                        /* items[num] = new ItemStruct()
+                         {
+                             itemName = items[num].itemName,
+                             quantity = items[num].quantity - 1,
+                             color = items[num].color,
+                             material = items[num].material,
+                             itemType = items[num].itemType,
+                             baseType = items[num].baseType
+                         };*/
+                        ModifyQuantityItem(num, -1);
                     }
                     else //Si se tiene 1, se borra por completo del inventario y se desequipa
                     {
 
-                        RpcUnequipAll();
-                        items.RemoveAt(num);
+                        RemoveItemEquipped(num);
                     }
 
                     Debug.Log("Inventario a " + items.Count + " de " + space);
@@ -192,12 +244,14 @@ public class Inventory : NetworkBehaviour {
     [ClientRpc]
     void RpcUnequipAll()
     {
+        
         if (InventorySlots != null)
         {
             for (int i = 0; i < InventorySlots.Length; i++) //Se desequipan todos los items
             {
                 InventorySlots[i].SetEquipped(false);
             }
+            CmdSetNumItemEquipped(0);
         }
     }
 
@@ -214,7 +268,7 @@ public class Inventory : NetworkBehaviour {
     }
 
  
-    public bool Add(string itemName, bool isResource, string color, string material, string itemType, string baseType)
+    public bool Add(string itemName, bool isResource, string color, string material, string itemType, string baseType, int colorLevel)
     {
 
         if (items.Count >= space)
@@ -229,15 +283,17 @@ public class Inventory : NetworkBehaviour {
             if(itemName.Equals(items[i].itemName) && isResource){
                 //Si existe, se suma en 1 la cantidad
                 exist = true;
-                items[i] = new ItemStruct()
-                    {
-                    itemName =items[i].itemName,
-                    quantity=items[i].quantity+1,
-                    color=items[i].color,
-                    material=items[i].material,
-                    itemType=items[i].itemType,
-                    baseType=items[i].baseType
-                    };
+                /* items[i] = new ItemStruct()
+                     {
+                     itemName =items[i].itemName,
+                     quantity=items[i].quantity+1,
+                     color=items[i].color,
+                     material=items[i].material,
+                     itemType=items[i].itemType,
+                     baseType=items[i].baseType
+                     };*/
+                ModifyQuantityItem(i, 1);
+
                 //Debug.Log(items[i].itemName + ", " + items[i].quantity);
                 Debug.Log("Ya existe " + items[i].itemName + " y tiene " + items[i].quantity);
             }
@@ -253,7 +309,8 @@ public class Inventory : NetworkBehaviour {
                 color = color,
                 material=material,
                 itemType=itemType,
-                baseType=baseType
+                baseType=baseType,
+                colorLevel=colorLevel
                 });
         }
 
@@ -283,7 +340,7 @@ public class Inventory : NetworkBehaviour {
             }
             ItemPickup itemPickedUp = collision.gameObject.GetComponent<ItemPickup>();
             
-            bool wasPickedUp = Add(itemPickedUp.item.name, itemPickedUp.item.GetType().Name.Equals("Resource"), itemPickedUp.item.color, itemPickedUp.item.material, itemPickedUp.item.GetType().Name, itemPickedUp.item.GetType().BaseType.Name);
+            bool wasPickedUp = Add(itemPickedUp.item.name, itemPickedUp.item.GetType().Name.Equals("Resource"), itemPickedUp.item.color, itemPickedUp.item.material, itemPickedUp.item.GetType().Name, itemPickedUp.item.GetType().BaseType.Name, 0); //colorLevel = 0 porque los items con los que se colisiona son recursos o consumibles y estos no tienen colorLevel
 
             if (wasPickedUp == true)
             {
@@ -388,7 +445,7 @@ public class Inventory : NetworkBehaviour {
         {
             if (item.itemName.Equals(allitems[i].name))
             {
-                InventorySlots[pos].AddItem((Item)allitems[i], item.quantity, item.color);
+                InventorySlots[pos].AddItem((Item)allitems[i], item.quantity, item.color, item.colorLevel);
             }
         }
     }
@@ -405,17 +462,17 @@ public class Inventory : NetworkBehaviour {
             Debug.Log("Clicked on : " + craftingSlot.item.name);
             Debug.Log("Clicked on : " + go.name);
             FabricableItem fabricableItem = craftingSlot.item as FabricableItem;
-            CmdCraftingItem(craftingSlot.item.name, craftingSlot.item.GetType().Name.Equals("Resource"), go.name, craftingSlot.item.material, fabricableItem.quantityNeeded, craftingSlot.item.GetType().Name, craftingSlot.item.GetType().BaseType.Name);
+            CmdCraftingItem(craftingSlot.item.name, craftingSlot.item.GetType().Name.Equals("Resource"), go.name, craftingSlot.item.material, fabricableItem.quantityNeeded, craftingSlot.item.GetType().Name, craftingSlot.item.GetType().BaseType.Name, fabricableItem.colorLevel);
         }
         else
             Debug.Log("currentSelectedGameObject is null");
     }
 
     [Command]
-    void CmdCraftingItem(string itemName, bool isResource, string color, string material, int quantityNeeded, string itemType, string baseType)
+    void CmdCraftingItem(string itemName, bool isResource, string color, string material, int quantityNeeded, string itemType, string baseType, int colorLevel)
     {
         RemoveResources(color, material, quantityNeeded);
-        if (Add(itemName, isResource, color, material, itemType, baseType))
+        if (Add(itemName, isResource, color, material, itemType, baseType, colorLevel))
         {
             RpcUpdateHUD();
         }
@@ -435,19 +492,19 @@ public class Inventory : NetworkBehaviour {
                     if (items[i].quantity >= quantityNeeded)
                     {
                         success = true;
-                        items[i] = new ItemStruct()
-                        {
-                            itemName = items[i].itemName,
-                            quantity = items[i].quantity - quantityNeeded,
-                            color = items[i].color,
-                            material = items[i].material,
-                            itemType = items[i].itemType,
-                            baseType = items[i].baseType
-                        };
-
+                        /* items[i] = new ItemStruct()
+                         {
+                             itemName = items[i].itemName,
+                             quantity = items[i].quantity - quantityNeeded,
+                             color = items[i].color,
+                             material = items[i].material,
+                             itemType = items[i].itemType,
+                             baseType = items[i].baseType
+                         };*/
+                        ModifyQuantityItem(i, -quantityNeeded);
                         if (items[i].quantity == 0)
                         {
-                            items.RemoveAt(i);
+                            RemoveItemEquipped(i);
                         }
                     }
                 }
@@ -455,5 +512,12 @@ public class Inventory : NetworkBehaviour {
         }
 
         return success;
+    }
+
+    void RemoveItemEquipped(int num)
+    {
+        items.RemoveAt(num);
+        CmdSetNumItemEquipped(0);
+        RpcUnequipAll();
     }
 }

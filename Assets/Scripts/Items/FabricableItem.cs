@@ -6,7 +6,7 @@ using UnityEngine;
 public class FabricableItem : Item
 {
     public int quantityNeeded;
-    public int levelColor;
+    public int colorLevel;
 
     public override void Use(GameObject player) //es virtual para poder sobreescribirlo en funcion del objeto que se este utilizando
     {

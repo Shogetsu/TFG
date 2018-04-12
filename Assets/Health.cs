@@ -37,17 +37,24 @@ public class Health : NetworkBehaviour {
         //Este metodo solo se ejecuta a traves de un Command que envia un jugador con autoridad
         Debug.Log("Bajando la vida...");
         vit = vit - damage;
-        RpcUpdateHealthBar();
+        if (healthBar != null) //healthBar NO es null cuando se trata de un jugador
+        {
+            RpcUpdateHealthBar();
+        }
+
+        if (vit <= 0 && healthBar==null) //healthBar es null cuando se trata de cualquier elemento que no sea un jugador...
+        {
+            //... por lo que soltaran objetos y se destruiran posteriormente
+            GetComponent<Drop>().DropItem(); 
+            NetworkServer.Destroy(this.gameObject);
+        }
     }
 
     [ClientRpc]
     void RpcUpdateHealthBar()
     {
-        if (healthBar != null)
-        {
-            Debug.Log("Me queda: " + vit + " de vida");
-            healthBar.sizeDelta = new Vector2(vit, healthBar.sizeDelta.y);
-        }
+        //Debug.Log("Me queda: " + vit + " de vida");
+        healthBar.sizeDelta = new Vector2(vit, healthBar.sizeDelta.y);
     }
 
     public void CmdStartLosingHealth()

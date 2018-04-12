@@ -18,5 +18,5 @@ MonoBehaviour:
   color: 
   material: Paper
   quantityNeeded: 5
-  levelColor: 150
+  colorLevel: 50
   Damage: 2

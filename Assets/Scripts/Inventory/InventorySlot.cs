@@ -11,8 +11,9 @@ public class InventorySlot : MonoBehaviour {
     public Item item; //item actual en este slot
     //bool equipped = false;
     public GameObject equip;
+    public int colorLevel;
 
-    public void AddItem(Item newItem, int quantity, string color)
+    public void AddItem(Item newItem, int quantity, string color, int newColorLevel)
     {
 
         item = newItem;
@@ -24,10 +25,13 @@ public class InventorySlot : MonoBehaviour {
 
        icon.enabled = true;
        // removeButton.interactable = true;
-        quantityText.color = new Color(50, 50, 50, 255);
+        quantityText.color = new Color32(50, 50, 50, 255);
         quantityText.text = quantity.ToString();
-
-        Debug.Log("El item anyadido es del tipo: " + item.GetType().Name);
+        colorLevel = newColorLevel;
+        icon.color = new Color32(255, 255, 255, 255);
+        UpdateColorIcon();
+        
+        Debug.Log("Anyadido item: " + item.name+" con colorLevel: "+colorLevel);
     }
 
     public void ClearSlot() //vaciar el slot
@@ -38,7 +42,35 @@ public class InventorySlot : MonoBehaviour {
       //  removeButton.interactable = false;
         quantityText.color = new Color(0,0,0,0);
         SetEquipped(false);
+        colorLevel = 0;
+        icon.color = new Color32(255, 255, 255, 255);
         //equipped = false;
+    }
+
+    void UpdateColorIcon()
+    {
+        if (item.GetType().BaseType.Name.Equals("FabricableItem"))
+        {
+            FabricableItem fabricableItem = item as FabricableItem;
+            int colorLevelMAX = fabricableItem.colorLevel;
+
+            if (colorLevel < colorLevelMAX * 0.25)
+            {
+                icon.color = new Color32(63, 63, 63, 255);
+                return;
+            }
+
+            if (colorLevel < colorLevelMAX * 0.50)
+            {
+                icon.color = new Color32(127, 127, 127, 255);
+                return;
+            }
+
+            if (colorLevel < colorLevelMAX * 0.75)
+            {
+                icon.color = new Color32(191, 191, 191, 255);
+            }
+        }
     }
 
    /* public void OnRemoveButton()

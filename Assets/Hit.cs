@@ -38,11 +38,12 @@ public class Hit : NetworkBehaviour {
         if (other.gameObject.GetComponent<Health>() != null)
         {
             other.gameObject.GetComponent<Health>().TakeDamage(damage);
-            if (other.gameObject.GetComponent<Health>().GetVit() <= 0)
-            {
-                other.GetComponent<Drop>().DropItem();
-                NetworkServer.Destroy(other);
-            }
+            /* if (other.gameObject.GetComponent<Health>().GetVit() <= 0)
+             {
+                 other.GetComponent<Drop>().DropItem();
+                 NetworkServer.Destroy(other);
+             }*/
+            GetComponent<Inventory>().LosingColorLevelItem();
         }
     }
 }

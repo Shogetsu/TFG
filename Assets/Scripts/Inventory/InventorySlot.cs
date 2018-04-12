@@ -11,9 +11,10 @@ public class InventorySlot : MonoBehaviour {
     public Item item; //item actual en este slot
     //bool equipped = false;
     public GameObject equip;
+    public GameObject equipArmor;
     public int colorLevel;
 
-    public void AddItem(Item newItem, int quantity, string color, int newColorLevel)
+    public void AddItem(Item newItem, int quantity, string color, int newColorLevel, bool armorEquipped)
     {
 
         item = newItem;
@@ -30,7 +31,8 @@ public class InventorySlot : MonoBehaviour {
         colorLevel = newColorLevel;
         icon.color = new Color32(255, 255, 255, 255);
         UpdateColorIcon();
-        
+        SetEquippedArmor(armorEquipped);
+
         Debug.Log("Anyadido item: " + item.name+" con colorLevel: "+colorLevel);
     }
 
@@ -44,7 +46,7 @@ public class InventorySlot : MonoBehaviour {
         SetEquipped(false);
         colorLevel = 0;
         icon.color = new Color32(255, 255, 255, 255);
-        //equipped = false;
+        SetEquippedArmor(false);
     }
 
     void UpdateColorIcon()
@@ -92,5 +94,10 @@ public class InventorySlot : MonoBehaviour {
     {
         //equipped = e;
         equip.SetActive(e);
+    }
+
+    public void SetEquippedArmor(bool e)
+    {
+        equipArmor.SetActive(e);
     }
 }

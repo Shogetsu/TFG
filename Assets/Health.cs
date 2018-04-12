@@ -9,6 +9,10 @@ public class Health : NetworkBehaviour {
     [SyncVar]
     int vit;
 
+    [SerializeField]
+    [SyncVar]
+    int def = 0;
+
     public int vitMAX = 150;
 
     public RectTransform healthBar;
@@ -26,6 +30,12 @@ public class Health : NetworkBehaviour {
     {
         vit = vitMAX;
     }
+
+    [Command]
+    public void CmdSetDef(int newDef)
+    {
+        def = newDef;
+    }
     
     public int GetVit()
     {
@@ -34,9 +44,17 @@ public class Health : NetworkBehaviour {
 
     public void TakeDamage(int damage)
     {
+        int newDamage = damage - def; //Se aplica la defensa adicional del jugador debido a la armadura equipada (si def=0 el damage sera el mismo, en caso de plantas y animales siempre sera asi)
+
         //Este metodo solo se ejecuta a traves de un Command que envia un jugador con autoridad
-        Debug.Log("Bajando la vida...");
-        vit = vit - damage;
+        Debug.Log("Bajando la vida... damage: "+newDamage);
+        vit = vit - newDamage;
+
+        if (GetComponent<Inventory>() != null) //Solo los jugadores pueden tener inventario y, por tanto, armaduras, en caso contrario se trata de un animal o planta
+        {
+            GetComponent<Inventory>().LosingColorLevelArmor(damage); //Si el jugador que sufre danyo lleva armadura equipada, esta se vera danyada disminuyendo su colorLevel
+        }
+
         if (healthBar != null) //healthBar NO es null cuando se trata de un jugador
         {
             RpcUpdateHealthBar();

@@ -170,7 +170,7 @@ cfa93710d56cd4da2a3b2eec27bc1139 Assembly-CSharp-firstpass.dll:UnityStandardAsse
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:UnityStandardAssets.Water.Displace
 96f42378c8bd9936fa83ba2f4c4d9edd Assembly-CSharp.dll:.PerlinNoiseTerrain
 42dabb22d99895420875874b73526afd Assembly-CSharp.dll:.Owner
-ad53658bd167deb49428fec529051559 Assembly-CSharp.dll:.Health
+ec4e019a2237666e4b1305139823090b Assembly-CSharp.dll:.Health
 9c49f3ca2fae9d15ec5d3021c6973443 Assembly-CSharp.dll:.CustomNetworkManager
 ad0843dc5844295eb779e75691b6f0e1 Assembly-CSharp.dll:.Combat
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:UnityStandardAssets.CrossPlatformInput.MobileControlRig
@@ -242,14 +242,14 @@ cd0167d7ce4ff561cc6218371f7c3c68 Assembly-CSharp.dll:.CameraLogic
 2b5bd81c259c691324a17af9a3e97e85 Assembly-CSharp.dll:.HitCollider
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:UnityStandardAssets.Water.GerstnerDisplace
 6746ad828d32ad6e5c07a63950fd4be6 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Water.WaterTile
-0cb7eb077134cf8646e02c55da6402af Assembly-CSharp.dll:.InventorySlot
+9a5fad4fa94dd94002c025b530c34369 Assembly-CSharp.dll:.InventorySlot
 d0ee1e6819011e6810b3e81ffc447a6a Assembly-CSharp.dll:.SpawnFruit
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.FPSCounter
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Prototype.NetworkLobby.DraggablePanel
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Bullet2
 92d08a146a7d717885a8498dbaca0168 Assembly-CSharp.dll:.Resource
 fdde746c8a70b313aaaf7867917e1982 Assembly-CSharp.dll:.TerrainGeneration
-f68e01b9015ef5d6eaaabc7a32e6ffb9 Assembly-CSharp.dll:.Armor
+4bd8aff5d1f2e9857198fd2e8ae87b9f Assembly-CSharp.dll:.Armor
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SteamManager
 239d2cc8d353bbfcbefc27fa8f0221cc Assembly-CSharp.dll:Prototype.NetworkLobby.LobbyServerList
 efe78774255e0887a40e19922e277bad Assembly-CSharp.dll:.InventoryPlayer

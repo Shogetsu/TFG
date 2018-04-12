@@ -48,6 +48,7 @@ public class Inventory : NetworkBehaviour {
         public string itemType;
         public string baseType;
         public int colorLevel;
+        public bool armorEquipped;
     };
 
     public class SyncListItem : SyncListStruct<ItemStruct> { }
@@ -57,13 +58,20 @@ public class Inventory : NetworkBehaviour {
     {
         EventManager.ItemCraftClicked += ClickCraftItem;
     }
-
+    [Command]
+    void CmdPrueba()
+    {
+        GetComponent<Health>().TakeDamage(1);
+    }
     void Update()
     {
         if (!isLocalPlayer) {
             return;
         }
-
+        /*if (Input.GetMouseButtonDown(0))
+        {
+            CmdPrueba();
+        }*/
         int num;
         if (int.TryParse(Input.inputString, out num))
         {
@@ -76,38 +84,89 @@ public class Inventory : NetworkBehaviour {
         if (InventorySlots != null)
         {
             /*Usar con clic derecho el item equipado en mano*/
-            if (Input.GetMouseButtonDown(1) && Input.GetButton("ShowMouse") == false)
-            {
-                for (int i = 0; i < InventorySlots.Length; i++)
-                {
-                    if (InventorySlots[i].equip.activeSelf)
-                    {
-                        CmdUseItem(i);
-                        break; //Solo habra un item equipado en mano al mismo tiempo, por lo que solo se usara un item a la vez
-                    }
-                }
-            }
+            RightClickUseItemHand();
 
-            /*Desequipar item equipado en mano con clic rueda del raton*/
-            if (Input.GetMouseButtonDown(2) && Input.GetButton("ShowMouse") == false)
-            {
-                for (int i = 0; i < InventorySlots.Length; i++)
-                {
-                    if (InventorySlots[i].equip.activeSelf)
-                    {
-                        InventorySlots[i].SetEquipped(false);
-                        CmdSetNumItemEquipped(0);
-                        GetComponent<Hit>().CmdSetDamage(1); //Al desequipar el item en mano, el danyo del jugador se restablece a 1 
-                        break;
-                    }
-                }
-            }
-
+            /*Desequipar item equipado EN MANO (no armadura) con clic rueda del raton*/
+            MouseWheelClickUnequipHand();
         }
     }
 
-    public void LosingColorLevelItem()
+    void RightClickUseItemHand()
+    {
+        if (Input.GetMouseButtonDown(1) && Input.GetButton("ShowMouse") == false)
+        {
+            for (int i = 0; i < InventorySlots.Length; i++)
+            {
+                if (InventorySlots[i].equip.activeSelf)
+                {
+
+                   if (InventorySlots[i].item.GetType().Name.Equals("Armor") && InventorySlots[i].equipArmor.activeSelf == false)
+                    {
+                        for (int j = 0; j < InventorySlots.Length; j++) //Se desequipan todas las armaduras...
+                        {
+                            InventorySlots[j].SetEquippedArmor(false);
+                            CmdEquipArmor(j, false);
+                        }
+                        //Excepto la armadura deseada
+                        InventorySlots[i].SetEquippedArmor(true);
+                        CmdEquipArmor(i, true);
+                    }
+                    else if (InventorySlots[i].item.GetType().Name.Equals("Armor") && InventorySlots[i].equipArmor.activeSelf == true)
+                    { //Si se vuelve a intentar equipar la misma armadura equipada, esta se desequipara
+                        InventorySlots[i].SetEquippedArmor(false);
+                        CmdEquipArmor(i, false);
+                        GetComponent<Health>().CmdSetDef(0);
+
+                        break;
+                    }
+
+                    CmdUseItem(i);
+                    break; //Como solo habra un item equipado en mano al mismo tiempo, solo se usara un item a la vez
+                }
+            }
+        }
+    }
+
+    [Command]
+    void CmdEquipArmor(int num, bool e)
+    {
+        if (num < items.Count)
+        {
+            items[num] = new ItemStruct()
+            {
+                itemName = items[num].itemName,
+                quantity = items[num].quantity,
+                color = items[num].color,
+                material = items[num].material,
+                itemType = items[num].itemType,
+                baseType = items[num].baseType,
+                colorLevel = items[num].colorLevel,
+                armorEquipped = e
+            };
+        }
+    }
+
+    void MouseWheelClickUnequipHand()
+    {
+        if (Input.GetMouseButtonDown(2) && Input.GetButton("ShowMouse") == false)
+        {
+            for (int i = 0; i < InventorySlots.Length; i++)
+            {
+                if (InventorySlots[i].equip.activeSelf)
+                {
+                    InventorySlots[i].SetEquipped(false);
+                    CmdSetNumItemEquipped(0);
+                    GetComponent<Hit>().CmdSetDamage(1); //Al desequipar el item en mano, el danyo del jugador se restablece a 1 
+                    break;
+                }
+            }
+        }
+    }
+
+    public void LosingColorLevelWeapon()
     { //Este metodo se invoca a partir de un Command en Hit
+        if (items.Count == 0) return;
+
         if (items[numItemEquipped].itemType.Equals("Weapon")) //Solo baja el nivel de color de las armas al golpear
         {
             items[numItemEquipped] = new ItemStruct()
@@ -118,7 +177,8 @@ public class Inventory : NetworkBehaviour {
                 material = items[numItemEquipped].material,
                 itemType = items[numItemEquipped].itemType,
                 baseType = items[numItemEquipped].baseType,
-                colorLevel = items[numItemEquipped].colorLevel - 5
+                colorLevel = items[numItemEquipped].colorLevel - 5,
+                armorEquipped = items[numItemEquipped].armorEquipped
             };
 
             if (items[numItemEquipped].colorLevel <= 0)
@@ -126,9 +186,39 @@ public class Inventory : NetworkBehaviour {
                 RemoveItemEquipped(numItemEquipped);
                 GetComponent<Hit>().CmdSetDamage(1);
             }
-
             RpcUpdateHUD();
         }
+    }
+
+    public void LosingColorLevelArmor(int damage)
+    {
+        if (items.Count == 0) return;
+
+        for(int i=0; i < items.Count; i++)
+        {
+            if (items[i].armorEquipped)
+            {
+                items[i] = new ItemStruct()
+                {
+                    itemName = items[i].itemName,
+                    quantity = items[i].quantity,
+                    color = items[i].color,
+                    material = items[i].material,
+                    itemType = items[i].itemType,
+                    baseType = items[i].baseType,
+                    colorLevel = items[i].colorLevel - damage,
+                    armorEquipped = items[i].armorEquipped
+                };
+
+                if(items[i].colorLevel <= 0)
+                {
+                    RemoveArmorEquipped(i);
+                    GetComponent<Health>().CmdSetDef(0);
+                }
+                break;
+            }
+        }
+        RpcUpdateHUD();
     }
 
     [Command]
@@ -194,7 +284,8 @@ public class Inventory : NetworkBehaviour {
             material = items[num].material,
             itemType = items[num].itemType,
             baseType = items[num].baseType,
-            colorLevel = items[num].colorLevel
+            colorLevel = items[num].colorLevel,
+            armorEquipped = items[num].armorEquipped
         };
     }
 
@@ -207,7 +298,7 @@ public class Inventory : NetworkBehaviour {
             Debug.Log("Se va a usar el objeto de la posicion " + num);
             RpcUseItem(num);
 
-            if (items[num].baseType.Equals("FabricableItem") == false) //Se comprueba si es hijo de la clase FabricableItem, porque estos no se consumen de igual forma que el resto
+            if (items[num].baseType.Equals("FabricableItem") == false) //Se comprueba si es hijo de la clase FabricableItem, porque estos no se consumen de forma directa como el resto
             {
                 if(items[num].material.Equals("Paper") || items[num].itemType.Equals("ConsumableItem"))
                 {
@@ -252,6 +343,19 @@ public class Inventory : NetworkBehaviour {
                 InventorySlots[i].SetEquipped(false);
             }
             CmdSetNumItemEquipped(0);
+        }
+    }
+
+    [ClientRpc]
+    void RpcUnequipAllArmor()
+    {
+
+        if (InventorySlots != null)
+        {
+            for (int i = 0; i < InventorySlots.Length; i++) //Se desequipan todos los items
+            {
+                InventorySlots[i].SetEquippedArmor(false);
+            }
         }
     }
 
@@ -310,7 +414,8 @@ public class Inventory : NetworkBehaviour {
                 material=material,
                 itemType=itemType,
                 baseType=baseType,
-                colorLevel=colorLevel
+                colorLevel=colorLevel,
+                armorEquipped=false
                 });
         }
 
@@ -396,6 +501,7 @@ public class Inventory : NetworkBehaviour {
     void UpdateInventory(SyncListItem items, InventorySlot[] slots)
     {
         Debug.Log("Actualizando inventario");
+
         for (int i = 0; i < slots.Length; i++)
         {
             if (i < items.Count)
@@ -445,7 +551,7 @@ public class Inventory : NetworkBehaviour {
         {
             if (item.itemName.Equals(allitems[i].name))
             {
-                InventorySlots[pos].AddItem((Item)allitems[i], item.quantity, item.color, item.colorLevel);
+                InventorySlots[pos].AddItem((Item)allitems[i], item.quantity, item.color, item.colorLevel, item.armorEquipped);
             }
         }
     }
@@ -517,7 +623,12 @@ public class Inventory : NetworkBehaviour {
     void RemoveItemEquipped(int num)
     {
         items.RemoveAt(num);
-        CmdSetNumItemEquipped(0);
         RpcUnequipAll();
+    }
+
+    void RemoveArmorEquipped(int num)
+    {
+        items.RemoveAt(num);
+        RpcUnequipAllArmor();
     }
 }

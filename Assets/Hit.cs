@@ -26,8 +26,11 @@ public class Hit : NetworkBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-            Debug.Log("Golpeo a " + other.gameObject.name);
-            CmdHitted(other.gameObject, damage); //IMPORTANTE - SOLO los gameObject con NetworkId ya instanciados en el servidor son los unicos gameObject que se pueden pasar por parametro en un Command o Rcp, de lo contrario seran NULL
+        Debug.Log("Golpeo a " + other.gameObject.name);
+        if (other.gameObject.GetComponent<NetworkIdentity>() != null)
+        {//IMPORTANTE - SOLO los gameObject con NetworkId ya instanciados en el servidor son los unicos gameObject que se pueden pasar por parametro en un Command o Rcp, de lo contrario seran NULL
+            CmdHitted(other.gameObject, damage); 
+        }   
     }
 
     [Command]
@@ -43,7 +46,7 @@ public class Hit : NetworkBehaviour {
                  other.GetComponent<Drop>().DropItem();
                  NetworkServer.Destroy(other);
              }*/
-            GetComponent<Inventory>().LosingColorLevelItem();
+            GetComponent<Inventory>().LosingColorLevelWeapon();
         }
     }
 }

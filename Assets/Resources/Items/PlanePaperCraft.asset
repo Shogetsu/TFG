@@ -18,4 +18,4 @@ MonoBehaviour:
   color: 
   material: Paper
   quantityNeeded: 15
-  levelColor: 0
+  colorLevel: 5

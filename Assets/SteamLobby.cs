@@ -51,15 +51,16 @@ namespace Prototype.NetworkLobby
         {
             SteamAPI.RunCallbacks();
             /*COMANDOS PARA PROBAR LOS METODOS DE STEAMWORKS!!!!!*/
+           
             // Command - Create new lobby
-            if (Input.GetKeyDown(KeyCode.C))
+           /* if (Input.GetKeyDown(KeyCode.C))
             {
                 Debug.Log("Trying to create lobby ...");
                 SteamAPICall_t try_toHost = SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypePublic, 4);
-            }
+            }*/
 
             // Command - List lobbies
-            if (Input.GetKeyDown(KeyCode.L))
+           /* if (Input.GetKeyDown(KeyCode.L))
             {
 
                 Debug.Log("Trying to get list of available lobbies ...");
@@ -69,17 +70,17 @@ namespace Prototype.NetworkLobby
 
 
 
-            }
+            }*/
 
             // Command - Join lobby at index 0 (testing purposes)
-            if (Input.GetKeyDown(KeyCode.J))
+            /*if (Input.GetKeyDown(KeyCode.J))
             {
                 Debug.Log("Trying to join FIRST listed lobby ...");
                 SteamAPICall_t try_joinLobby = SteamMatchmaking.JoinLobby(SteamMatchmaking.GetLobbyByIndex(0));
-            }
+            }*/
 
             // Command - List lobby members
-            if (Input.GetKeyDown(KeyCode.Q))
+           /* if (Input.GetKeyDown(KeyCode.Q))
             {
                 int numPlayers = SteamMatchmaking.GetNumLobbyMembers((CSteamID)current_lobbyID);
 
@@ -88,7 +89,7 @@ namespace Prototype.NetworkLobby
                 {
                     Debug.Log("\t Player(" + i + ") == " + SteamFriends.GetFriendPersonaName(SteamMatchmaking.GetLobbyMemberByIndex((CSteamID)current_lobbyID, i)));
                 }
-            }
+            }*/
         }
 
         void OnGameLobbyJoinRequested(GameLobbyJoinRequested_t pCallback)

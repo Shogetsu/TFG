@@ -17,6 +17,7 @@ MonoBehaviour:
   iconGreen: {fileID: 21300000, guid: efdd93574b306984cb1e01955bd5d37b, type: 3}
   color: 
   material: Paper
-  quantityNeeded: 2
+  quantityNeeded: 15
   colorLevel: 50
+  resourceNeeded: {fileID: 11400000, guid: 19c1af02383d9224da8934f56d501634, type: 2}
   Damage: 6

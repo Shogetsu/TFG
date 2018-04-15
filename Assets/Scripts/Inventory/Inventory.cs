@@ -54,15 +54,20 @@ public class Inventory : NetworkBehaviour {
     public class SyncListItem : SyncListStruct<ItemStruct> { }
     public SyncListItem items = new SyncListItem();
 
+
+    //RaycastHit hit;
+
     void Start()
     {
         EventManager.ItemCraftClicked += ClickCraftItem;
     }
-    [Command]
+
+    /*[Command]
     void CmdPrueba()
     {
         GetComponent<Health>().TakeDamage(1);
     }
+    */
     void Update()
     {
         if (!isLocalPlayer) {
@@ -72,6 +77,21 @@ public class Inventory : NetworkBehaviour {
         {
             CmdPrueba();
         }*/
+        /* if(Physics.SphereCast(transform.position, 2, transform.forward, out hit, 3))
+         {
+             print("Found an object - distance: " + hit.distance + " " + hit.collider.gameObject.name);
+             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+         }*/
+
+        /*  Debug.DrawRay(GetComponent<PjControl>().playerModel.transform.position + new Vector3(0f, 0.75f, 0f), transform.TransformDirection(GetComponent<PjControl>().playerModel.transform.forward) * 100, Color.black);
+          if (Physics.Raycast(GetComponent<PjControl>().playerModel.transform.position + new Vector3(0f, 0.75f, 0f), GetComponent<PjControl>().playerModel.transform.forward, out hit))
+          {
+             // Debug.DrawRay(GetComponent<PjControl>().playerModel.transform.position + new Vector3(0f, 0.75f, 0f), transform.TransformDirection(GetComponent<PjControl>().playerModel.transform.forward) * hit.distance, Color.black);
+              print("Found an object - distance: " + hit.distance + " " + hit.collider.gameObject.name);
+
+          }*/
+        //posRaycastOrigen.position = new Vector3(GetComponent<PjControl>().playerModel.transform.position.x, GetComponent<PjControl>().playerModel.transform.position.y - 1.5f, GetComponent<PjControl>().playerModel.transform.position.z);
+        
         int num;
         if (int.TryParse(Input.inputString, out num))
         {
@@ -88,6 +108,15 @@ public class Inventory : NetworkBehaviour {
 
             /*Desequipar item equipado EN MANO (no armadura) con clic rueda del raton*/
             MouseWheelClickUnequipHand();
+
+            /*Dejar caer el item equipado en mano*/
+            if (Input.GetButtonDown("DropItem"))
+            {
+                if (DropItem(GetItemNameEquipped()))
+                {
+                    CmdRemoveItemDropped(numItemEquipped);
+                }
+            }
         }
     }
 
@@ -258,21 +287,37 @@ public class Inventory : NetworkBehaviour {
         }
     }
 
-    public bool Equipped()
+    public string GetItemNameEquipped()
     {
-        bool equipped = false;
+        string itemName = null;
         if (InventorySlots != null)
         {
             for (int i = 0; i < InventorySlots.Length; i++)
             {
                 if (InventorySlots[i].equip.activeSelf)
                 {
-                    equipped = true;
+                    itemName=InventorySlots[i].item.name;
                 }
             }
         }
-        return equipped;
+        return itemName;
     }
+
+   /* public int GetItemPosEquipped()
+    {
+        int itemPos=-1;
+        if (InventorySlots != null)
+        {
+            for (int i = 0; i < InventorySlots.Length; i++)
+            {
+                if (InventorySlots[i].equip.activeSelf)
+                {
+                    itemPos = i;
+                }
+            }
+        }
+        return itemPos;
+    }*/
 
     void ModifyQuantityItem(int num, int quantity)
     {
@@ -474,6 +519,88 @@ public class Inventory : NetworkBehaviour {
         return exist;
     }
 
+    bool DropItem(string itemName)
+    {
+
+        if (itemName == null) return false;
+
+        Debug.Log("Intentando dejar caer el objeto " + itemName);
+
+        
+        CmdSpawnDropItem(itemName);
+        return true;
+    }
+
+    [Command]
+    void CmdSpawnDropItem(string itemName)
+    {
+        Object[] allitems = Resources.LoadAll("Prefabs", typeof(GameObject));
+
+        for (int i = 0; i < allitems.Length; i++)
+        {
+            GameObject itemGameobject = (GameObject)allitems[i];
+            if (itemName.Equals(itemGameobject.GetComponent<ItemPickup>().item.name))
+            {
+                //El Objeto equipado se arroja al suelo
+                if (itemGameobject.GetComponent<ItemPickup>().item.GetType().BaseType.Name.Equals("FabricableItem") == false)
+                {
+                    Debug.Log(allitems[i].name + " encontrado");
+                    NetworkServerSpawnItem((GameObject)allitems[i]);
+                    break;
+                }
+                //Si se trata de un item fabricable, el objeto caera al suelo y se rompera, haciendo que aparezca una parte de los recursos empleados para fabricarlo (esto permite hacer que el jugador recupere parte de los recursos antes de que dejar que el objeto se rompa mientras este equipado)
+                else
+                {
+                    Debug.Log(allitems[i].name + " encontrado");
+                    FabricableItem fabricableItem = itemGameobject.GetComponent<ItemPickup>().item as FabricableItem; //Objeto que se desea tirar al suelo
+
+                    GameObject spawnResource = null;
+                    for(int j=0; j<allitems.Length; j++)
+                    {
+                        GameObject go = (GameObject) allitems[j];
+                        //Se busca el recurso del que esta hecho el objeto fabricable que se desea tirar al suelo
+                        if (go.GetComponent<ItemPickup>().item.color.Equals(items[numItemEquipped].color) && go.GetComponent<ItemPickup>().item.material.Equals(fabricableItem.material)) 
+                        {
+                            spawnResource = go;
+                        }
+                    }
+
+                    if (spawnResource != null)
+                    {
+
+                        int numResources = Random.Range(1, (int)(fabricableItem.quantityNeeded / 1.5f)+1); //Los posibles recursos recuperados al destruir el objeto podran ser entre 1 y la cantidad total necesaria entre 1,5 (+1 porque el valor maximo de Random.Range esta excluido)
+
+                        int r = 0;
+                        while (r < numResources)
+                        {
+                            Debug.Log("r: " + r);
+                            NetworkServerSpawnItem(spawnResource);
+                            r++;
+                           
+                        }
+
+                        Debug.Log("Cantidad de recursos recuperados: " + numResources);
+                    }
+                    break;
+                }
+            }
+        } 
+    }
+
+    void NetworkServerSpawnItem(GameObject itemDropped)
+    {
+        Vector3 playerPos = this.transform.position;
+        playerPos = new Vector3(this.transform.position.x + Random.Range(-0.1f, 0.25f), this.transform.position.y, this.transform.position.z + Random.Range(-0.25f, 0.25f)); //Pequenya aleatoriedad de la posicion donde caen las objetos al tirarlos al suelo
+        Vector3 playerDirection = this.transform.forward;
+        Quaternion playerRotation = this.transform.rotation;
+       // float spawnDistance = 1;
+        Vector3 spawnPos = playerPos + playerDirection;
+
+        GameObject itemSpawn = Instantiate(itemDropped, spawnPos, playerRotation);
+
+        NetworkServer.Spawn(itemSpawn);
+    }
+
     [ClientRpc]
     void RpcUpdateHUD()
     {
@@ -630,5 +757,16 @@ public class Inventory : NetworkBehaviour {
     {
         items.RemoveAt(num);
         RpcUnequipAllArmor();
+    }
+
+    [Command]
+    void CmdRemoveItemDropped(int num)
+    {
+        ModifyQuantityItem(num, -1);
+
+        if(items[num].quantity==0)
+            RemoveItemEquipped(num);
+
+        RpcUpdateHUD();
     }
 }

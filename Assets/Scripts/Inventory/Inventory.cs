@@ -144,8 +144,6 @@ public class Inventory : NetworkBehaviour {
                     { //Si se vuelve a intentar equipar la misma armadura equipada, esta se desequipara
                         InventorySlots[i].SetEquippedArmor(false);
                         CmdEquipArmor(i, false);
-                        GetComponent<Health>().CmdSetDef(0);
-
                         break;
                     }
 
@@ -173,7 +171,11 @@ public class Inventory : NetworkBehaviour {
                 armorEquipped = e
             };
         }
+
+        if (e == false)
+            GetComponent<Health>().CmdSetDef(0);
     }
+
 
     void MouseWheelClickUnequipHand()
     {
@@ -242,7 +244,6 @@ public class Inventory : NetworkBehaviour {
                 if(items[i].colorLevel <= 0)
                 {
                     RemoveArmorEquipped(i);
-                    GetComponent<Health>().CmdSetDef(0);
                 }
                 break;
             }
@@ -578,9 +579,15 @@ public class Inventory : NetworkBehaviour {
                             r++;
                            
                         }
-
                         Debug.Log("Cantidad de recursos recuperados: " + numResources);
                     }
+
+                    /*Importante resetear el danyo o defensa del jugador en caso de que el item que se arroja al suelo sea un arma o una armadura*/
+                    if(fabricableItem.GetType().Name.Equals("Weapon"))
+                        GetComponent<Hit>().CmdSetDamage(1);
+                    if (fabricableItem.GetType().Name.Equals("Armor"))
+                        GetComponent<Health>().CmdSetDef(0);
+
                     break;
                 }
             }
@@ -755,6 +762,7 @@ public class Inventory : NetworkBehaviour {
 
     void RemoveArmorEquipped(int num)
     {
+        GetComponent<Health>().CmdSetDef(0);
         items.RemoveAt(num);
         RpcUnequipAllArmor();
     }

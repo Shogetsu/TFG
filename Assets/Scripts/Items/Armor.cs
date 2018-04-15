@@ -15,5 +15,6 @@ public class Armor : FabricableItem
         Debug.Log("... y el item fabricado que estoy usando es una armadura.");
 
         player.GetComponent<Health>().CmdSetDef(def);
+
     }
 }

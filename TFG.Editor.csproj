@@ -134,6 +134,11 @@
     <Compile Include="Assets\Editor\Steamworks.NET\RedistCopy.cs" />
     <Compile Include="Assets\Editor\Steamworks.NET\RedistInstall.cs" />
     <Compile Include="Assets\Editor\TerrainBuilderEditor.cs" />
+    <Compile Include="Assets\NavMeshComponents\Editor\NavMeshComponentsGUIUtility.cs" />
+    <Compile Include="Assets\NavMeshComponents\Editor\NavMeshLinkEditor.cs" />
+    <Compile Include="Assets\NavMeshComponents\Editor\NavMeshModifierEditor.cs" />
+    <Compile Include="Assets\NavMeshComponents\Editor\NavMeshModifierVolumeEditor.cs" />
+    <Compile Include="Assets\NavMeshComponents\Editor\NavMeshSurfaceEditor.cs" />
     <Compile Include="Assets\PostProcessing\Editor\Attributes\PostProcessingModelEditorAttribute.cs" />
     <Compile Include="Assets\PostProcessing\Editor\Models\AmbientOcclusionModelEditor.cs" />
     <Compile Include="Assets\PostProcessing\Editor\Models\AntialiasingModelEditor.cs" />

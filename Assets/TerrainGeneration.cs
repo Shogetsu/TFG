@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.Networking; 
+using UnityEngine.Networking;
 
 //public class SyncListH : SyncListStruct<float> { }
 
@@ -7,7 +7,7 @@ public class TerrainGeneration : NetworkBehaviour
 {
     Terrain terrain;
 
-  // public SyncListFloat SyncListHeightsClient = new SyncListFloat();
+    // public SyncListFloat SyncListHeightsClient = new SyncListFloat();
 
     float[,] heights;
 
@@ -273,9 +273,10 @@ public class TerrainGeneration : NetworkBehaviour
         
        // RpcTerrain(offsetX, offsetY);
         terrain = GetComponent<Terrain>(); //Accedemos al objeto Terreno
-        GenerateTerrain(terrain.terrainData); //Crearemos un nuevo terreno a partir de un nuevo 
-                                              //terrain.terrainData.SetHeights(0, 0, heights); //Se asigna el array de alturas al terreno  
-        Debug.Log("Terreno creado");
+        //Crearemos un nuevo terreno a partir de uno nuevo 
+        if (GenerateTerrain(terrain.terrainData) != null)
+            Debug.Log("Terreno creado");  
+         //terrain.terrainData.SetHeights(0, 0, heights); //Se asigna el array de alturas al terreno  
 
         if (isClient)
         {

@@ -11,6 +11,22 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1387001489608526}
   m_IsPrefabParent: 1
+--- !u!1 &1023149913371028
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4089068113757724}
+  - component: {fileID: 114327452760700100}
+  m_Layer: 0
+  m_Name: TerrainNavBaker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1387001489608526
 GameObject:
   m_ObjectHideFlags: 0
@@ -19,6 +35,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4680145835453836}
+  - component: {fileID: 114429908355789442}
   - component: {fileID: 218517658172291518}
   - component: {fileID: 154446740218035818}
   - component: {fileID: 114281558162396996}
@@ -32,6 +49,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
+--- !u!4 &4089068113757724
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1023149913371028}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.0669098, y: 0.3068962, z: 13.348511}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4680145835453836}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4680145835453836
 Transform:
   m_ObjectHideFlags: 1
@@ -41,7 +71,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4089068113757724}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -101,9 +132,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97c0e51facf46974bb3ac7570b7a8e16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  depth: 40
-  width: 1024
-  height: 1024
+  depth: 20
+  width: 256
+  height: 256
   scale: 2
   offsetX: 100.89
   offsetY: 100
@@ -111,7 +142,7 @@ MonoBehaviour:
   treePrefab2: {fileID: 1148186193318646, guid: 728e5235d785dc741b057e5294f68d0b,
     type: 2}
   numForest: 10
-  numTrees: 60
+  numTrees: 20
   maxForestRadius: 10.6
   numMountains: 0
   heightChange: 0.001
@@ -156,6 +187,46 @@ MonoBehaviour:
     i15: 231
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!114 &114327452760700100
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1023149913371028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bbe0ba92d755ba4c85d41019793ee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  surface: {fileID: 114429908355789442}
+--- !u!114 &114429908355789442
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1387001489608526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_BuildHeightMesh: 0
+  m_NavMeshData: {fileID: 0}
 --- !u!114 &114748054724106770
 MonoBehaviour:
   m_ObjectHideFlags: 1

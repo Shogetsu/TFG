@@ -20,12 +20,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4238605615060692}
   - component: {fileID: 33163318829212894}
-  - component: {fileID: 65015000295101568}
   - component: {fileID: 23879913668836654}
   - component: {fileID: 195770851973975326}
   - component: {fileID: 114146542249740932}
   - component: {fileID: 114577876664064704}
   - component: {fileID: 114439052102159780}
+  - component: {fileID: 65760079610386916}
   m_Layer: 0
   m_Name: Rabbit
   m_TagString: Untagged
@@ -40,7 +40,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1760288965803100}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 142.578, y: 6.52, z: 239.91046}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.4176319, y: 0.7929027, z: 0.45573395}
   m_Children: []
   m_Father: {fileID: 0}
@@ -85,7 +85,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1760288965803100}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65015000295101568
+--- !u!65 &65760079610386916
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

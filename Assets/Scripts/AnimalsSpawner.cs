@@ -26,8 +26,8 @@ public class AnimalsSpawner : NetworkBehaviour {
     {
         //counter
 
-        GameObject go = GameObject.Instantiate(animalPrefab, animalSpawn.transform.position, Quaternion.identity) as GameObject;
-        NetworkServer.Spawn(go);
+       GameObject go = GameObject.Instantiate(animalPrefab, animalSpawn.transform.position, Quaternion.identity) as GameObject;
+       NetworkServer.Spawn(go);
     }
     // Use this for initialization
     void Start () {

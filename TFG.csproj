@@ -119,6 +119,11 @@
     <Compile Include="Assets\Modelos\Fruta\Use.cs" />
     <Compile Include="Assets\Modelos\Personajes\PjControl.cs" />
     <Compile Include="Assets\Modelos\Personajes\PjControlTest.cs" />
+    <Compile Include="Assets\NavigationBaker.cs" />
+    <Compile Include="Assets\NavMeshComponents\Scripts\NavMeshLink.cs" />
+    <Compile Include="Assets\NavMeshComponents\Scripts\NavMeshModifier.cs" />
+    <Compile Include="Assets\NavMeshComponents\Scripts\NavMeshModifierVolume.cs" />
+    <Compile Include="Assets\NavMeshComponents\Scripts\NavMeshSurface.cs" />
     <Compile Include="Assets\Owner.cs" />
     <Compile Include="Assets\PaintTerrain.cs" />
     <Compile Include="Assets\PaintTerrain2.cs" />

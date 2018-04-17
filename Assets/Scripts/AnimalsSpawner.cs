@@ -12,7 +12,7 @@ public class AnimalsSpawner : NetworkBehaviour {
     GameObject animalSpawn;
 
     int counter;
-    int numberOfAnimals = 3;
+    int numberOfAnimals = 1;
 
     public override void OnStartServer()
     {

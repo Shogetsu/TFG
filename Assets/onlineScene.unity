@@ -6309,7 +6309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8db9cc5409dce884b9d7100358a1c52e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animalPrefab: {fileID: 1760288965803100, guid: 2b7e760d8325f1847a65f253c3d32e96,
+  animalPrefab: {fileID: 1529133977897490, guid: fc97083ac24207644b218b9f1de63ac4,
     type: 2}
   animalSpawn: {fileID: 1818158594}
 --- !u!4 &1980942654

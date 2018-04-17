@@ -12,12 +12,17 @@ public class EnemyTarget : NetworkBehaviour {
     LayerMask raycastLayer;
     float radius = 10;
 
-	// Use this for initialization
-	void Start ()
+
+    public float wanderRadius;
+    public float wanderTimer;
+    private float timer;
+
+
+    // Use this for initialization
+    void Start ()
     {
         agent = GetComponent<NavMeshAgent>();
-        //agent.height = 0.5f;
-        agent.baseOffset = 0;
+
         myTransform = transform;
         raycastLayer = 1 << LayerMask.NameToLayer("Player");
 	}
@@ -27,10 +32,21 @@ public class EnemyTarget : NetworkBehaviour {
     {
         if (!isServer)
             return;
+        
+                SearchToTarget();
+                MoveToTarget();
+        
+        /*Movimiento aleatorio en un radio*/
+       /* timer += Time.deltaTime;
 
-        SearchToTarget();
-        MoveToTarget();
-	}
+        if (timer >= wanderTimer)
+        {
+            Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
+            agent.SetDestination(newPos);
+            //Quaternion.LookRotation(newPos);
+            timer = 0;
+        }*/
+    }
 
     void SearchToTarget()
     {
@@ -68,13 +84,46 @@ public class EnemyTarget : NetworkBehaviour {
     {
         if (targetTransform != null)
         {
-            Debug.Log(targetTransform.gameObject.name);
+            //Debug.Log(targetTransform.gameObject.name);
             SetNavDestination(targetTransform);
         }
     }
 
     void SetNavDestination(Transform dest)
     {
+        myTransform.LookAt(dest);
         agent.SetDestination(dest.position);
+        //Debug.Log(DestinationReached());
+    }
+
+    bool DestinationReached()
+    {
+        bool done = false;
+        //Se comprueba si el Agente ha llegado a su destino
+        if (!agent.pathPending)
+        {
+            if (agent.remainingDistance <= agent.stoppingDistance)
+            {
+                if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
+                {
+                    done = true;
+                }
+            }
+        }
+        return done;
+    }
+
+
+    public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
+    {
+        Vector3 randDirection = Random.insideUnitSphere * dist;
+
+        randDirection += origin;
+
+        NavMeshHit navHit;
+
+        NavMesh.SamplePosition(randDirection, out navHit, dist, layermask);
+
+        return navHit.position;
     }
 }

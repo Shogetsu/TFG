@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 33872479934923642}
   - component: {fileID: 135754970659976330}
   - component: {fileID: 114351705966703750}
-  m_Layer: 8
+  m_Layer: 2
   m_Name: HitCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -686,8 +686,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1229154644669544}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 144.33153, y: -3.9838367, z: 192.9815}
-  m_LocalScale: {x: 0.3678083, y: 0.3678082, z: 0.3678082}
+  m_LocalPosition: {x: 8.792408, y: 3.3582563, z: 8.557609}
+  m_LocalScale: {x: 0.36, y: 0.36, z: 0.36}
   m_Children:
   - {fileID: 4201133496045718}
   - {fileID: 4365823848006346}
@@ -1280,7 +1280,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vit: 150
   def: 0
-  vitMAX: 150
   healthBar: {fileID: 224952271545098172}
 --- !u!114 &114193274099769092
 MonoBehaviour:
@@ -1334,7 +1333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f984925d9a95e584785c1e0f44a11fd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1229154644669544}
+  character: {fileID: 1229154644669544}
 --- !u!114 &114373862233288958
 MonoBehaviour:
   m_ObjectHideFlags: 1

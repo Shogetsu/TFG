@@ -5,7 +5,7 @@ using UnityEngine;
 public class HitCollider : MonoBehaviour
 {
 
-    public GameObject player;
+    public GameObject character;
 
     void Start()
     {
@@ -19,9 +19,16 @@ public class HitCollider : MonoBehaviour
 
     void ActiveTrigger()
     {
-        if (player.GetComponent<PjControl>().GetAnimator() != null)
+        if (character.GetComponent<Animator>() != null)
         {
-            if (player.GetComponent<PjControl>().GetAnimator().GetCurrentAnimatorStateInfo(0).IsName("Hitting"))
+            if (character.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Hitting"))
+                GetComponent<Collider>().isTrigger = true;
+            else
+                GetComponent<Collider>().isTrigger = false;
+
+        }else if(character.transform.GetChild(0).GetComponent<Animator>() != null)
+        {
+            if (character.transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Hitting"))
                 GetComponent<Collider>().isTrigger = true;
             else
                 GetComponent<Collider>().isTrigger = false;

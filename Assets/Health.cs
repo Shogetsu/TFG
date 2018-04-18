@@ -13,7 +13,7 @@ public class Health : NetworkBehaviour {
     [SyncVar]
     int def = 0;
 
-    public int vitMAX = 150;
+   // public int vitMAX = 150;
 
     public RectTransform healthBar;
 
@@ -22,14 +22,15 @@ public class Health : NetworkBehaviour {
     void Start () {
         if (!isLocalPlayer)
             return;
-        CmdSetVITMAX();
+       // CmdSetVITMAX();
     }
 	
-    [Command]
+   /* [Command]
     public void CmdSetVITMAX()
     {
         vit = vitMAX;
     }
+    */
 
     [Command]
     public void CmdSetDef(int newDef)
@@ -65,6 +66,11 @@ public class Health : NetworkBehaviour {
             //... por lo que soltaran objetos y se destruiran posteriormente
             GetComponent<Drop>().DropItem(); 
             NetworkServer.Destroy(this.gameObject);
+        }
+
+        if (GetComponent<AnimalIA>() != null) //Si se trata de un animal, este entrara en el estado de huida al sufrir danyo
+        {
+            GetComponent<AnimalIA>().SetState("runAway");
         }
     }
 

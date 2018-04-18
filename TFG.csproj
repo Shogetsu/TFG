@@ -84,6 +84,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\AnimalIA.cs" />
     <Compile Include="Assets\Billboard.cs" />
     <Compile Include="Assets\Bullet2.cs" />
     <Compile Include="Assets\ColorLevel.cs" />
@@ -93,7 +94,6 @@
     <Compile Include="Assets\CustomNetworkTransform.cs" />
     <Compile Include="Assets\DisplayName.cs" />
     <Compile Include="Assets\Drop.cs" />
-    <Compile Include="Assets\EnemyTarget.cs" />
     <Compile Include="Assets\EventManager.cs" />
     <Compile Include="Assets\Health.cs" />
     <Compile Include="Assets\HealthBar.cs" />

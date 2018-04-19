@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 
 public class Drop : NetworkBehaviour {
 
-    public GameObject item;
+    GameObject item;
 
 	// Use this for initialization
 	void Start () {
@@ -28,6 +28,25 @@ public class Drop : NetworkBehaviour {
 
     public void DropItem()
     {
+        Object[] allitems = Resources.LoadAll("Prefabs", typeof(GameObject));
+        for (int i = 0; i < allitems.Length; i++)
+        {
+            GameObject go = (GameObject)allitems[i];
+            Debug.Log(go.GetComponent<ItemPickup>().item.color);
+            Debug.Log(go.GetComponent<ItemPickup>().item.material);
+
+            Debug.Log(GetComponent<SetupAnimalPlant>().colorString);
+            Debug.Log(GetComponent<SetupAnimalPlant>().material);
+
+
+            if (go.GetComponent<ItemPickup>().item.color.Equals(GetComponent<SetupAnimalPlant>().colorString) &&
+                go.GetComponent<ItemPickup>().item.material.Equals(GetComponent<SetupAnimalPlant>().material))
+            {
+                item = go;
+                break;
+            }
+        }
+
         GameObject itemDropped = Instantiate(item, this.gameObject.transform.position, Quaternion.identity);
         NetworkServer.Spawn(itemDropped);
     }

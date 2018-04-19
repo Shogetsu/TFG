@@ -8,7 +8,7 @@ public class AnimalIA : NetworkBehaviour {
 
     NavMeshAgent agent;
     Transform myTransform;
-    Transform targetTransform;
+    public Transform targetTransform;
     LayerMask raycastLayer;
     float radius = 10;
 
@@ -86,6 +86,22 @@ public class AnimalIA : NetworkBehaviour {
         {
             Debug.Log("El agent no esta colocado sobre un NavMesh");
         }
+
+        if (!DestinationReached())
+        {
+            if(!runAway)
+                myTransform.GetChild(0).GetComponent<Animator>().SetBool("isWalking", true);
+            else
+                myTransform.GetChild(0).GetComponent<Animator>().SetBool("isRunningAway", true);
+
+            myTransform.GetChild(0).GetComponent<Animator>().SetBool("isIdle", false);
+        }
+        else
+        {
+            myTransform.GetChild(0).GetComponent<Animator>().SetBool("isRunningAway", false);
+            myTransform.GetChild(0).GetComponent<Animator>().SetBool("isWalking", false);
+            myTransform.GetChild(0).GetComponent<Animator>().SetBool("isIdle", true);
+        }
         
     }
 
@@ -93,7 +109,7 @@ public class AnimalIA : NetworkBehaviour {
     void AggressiveNature()
     {
         SearchToTarget();
-
+        GetComponent<AnimalAttack>().enabled = true;
         if (targetTransform == null)
             SetState("relax");
         else
@@ -183,17 +199,18 @@ public class AnimalIA : NetworkBehaviour {
         myTransform.LookAt(dest);
         agent.SetDestination(dest.position);
         //Debug.Log(DestinationReached());
-        if (DestinationReached())
+       /* if (DestinationReached())
         {
-            timer += Time.deltaTime;
-            if (timer >= wanderTimer)
+            myTransform.GetChild(0).GetComponent<Animator>().SetTrigger("isHitting");*/
+            /*timer += Time.deltaTime;
+            if (timer >= 5)
             {
                 Debug.Log("Ataco a " + dest.name);
-                dest.GetComponent<Health>().TakeDamage(5);
-                myTransform.GetChild(0).GetComponent<Animator>().SetTrigger("isHitting");
+                //dest.GetComponent<Health>().TakeDamage(5);
+                
                 timer = 0;
-            }
-        }
+            }*/
+        //}
     }
 
     bool DestinationReached()

@@ -45,6 +45,8 @@ public class Health : NetworkBehaviour {
 
     public void TakeDamage(int damage)
     {
+        //Este metodo siempre se ejecutara en el lado del servidor (command o con if(isServer))
+
         int newDamage = damage - def; //Se aplica la defensa adicional del jugador debido a la armadura equipada (si def=0 el damage sera el mismo, en caso de plantas y animales siempre sera asi)
 
         //Este metodo solo se ejecuta a traves de un Command que envia un jugador con autoridad

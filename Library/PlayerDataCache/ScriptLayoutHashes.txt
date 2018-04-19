@@ -98,7 +98,7 @@ f41c5222aaa4557bb9cafa1c24b37a94 Assembly-CSharp-firstpass.dll:UnityStandardAsse
 dc78624554e910c76d194ff50ce5b07a Assembly-CSharp.dll:Prototype.NetworkLobby.LobbyServerEntry
 6c156248975c65e334daa4cbfba64bd1 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.TimedObjectActivator
 83c04f68dfce3783fe8455a54439ae6b Assembly-CSharp.dll:.PaintTerrain2
-eea1715c6ff7f78701caf3d2ccb1c360 Assembly-CSharp.dll:.AnimalIA
+3dc752f4cd6a45e3044828800632a048 Assembly-CSharp.dll:.AnimalIA
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 9f07aaefd0255462bb6e4f9e5da6b2d4 UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
 8144169769d51429c4aedc8b0f92d47b UnityEngine.Timeline.dll:UnityEngine.Timeline.AnimationPlayableAsset
@@ -240,7 +240,7 @@ dc5fa02202409049bc420a7b6efe5183 Assembly-CSharp.dll:.NetworkSpaceship
 1be52fb541d1fe19688de133e6306e00 Assembly-CSharp.dll:UnityEngine.AI.NavMeshSurface
 f671a42aea5f34fec6a4450a3668c615 Assembly-CSharp.dll:UnityEngine.PostProcessing.PostProcessingProfile
 66ba5ecd7c5263cc46f5a0e6130d2fc3 Assembly-CSharp.dll:.Inventory
-26599a031f3f9f494b747da8aa2f6a57 Assembly-CSharp.dll:.Drop
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Drop
 db3b233e35a88802fed1717d19c3d9ec Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.FollowTarget
 a8796ecdc9d5c260bbe32f30c4b10708 Assembly-CSharp-firstpass.dll:UnityStandardAssets.CrossPlatformInput.TouchPad
 0ad469aca31264c6140b1e503c43ab6b Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.TimedObjectDestructor
@@ -263,3 +263,5 @@ fdde746c8a70b313aaaf7867917e1982 Assembly-CSharp.dll:.TerrainGeneration
 efe78774255e0887a40e19922e277bad Assembly-CSharp.dll:.InventoryPlayer
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.KeyboardInventory
 0f3d4bb7128a287827d041c696039525 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.AutoMobileShaderSwitch
+0e88b11bb7d62f0f509e2adad7e5743b Assembly-CSharp.dll:.AnimalAttack
+e630a8ded683c528908aab8d9e746a89 Assembly-CSharp.dll:.SetupAnimalPlant

@@ -559,7 +559,7 @@ public class Inventory : NetworkBehaviour {
                     for(int j=0; j<allitems.Length; j++)
                     {
                         GameObject go = (GameObject) allitems[j];
-                        //Se busca el recurso del que esta hecho el objeto fabricable que se desea tirar al suelo
+                        //Se busca el material del que esta hecho el objeto fabricable que se desea tirar al suelo
                         if (go.GetComponent<ItemPickup>().item.color.Equals(items[numItemEquipped].color) && go.GetComponent<ItemPickup>().item.material.Equals(fabricableItem.material)) 
                         {
                             spawnResource = go;

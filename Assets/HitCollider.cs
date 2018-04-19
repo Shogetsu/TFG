@@ -26,13 +26,14 @@ public class HitCollider : MonoBehaviour
             else
                 GetComponent<Collider>().isTrigger = false;
 
-        }else if(character.transform.GetChild(0).GetComponent<Animator>() != null)
+        }
+        /*else if(character.transform.GetChild(0).GetComponent<Animator>() != null)
         {
             if (character.transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Hitting"))
                 GetComponent<Collider>().isTrigger = true;
             else
                 GetComponent<Collider>().isTrigger = false;
-        }
+        }*/
     }
 
 }

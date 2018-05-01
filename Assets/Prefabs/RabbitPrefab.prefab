@@ -63,6 +63,7 @@ GameObject:
   - component: {fileID: 95654483897704724}
   - component: {fileID: 114205437566351218}
   - component: {fileID: 114096978536259408}
+  - component: {fileID: 114254531403850246}
   m_Layer: 0
   m_Name: RabbitPrefab
   m_TagString: Untagged
@@ -135,7 +136,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1529133977897490}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 194.7737, y: -18.928602, z: 242.68532}
+  m_LocalPosition: {x: 157.64015, y: -7.593359, z: 224.6562}
   m_LocalScale: {x: 2.5391295, y: 2.5391288, z: 2.5391288}
   m_Children:
   - {fileID: 4445701795260486}
@@ -155,7 +156,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: afafcbec90e45844996171a2dd983503, type: 2}
+  - {fileID: 2100000, guid: 67cd4e46d3ea5da44be8f659a18f2826, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -187,7 +188,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: afafcbec90e45844996171a2dd983503, type: 2}
+  - {fileID: 2100000, guid: 67cd4e46d3ea5da44be8f659a18f2826, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -230,8 +231,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.08, y: 0.19, z: 0.24}
-  m_Center: {x: 0, y: 0.13, z: 0}
+  m_Size: {x: 0.07999999, y: 0.26047924, z: 0.24000001}
+  m_Center: {x: 0, y: 0.12522547, z: 0}
 --- !u!95 &95654483897704724
 Animator:
   serializedVersion: 3
@@ -277,7 +278,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae305b4a7fdbafc4f8cd130510e4eed5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colorString: 
   material: Paper
+  useTexture: 0
 --- !u!114 &114151052997463536
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -289,7 +292,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30eaad5cd5dea5e41a41e2dcc63a2d9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 1234218157194866, guid: 0131707c612021c479bb01c57912a07d, type: 2}
+  numItems: 0
+  min: 1
+  max: 5
 --- !u!114 &114205437566351218
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -341,6 +346,19 @@ MonoBehaviour:
     i15: 196
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!114 &114254531403850246
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1529133977897490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1f84547393ebe74e85456db739f4f24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myTransform: {fileID: 4777012065488060}
+  LerpRate: 15
 --- !u!114 &114580867649743848
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -353,7 +371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTransform: {fileID: 0}
-  aggressive: 1
+  aggressive: 0
   wanderRadius: 5
   wanderTimer: 2
   runAwayDistance: 4
@@ -391,7 +409,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1529133977897490}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
   m_Name: 

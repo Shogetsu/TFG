@@ -12,6 +12,8 @@ public class AnimalsSpawner : NetworkBehaviour {
     GameObject animalSpawn;
 
     int counter;
+
+    [SerializeField]
     int numberOfAnimals = 1;
 
     public override void OnStartServer()

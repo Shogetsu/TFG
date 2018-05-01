@@ -13,10 +13,11 @@ public class InventorySlot : MonoBehaviour {
     public GameObject equip;
     public GameObject equipArmor;
     public int colorLevel;
+    public string color;
 
     public void AddItem(Item newItem, int quantity, string color, int newColorLevel, bool armorEquipped)
     {
-
+        this.color = color;
         item = newItem;
         icon.sprite = item.icon; //se asigna el icono del item al slot actual
         if (color.Equals("Blue"))

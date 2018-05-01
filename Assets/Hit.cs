@@ -26,6 +26,8 @@ public class Hit : NetworkBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!isLocalPlayer) return;
+
         if (other.gameObject.GetComponent<NetworkIdentity>() != null)
         {//IMPORTANTE - SOLO los gameObject con NetworkId ya instanciados en el servidor son los unicos gameObject que se pueden pasar por parametro en un Command o Rcp, de lo contrario seran NULL
             CmdHitted(other.gameObject, damage); 

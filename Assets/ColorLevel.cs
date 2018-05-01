@@ -31,7 +31,19 @@ public class ColorLevel : NetworkBehaviour {
 
     // Update is called once per frame
     void Update () {
+        
+    }
 
+    private void OnParticleCollision(GameObject other)
+    {
+        if (!isServer) return;
+
+        if (other.name.Equals("Rain") && colorLevel>0)
+        {
+            Debug.Log("Lluvia duele");
+            colorLevel = colorLevel - 2;
+            RpcUpdateColorLevelBar();
+        }
     }
 
     [Command]

@@ -17,14 +17,28 @@ public class AnimalAttack : NetworkBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+        /*myTransform = transform;
+        targetScript = GetComponent<AnimalIA>();
+
+        if (!isServer) return;
+
+        StartCoroutine(Attack());
+
+        Debug.Log("AL ATAQUERL!");*/
+	}
+
+    private void OnEnable() //Importante usar OnEnable, este trozo de codigo se debe de ejecutar siempre que el script se active
+    {
         myTransform = transform;
         targetScript = GetComponent<AnimalIA>();
 
         if (!isServer) return;
 
         StartCoroutine(Attack());
-	}
-	
+
+       // Debug.Log("AL ATAQUERL!");
+    }
+
     void CheckIfTargetInRange()
     {
         if(targetScript.targetTransform != null)

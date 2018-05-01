@@ -84,6 +84,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\ActivePointLight.cs" />
     <Compile Include="Assets\AnimalAttack.cs" />
     <Compile Include="Assets\AnimalIA.cs" />
     <Compile Include="Assets\Billboard.cs" />
@@ -93,8 +94,16 @@
     <Compile Include="Assets\CraftingSlot.cs" />
     <Compile Include="Assets\CustomNetworkManager.cs" />
     <Compile Include="Assets\CustomNetworkTransform.cs" />
+    <Compile Include="Assets\CustomNetworkTransformAI.cs" />
     <Compile Include="Assets\DisplayName.cs" />
     <Compile Include="Assets\Drop.cs" />
+    <Compile Include="Assets\EffectExamples\Shared\Scripts\DecalDestroyer.cs" />
+    <Compile Include="Assets\EffectExamples\Shared\Scripts\ExtinguishableFire.cs" />
+    <Compile Include="Assets\EffectExamples\Shared\Scripts\GunAim.cs" />
+    <Compile Include="Assets\EffectExamples\Shared\Scripts\GunShoot.cs" />
+    <Compile Include="Assets\EffectExamples\Shared\Scripts\ParticleCollision.cs" />
+    <Compile Include="Assets\EffectExamples\Shared\Scripts\ParticleExamples.cs" />
+    <Compile Include="Assets\EffectExamples\Shared\Scripts\ParticleMenu.cs" />
     <Compile Include="Assets\EventManager.cs" />
     <Compile Include="Assets\Health.cs" />
     <Compile Include="Assets\HealthBar.cs" />
@@ -185,13 +194,16 @@
     <Compile Include="Assets\SampleScenes\Scripts\NetworkSpaceshipBullet.cs" />
     <Compile Include="Assets\Scripts\AnimalsMotionSync.cs" />
     <Compile Include="Assets\Scripts\AnimalsSpawner.cs" />
+    <Compile Include="Assets\Scripts\ColorLevelRefuge.cs" />
+    <Compile Include="Assets\Scripts\DayNightCycle.cs" />
     <Compile Include="Assets\Scripts\Inventory\Inventory.cs" />
     <Compile Include="Assets\Scripts\Inventory\InventorySlot.cs" />
     <Compile Include="Assets\Scripts\Items\Armor.cs" />
+    <Compile Include="Assets\Scripts\Items\Consumable.cs" />
     <Compile Include="Assets\Scripts\Items\FabricableItem.cs" />
     <Compile Include="Assets\Scripts\Items\Item.cs" />
     <Compile Include="Assets\Scripts\Items\ItemPickup.cs" />
-    <Compile Include="Assets\Scripts\Items\PlaneCraft.cs" />
+    <Compile Include="Assets\Scripts\Items\RefugeCraft.cs" />
     <Compile Include="Assets\Scripts\Items\Resource.cs" />
     <Compile Include="Assets\Scripts\Items\Weapon.cs" />
     <Compile Include="Assets\Scripts\Steamworks.NET\SteamManager.cs" />
@@ -221,6 +233,7 @@
     <Compile Include="Assets\textureRandom.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\EffectExamples\Shared\Shaders\SurfaceShader_VC.shader" />
     <None Include="Assets\Lobby\Documentation.txt" />
     <None Include="Assets\Lobby\Instruction.txt" />
     <None Include="Assets\Modelos\PASOS TEXTURIZAR 3DSMAX.txt" />

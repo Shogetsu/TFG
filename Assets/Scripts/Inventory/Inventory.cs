@@ -54,6 +54,10 @@ public class Inventory : NetworkBehaviour {
     public class SyncListItem : SyncListStruct<ItemStruct> { }
     public SyncListItem items = new SyncListItem();
 
+    public GameObject itemHand;
+
+    [SyncVar]
+    string spriteNameHand;
 
     //RaycastHit hit;
 
@@ -187,6 +191,7 @@ public class Inventory : NetworkBehaviour {
                 {
                     InventorySlots[i].SetEquipped(false);
                     CmdSetNumItemEquipped(0);
+                    CmdSetSpriteHand(null);
                     GetComponent<Hit>().CmdSetDamage(1); //Al desequipar el item en mano, el danyo del jugador se restablece a 1 
                     break;
                 }
@@ -271,6 +276,10 @@ public class Inventory : NetworkBehaviour {
                 }
                 //...excepto el item deseado
                 InventorySlots[num - 1].SetEquipped(true);
+               // Debug.Log(this.gameObject.transform.Find("itemHand"));
+               // itemHand.GetComponent<SpriteRenderer>().sprite = InventorySlots[num - 1].icon.sprite;
+                CmdSetSpriteHand(InventorySlots[num - 1].icon.sprite.name);
+               // RpcSetHandSprite(num - 1);
                 CmdSetNumItemEquipped(num - 1);
                 Debug.Log("Item equipado num: "+numItemEquipped);
 
@@ -286,6 +295,38 @@ public class Inventory : NetworkBehaviour {
             }
            
         }
+    }
+
+    [Command]
+    void CmdSetSpriteHand(string spriteName)
+    {
+        spriteNameHand = spriteName;
+        RpcUpdateSpriteHand(spriteNameHand);
+    }
+
+    [ClientRpc]
+    void RpcUpdateSpriteHand(string spriteName)
+    {
+        if (spriteName != "")
+        {
+            Object[] allitems = Resources.LoadAll("Sprites", typeof(Sprite));
+
+            for (int i = 0; i < allitems.Length; i++)
+            {
+                Debug.Log(spriteName + " | " + allitems[i].name);
+                if (spriteName.Equals(allitems[i].name))
+                {
+                    Sprite spriteItem = allitems[i] as Sprite;
+                    itemHand.GetComponent<SpriteRenderer>().sprite = spriteItem;
+                    break;
+                }
+            }
+        }
+        else
+        {
+            itemHand.GetComponent<SpriteRenderer>().sprite = null;
+        }
+        
     }
 
     public string GetItemNameEquipped()
@@ -343,10 +384,10 @@ public class Inventory : NetworkBehaviour {
         {
             Debug.Log("Se va a usar el objeto de la posicion " + num);
             RpcUseItem(num);
-
-            if (items[num].baseType.Equals("FabricableItem") == false) //Se comprueba si es hijo de la clase FabricableItem, porque estos no se consumen de forma directa como el resto
+            //|| items[num].itemType.Equals("RefugeCraft")
+            if (items[num].baseType.Equals("FabricableItem") == false || items[num].itemType.Equals("RefugeCraft")) //Se comprueba si es hijo de la clase FabricableItem, porque estos no se consumen de forma directa como el resto
             {
-                if(items[num].material.Equals("Paper") || items[num].itemType.Equals("ConsumableItem"))
+                if(items[num].material.Equals("Paper") || items[num].itemType.Equals("Consumable") || items[num].itemType.Equals("RefugeCraft"))
                 {
                     /*Se consume el item utilizado solo si NO es un item fabricable, y si es de papel (los recursos de papel se pueden consumir tambien) o si es un item consumible*/
 
@@ -368,6 +409,7 @@ public class Inventory : NetworkBehaviour {
                     {
 
                         RemoveItemEquipped(num);
+                        CmdSetSpriteHand(null);
                     }
 
                     Debug.Log("Inventario a " + items.Count + " de " + space);
@@ -594,18 +636,111 @@ public class Inventory : NetworkBehaviour {
         } 
     }
 
-    void NetworkServerSpawnItem(GameObject itemDropped)
+    [Command]
+    public void CmdBuildRefuge(string itemName, string color)
+    {
+        Object[] allitems = Resources.LoadAll("Prefabs", typeof(GameObject));
+
+        for (int i = 0; i < allitems.Length; i++)
+        {
+           // Debug.Log("Busco: " + itemName + " encuentro: " + allitems[i].name);
+            if (allitems[i].name.Equals(itemName))
+            {
+                NetworkServerSpawnRefuge(allitems[i] as GameObject, color);
+                break;
+            }
+        }
+    }
+
+    public void NetworkServerSpawnRefuge(GameObject itemDropped, string color)
+    {
+        Vector3 playerPos = this.transform.position;
+        Quaternion rotation = itemDropped.transform.rotation;
+        playerPos = new Vector3(this.transform.position.x + Random.Range(-0.1f, 0.25f), this.transform.position.y + 5f, this.transform.position.z + Random.Range(-0.25f, 0.25f)); //Pequenya aleatoriedad de la posicion donde caen las objetos al tirarlos al suelo
+        Vector3 playerDirection = this.transform.forward;
+
+        Vector3 spawnPos = playerPos + playerDirection;
+
+        GameObject itemSpawn = Instantiate(itemDropped, spawnPos, rotation);
+
+        NetworkServer.Spawn(itemSpawn);
+        RpcSetRefugeMaterial(itemSpawn, color);
+
+    }
+
+    [ClientRpc]
+    void RpcSetRefugeMaterial(GameObject refuge, string color)
+    {
+        refuge.GetComponent<Renderer>().material = GetMaterial(color);
+        refuge.GetComponent<Renderer>().material.EnableKeyword("_NORMALMAP");
+        refuge.GetComponent<Renderer>().material.SetTexture("_BumpMap", GetNormalMap(refuge.GetComponent<ItemPickup>().item.material));
+    }
+
+    public void NetworkServerSpawnItem(GameObject itemDropped)
     {
         Vector3 playerPos = this.transform.position;
         playerPos = new Vector3(this.transform.position.x + Random.Range(-0.1f, 0.25f), this.transform.position.y, this.transform.position.z + Random.Range(-0.25f, 0.25f)); //Pequenya aleatoriedad de la posicion donde caen las objetos al tirarlos al suelo
         Vector3 playerDirection = this.transform.forward;
-        Quaternion playerRotation = this.transform.rotation;
+
+        Quaternion rotation = this.transform.rotation; 
+
+       // Quaternion playerRotation = this.transform.rotation;
        // float spawnDistance = 1;
         Vector3 spawnPos = playerPos + playerDirection;
 
-        GameObject itemSpawn = Instantiate(itemDropped, spawnPos, playerRotation);
-
+        GameObject itemSpawn = Instantiate(itemDropped, spawnPos, rotation);
+        
+        // itemSpawn.transform.LookAt(this.transform);
+        // Debug.Log("Intentando spawnear " + itemSpawn.name);
         NetworkServer.Spawn(itemSpawn);
+    }
+
+    Material GetMaterial(string color)
+    {
+        Material mat = null;
+
+        Object[] allitems = Resources.LoadAll("Materials", typeof(Material));
+        for (int i = 0; i < allitems.Length; i++)
+        {
+            if (allitems[i].name.Equals(color))
+            {
+                mat = allitems[i] as Material;
+                break;
+            }
+        }
+
+        return mat;
+    }
+
+    Texture2D GetNormalMap(string material)
+    {
+        Texture2D tex = null;
+        Object[] allitems = Resources.LoadAll("NormalMap", typeof(Texture2D));
+        for (int i = 0; i < allitems.Length; i++)
+        {
+            //Debug.Log("Busco: " + material + " encuentro: " + allitems[i].name);
+            if (allitems[i].name.Equals(material))
+            {
+                tex = allitems[i] as Texture2D;
+            }
+        }
+        return tex;
+    }
+
+
+    public string GetColorItemHand()
+    {
+        string itemColor = null;
+
+        for (int i = 0; i < InventorySlots.Length; i++)
+        {
+            if (InventorySlots[i].equip.activeSelf)
+            {
+                itemColor = InventorySlots[i].color;
+            }
+        }
+
+        return itemColor;
     }
 
     [ClientRpc]

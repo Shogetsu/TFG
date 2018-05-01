@@ -7,10 +7,18 @@ public class Drop : NetworkBehaviour {
 
     GameObject item;
 
+    [SyncVar]
+    public int numItems;
+
+    public int min;
+    public int max;
+
 	// Use this for initialization
 	void Start () {
-		
-	}
+        if (!isServer) return;
+
+		numItems = Random.Range(min, max+1);
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -32,11 +40,11 @@ public class Drop : NetworkBehaviour {
         for (int i = 0; i < allitems.Length; i++)
         {
             GameObject go = (GameObject)allitems[i];
-            Debug.Log(go.GetComponent<ItemPickup>().item.color);
+           /* Debug.Log(go.GetComponent<ItemPickup>().item.color);
             Debug.Log(go.GetComponent<ItemPickup>().item.material);
 
             Debug.Log(GetComponent<SetupAnimalPlant>().colorString);
-            Debug.Log(GetComponent<SetupAnimalPlant>().material);
+            Debug.Log(GetComponent<SetupAnimalPlant>().material);*/
 
 
             if (go.GetComponent<ItemPickup>().item.color.Equals(GetComponent<SetupAnimalPlant>().colorString) &&
@@ -47,7 +55,14 @@ public class Drop : NetworkBehaviour {
             }
         }
 
-        GameObject itemDropped = Instantiate(item, this.gameObject.transform.position, Quaternion.identity);
-        NetworkServer.Spawn(itemDropped);
+        int dropped = 0;
+        while (dropped < numItems)
+        {
+            Vector3 itemPos = new Vector3(this.gameObject.transform.position.x + Random.Range(-0.1f, 0.25f), this.gameObject.transform.position.y, this.gameObject.transform.position.z + Random.Range(-0.25f, 0.25f));
+            GameObject itemDropped = Instantiate(item, itemPos, Quaternion.identity);
+            NetworkServer.Spawn(itemDropped);
+            dropped++;
+        }
+        
     }
 }

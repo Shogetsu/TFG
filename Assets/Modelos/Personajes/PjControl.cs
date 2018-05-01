@@ -9,7 +9,7 @@ public class PjControl : NetworkBehaviour
     static Animator anim;
     public float rotationSpeed = 100.0f;
 
-    public float speed = 10.0f;
+    public float speed;
    // public Rigidbody RB;
     public float jumpForce;
     public CharacterController controller;
@@ -52,6 +52,7 @@ public class PjControl : NetworkBehaviour
 
         if(anim.GetBool("isDead"))
             return;
+
 
         /* if (_thirdPCam.target != transform.GetChild(0)) //Se obtiene la posicion del gameobject target dentro del body del modelo
              _thirdPCam.target = transform.GetChild(0); //Se le asigna al target del script de la camara en tercera persona
@@ -189,6 +190,7 @@ public class PjControl : NetworkBehaviour
         SetCursorState();
     }
 
+    
     public Animator GetAnimator()
     {
         return anim;

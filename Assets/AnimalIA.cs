@@ -13,6 +13,7 @@ public class AnimalIA : NetworkBehaviour {
     float radius = 10;
 
     public bool aggressive;
+    bool aggressiveNature;
 
     bool relax;
     bool chase;
@@ -26,6 +27,8 @@ public class AnimalIA : NetworkBehaviour {
 
     public float runAwayDistance = 4.0f;
 
+    DayNightCycle whatTimeIsIt;
+
     // Use this for initialization
     void Start ()
     {
@@ -35,7 +38,12 @@ public class AnimalIA : NetworkBehaviour {
         raycastLayer = 1 << LayerMask.NameToLayer("Player");
 
         SetState("relax");
-	}
+
+        whatTimeIsIt = GameObject.Find("GameManager").GetComponent<DayNightCycle>();
+
+        aggressiveNature = aggressive;
+
+    }
 
     public void SetState(string state)
     {
@@ -69,9 +77,11 @@ public class AnimalIA : NetworkBehaviour {
 
         if (agent.isOnNavMesh)
         {
-            if (aggressive)
-                AggressiveNature();
+            if(!aggressiveNature) //Los animales que NO son de naturaleza agresiva, se volveran agresivos en funcion de la hora del dia (por la noche)
+                CheckTime();
 
+            if (aggressive)
+                Aggressive();
 
             if (relax)
                 RandomMove();
@@ -80,7 +90,7 @@ public class AnimalIA : NetworkBehaviour {
                 MoveToTarget();
 
             if (runAway)
-                RunAwayMove();
+                RunAwayMove();   
         }
         else
         {
@@ -102,11 +112,31 @@ public class AnimalIA : NetworkBehaviour {
             myTransform.GetChild(0).GetComponent<Animator>().SetBool("isWalking", false);
             myTransform.GetChild(0).GetComponent<Animator>().SetBool("isIdle", true);
         }
-        
+    }
+
+    void CheckTime()
+    { //Se vuelven agresivos entre las 00:00 y las 06:00
+        if (whatTimeIsIt.time > whatTimeIsIt.HourToSeconds(0) &&
+            whatTimeIsIt.time < whatTimeIsIt.HourToSeconds(6))
+        {
+            if(!aggressive)
+                aggressive = true;
+        }
+        else
+        {
+            if (aggressive)
+            {
+                aggressive = false;
+                SetState("relax");
+                GetComponent<AnimalAttack>().StopAllCoroutines();
+                GetComponent<AnimalAttack>().enabled = false;
+
+            }
+        }
     }
 
 
-    void AggressiveNature()
+    void Aggressive()
     {
         SearchToTarget();
         GetComponent<AnimalAttack>().enabled = true;
@@ -128,6 +158,7 @@ public class AnimalIA : NetworkBehaviour {
             Vector3 newPos = myTransform.position + dirToPlayer; //El animal huye de quien le ha golpeado
 
             timer += Time.deltaTime;
+            wanderTimer = Random.Range(1f, 3f);
             if (timer >= wanderTimer)
             {
                 agent.SetDestination(newPos);
@@ -143,7 +174,10 @@ public class AnimalIA : NetworkBehaviour {
 
     void RandomMove()
     {
+        if (agent.isStopped == true) agent.isStopped = false;
+
         /*Movimiento aleatorio en un radio*/
+        wanderTimer = Random.Range(5f, 15f);
         timer += Time.deltaTime;
         
         if (timer >= wanderTimer)
@@ -242,5 +276,13 @@ public class AnimalIA : NetworkBehaviour {
         NavMesh.SamplePosition(randDirection, out navHit, dist, layermask);
 
         return navHit.position;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.name.Equals("refugePrefab"))
+        {
+            agent.isStopped = true;
+        }
     }
 }

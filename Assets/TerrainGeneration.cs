@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.AI;
 
 //public class SyncListH : SyncListStruct<float> { }
 
@@ -27,6 +28,11 @@ public class TerrainGeneration : NetworkBehaviour
     public float offsetX = 100f;
     [SyncVar]
     public float offsetY = 100f;
+
+    [SyncVar (hook ="BuildTerrain")]
+    bool offserValuesSetted;
+
+    bool MapCreated;
 
     [Header("Tree Settings")]
     public GameObject treePrefab;
@@ -112,8 +118,10 @@ public class TerrainGeneration : NetworkBehaviour
                     Vector3 treePos = RandomCircle(center, maxForestRadius, start, overlap); //Con el centro y un radio, se "traza" un circulo sobre el terreno y se obtienen posiciones aleatorias dentro de ese circulo
                     if (!Physics.CheckSphere(treePos, 0.5f))
                     {
-                      //  Debug.Log("Instancio el arbol...");
+                        //  Debug.Log("Instancio el arbol...");
 
+                        GameObject treeGO = treePrefab as GameObject;
+                        /*
                         GameObject[] trees =
                         {
                             treePrefab, treePrefab2
@@ -124,10 +132,9 @@ public class TerrainGeneration : NetworkBehaviour
                         trees[rnd].transform.localScale = new Vector3(rndscale, rndscale, rndscale);
 
                         float rndrota = Random.Range(0f, 5f);
-                        trees[rnd].transform.Rotate(new Vector3(rndrota, 0, 0));
+                        trees[rnd].transform.Rotate(new Vector3(rndrota, 0, 0));*/
 
-                        GameObject tree = Instantiate(trees[rnd], treePos, Quaternion.identity);
-
+                        GameObject tree = Instantiate(treeGO, treePos, Quaternion.identity);
                        // Debug.Log("...Instanciado con exito");
 
                         NetworkServer.Spawn(tree);
@@ -257,7 +264,7 @@ public class TerrainGeneration : NetworkBehaviour
         /*if (isClient && isServer)
         {
         }*/
-        if (isServer)
+        /*if (isServer)
         {
             offsetX = Random.Range(0, 9999f);
             offsetY = Random.Range(0, 9999f);
@@ -283,16 +290,54 @@ public class TerrainGeneration : NetworkBehaviour
             CmdSpawnTree();
         }
        
-       Debug.Log("Árboles creados");
-         
+       Debug.Log("Árboles creados");*/
 
+    }
 
+    public override void OnStartClient()
+    {
+        
+        if (isServer)
+        {
+            offserValuesSetted = SetOffsetValues();
+        }
+        else if (isClient)
+        {
+            Debug.Log("Soy solo un cliente");
+            Debug.Log("Creacion de terreno en cliente con: " + offsetX + ", " + offsetY);
+        }
     }
 
     void Update()
     { /*ESTO ES SOLO PARA TESTEAR EN TIEMPO REAL!!!!!!!!!*/
         /*Terrain terrain = GetComponent<Terrain>(); //Accedemos al objeto Terreno
         terrain.terrainData = GenerateTerrain(terrain.terrainData); //Crearemos un nuevo terreno a partir de un nuevo metodo*/
+    }
+
+    bool SetOffsetValues()
+    {
+        offsetX = Random.Range(0, 9999f);
+        offsetY = Random.Range(0, 9999f);
+        return true;
+    }
+    
+    void BuildTerrain(bool offserValuesSetted)
+    {
+        if (!offserValuesSetted) return;
+
+        terrain = GetComponent<Terrain>(); //Accedemos al objeto Terreno
+
+        //Crearemos un nuevo terreno a partir de uno nuevo 
+        if (GenerateTerrain(terrain.terrainData) != null)
+        {
+            Debug.Log("Terreno creado");
+        }
+
+        CmdSpawnTree();
+
+        Debug.Log("Árboles creados");
+
+        GetComponent<NavMeshSurface>().BuildNavMesh();
     }
 
   /* [ClientRpc] //El servidor envia un mensaje a todos los clientes, pero queremos que solo 1 respawnee

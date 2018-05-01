@@ -9,6 +9,7 @@ TagManager:
   - green
   - ground
   - Item
+  - Refuge
   layers:
   - Default
   - TransparentFX

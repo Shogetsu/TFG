@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4821580602192970}
   - component: {fileID: 114409449377385512}
-  - component: {fileID: 114189396028063964}
   - component: {fileID: 114786542105254750}
   m_Layer: 0
   m_Name: GameManager
@@ -42,21 +41,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114189396028063964
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1957393820891896}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8db9cc5409dce884b9d7100358a1c52e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animalPrefab: {fileID: 1529133977897490, guid: fc97083ac24207644b218b9f1de63ac4,
-    type: 2}
-  animalSpawn: {fileID: 0}
-  numberOfAnimals: 5
 --- !u!114 &114409449377385512
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -109,3 +93,6 @@ MonoBehaviour:
   fogDay: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   fogNight: {r: 0, g: 0, b: 0, a: 1}
   speed: 300
+  gameOverDaysText: {fileID: 0}
+  daysText: {fileID: 0}
+  gameOver: 0

@@ -9,6 +9,10 @@ public class Item : ScriptableObject {
     public Sprite icon = null;
     public Sprite iconBlue = null;
     public Sprite iconGreen = null;
+    public Sprite iconMagenta = null;
+    public Sprite iconRed = null;
+    public Sprite iconCyan = null;
+    public Sprite iconYellow = null;
 
     //public int quantityNeeded; //solo item fabricables
 

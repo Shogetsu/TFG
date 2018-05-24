@@ -13,6 +13,15 @@ ModelImporter:
     100010: //RootNode
     100012: Torus001
     100014: Torus002
+    100016: Plane008
+    100018: Plane009
+    100020: Plane010
+    100022: Plane011
+    100024: Plane012
+    100026: Plane013
+    100028: Plane014
+    100030: up
+    100032: Plane015
     400000: Plane003
     400002: Plane004
     400004: Plane005
@@ -21,6 +30,15 @@ ModelImporter:
     400010: //RootNode
     400012: Torus001
     400014: Torus002
+    400016: Plane008
+    400018: Plane009
+    400020: Plane010
+    400022: Plane011
+    400024: Plane012
+    400026: Plane013
+    400028: Plane014
+    400030: up
+    400032: Plane015
     2300000: Plane003
     2300002: Plane004
     2300004: Plane005
@@ -28,6 +46,14 @@ ModelImporter:
     2300008: Sphere001
     2300010: Torus001
     2300012: Torus002
+    2300014: Plane008
+    2300016: Plane009
+    2300018: Plane010
+    2300020: Plane011
+    2300022: Plane012
+    2300024: Plane013
+    2300026: Plane014
+    2300028: Plane015
     3300000: Plane003
     3300002: Plane004
     3300004: Plane005
@@ -35,6 +61,14 @@ ModelImporter:
     3300008: Sphere001
     3300010: Torus001
     3300012: Torus002
+    3300014: Plane008
+    3300016: Plane009
+    3300018: Plane010
+    3300020: Plane011
+    3300022: Plane012
+    3300024: Plane013
+    3300026: Plane014
+    3300028: Plane015
     4300000: Plane003
     4300002: Plane004
     4300004: Torus001
@@ -42,6 +76,14 @@ ModelImporter:
     4300008: Plane006
     4300010: Torus002
     4300012: Sphere001
+    4300014: Plane008
+    4300016: Plane009
+    4300018: Plane010
+    4300020: Plane011
+    4300022: Plane012
+    4300024: Plane013
+    4300026: Plane014
+    4300028: Plane015
     9500000: //RootNode
   materials:
     importMaterials: 1

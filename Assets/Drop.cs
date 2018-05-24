@@ -40,15 +40,22 @@ public class Drop : NetworkBehaviour {
         for (int i = 0; i < allitems.Length; i++)
         {
             GameObject go = (GameObject)allitems[i];
-           /* Debug.Log(go.GetComponent<ItemPickup>().item.color);
-            Debug.Log(go.GetComponent<ItemPickup>().item.material);
+            /* Debug.Log(go.GetComponent<ItemPickup>().item.color);
+             Debug.Log(go.GetComponent<ItemPickup>().item.material);
 
-            Debug.Log(GetComponent<SetupAnimalPlant>().colorString);
-            Debug.Log(GetComponent<SetupAnimalPlant>().material);*/
-
-
+             Debug.Log(GetComponent<SetupAnimalPlant>().colorString);
+             Debug.Log(GetComponent<SetupAnimalPlant>().material);*/
+            Debug.Log("***********");
+            Debug.Log("Busca: " + GetComponent<SetupAnimalPlant>().colorString);
+            Debug.Log("Busca: " + GetComponent<SetupAnimalPlant>().material);
+            Debug.Log("---");
+            Debug.Log("Es Resource?: " + go.GetComponent<ItemPickup>().item.GetType().Name.Equals("Resource"));
+            Debug.Log("Encuentra: " + go.GetComponent<ItemPickup>().item.color);
+            Debug.Log("Encuentra: " + go.GetComponent<ItemPickup>().item.material);
+            Debug.Log("***********");
             if (go.GetComponent<ItemPickup>().item.color.Equals(GetComponent<SetupAnimalPlant>().colorString) &&
-                go.GetComponent<ItemPickup>().item.material.Equals(GetComponent<SetupAnimalPlant>().material))
+                go.GetComponent<ItemPickup>().item.material.Equals(GetComponent<SetupAnimalPlant>().material) &&
+                go.GetComponent<ItemPickup>().item.GetType().Name.Equals("Resource"))
             {
                 item = go;
                 break;

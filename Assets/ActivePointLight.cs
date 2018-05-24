@@ -82,10 +82,10 @@ public class ActivePointLight : NetworkBehaviour {
         }
     }
 
-    int GetTotalTime()
+    float GetTotalTime()
     {
         //Obtener el tiempo total transcurrido
-        return (int)whatTime.time + (whatTime.HourToSeconds(24) * whatTime.days);
+        return (float)whatTime.time + (whatTime.HourToSeconds(24) * whatTime.days);
     }
 
     public bool CheckActive()

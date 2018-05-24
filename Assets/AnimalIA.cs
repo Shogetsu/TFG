@@ -43,6 +43,9 @@ public class AnimalIA : NetworkBehaviour {
 
         aggressiveNature = aggressive;
 
+       // agent.height = 0.5f;
+        //agent.baseOffset = 0;
+
     }
 
     public void SetState(string state)

@@ -38,10 +38,11 @@ public class CraftingSlot : MonoBehaviour {
             craftButton.interactable = false;
             isFabricable = fabricable;
             icon.color = new Color(1, 1, 1, 0.47f);
+            UpdateColorsCraft(null, false);
         }
     }
 
-    public void UpdateColorsCraft(string color)
+    public void UpdateColorsCraft(string color, bool interactable)
     {
         //Button buttonColor = CraftingSlots[pos].transform.GetChild(0).transform.GetChild(0).transform.GetChild(5).transform.gameObject.GetComponent<Button>();
        // Button blueButton = this.transform.GetChild(0).transform.GetChild(0).transform.GetChild(5).transform.gameObject.GetComponent<Button>();
@@ -49,22 +50,22 @@ public class CraftingSlot : MonoBehaviour {
         if (isFabricable)
         {
             if (color.Equals("Red"))
-                buttonColors[0].interactable = true;
-            if (color.Equals("LightBlue"))
-                buttonColors[1].interactable = true;
+                buttonColors[0].interactable = interactable;
+            if (color.Equals("Cyan"))
+                buttonColors[1].interactable = interactable;
             if (color.Equals("Yellow"))
-                buttonColors[2].interactable = true;
+                buttonColors[2].interactable = interactable;
             if (color.Equals("Green"))
-                buttonColors[3].interactable = true;
-            if (color.Equals("Pink"))
-                buttonColors[4].interactable = true;
+                buttonColors[3].interactable = interactable;
+            if (color.Equals("Magenta"))
+                buttonColors[4].interactable = interactable;
             if (color.Equals("Blue"))
-                buttonColors[5].interactable = true;
+                buttonColors[5].interactable = interactable;
         }
         else
         {
             for(int i=0; i<=5; i++)
-                buttonColors[i].interactable = false;
+                buttonColors[i].interactable = interactable;
         }
     }
 

@@ -7,38 +7,17 @@ using UnityEngine.UI;
 
 
 public class Inventory : NetworkBehaviour {
-   
-    /*#region Singleton
-
-    public static Inventory instance;
-
-    private void Awake()
-    {
-        if (instance != null)
-        {
-            Debug.LogWarning("Se han encontrado mas de una instancia de Inventory");
-            return;
-        }
-
-        instance = this;
-    }
-
-    #endregion*/
-
-    /*Para saber cuando se ha producido un cambio en el inventario*/
-    //public delegate void OnItemChanged();
-   // public OnItemChanged onItemChangedCallback;
 
     public Transform itemsParentInventory;
     public Transform itemsParentCrafting;
     public int space = 9;
+
     InventorySlot[] InventorySlots;
     CraftingSlot[] CraftingSlots;
 
     [SyncVar]
     public int numItemEquipped; // 0 si no hay item equipado
 
-    //public SyncListString items = new SyncListString();
     public struct ItemStruct
     {
         public string itemName;
@@ -55,23 +34,26 @@ public class Inventory : NetworkBehaviour {
     public SyncListItem items = new SyncListItem();
 
     public GameObject itemHand;
+    public GameObject weaponHand;
+    public GameObject armor;
 
     [SyncVar]
     string spriteNameHand;
 
-    //RaycastHit hit;
+    private AudioManager audioManager;
 
     void Start()
     {
         EventManager.ItemCraftClicked += ClickCraftItem;
+
+        //audioManager
+        audioManager = AudioManager.instance;
+        if (audioManager == null)
+        {
+            Debug.LogError("No AudioManager found!");
+        }
     }
 
-    /*[Command]
-    void CmdPrueba()
-    {
-        GetComponent<Health>().TakeDamage(1);
-    }
-    */
     void Update()
     {
         if (!isLocalPlayer) {
@@ -114,15 +96,89 @@ public class Inventory : NetworkBehaviour {
             MouseWheelClickUnequipHand();
 
             /*Dejar caer el item equipado en mano*/
-            if (Input.GetButtonDown("DropItem"))
+            if (Input.GetButtonDown("DropItem") && items[numItemEquipped].armorEquipped==false)
             {
-                if (DropItem(GetItemNameEquipped()))
+                if (DropItem(GetItemNameEquipped(), IsFabricableItemEquipped(), GetItemMaterialHand(), GetColorItemHand(), GetQuantityNeededItemHand()))
                 {
+                    if (InventorySlots[numItemEquipped].item.GetType().Name.Equals("Weapon"))
+                    {
+                        GetComponent<Hit>().CmdSetDamage(1);
+                        CmdActiveWeaponHand(false);
+                    }
+                   /* if (InventorySlots[numItemEquipped].item.GetType().Name.Equals("Armor"))
+                        GetComponent<Health>().CmdSetDef(0);*/
+
+                    //Debug.Log("echando");
+
+                    //InventorySlots[numItemEquipped].SetEquipped(false);
+                    //CmdActiveWeaponHand(false);
+                    
                     CmdRemoveItemDropped(numItemEquipped);
+                    audioManager.PlaySound("Drop");
+                   // CmdSetNumItemEquipped(0);
+
                 }
             }
         }
     }
+
+    int GetQuantityNeededItemHand()
+    {
+        int q = 0;
+        if (InventorySlots != null)
+        {
+            for (int i = 0; i < InventorySlots.Length; i++)
+            {
+                if (InventorySlots[i].equip.activeSelf)
+                {
+                    if (InventorySlots[i].item.GetType().Name.Equals("Weapon") ||
+                        InventorySlots[i].item.GetType().Name.Equals("Armor") ||
+                        InventorySlots[i].item.GetType().Name.Equals("RefugeCraft"))
+                    {
+                        FabricableItem item = InventorySlots[i].item as FabricableItem;
+                        Debug.Log("Es el item: " + item.name + " con cantidad: " + item.quantityNeeded);
+
+                        q = item.quantityNeeded;
+                    }
+                }
+            }
+        }
+        return q;
+    }
+
+    string GetItemMaterialHand()
+    {
+        string mat = null;
+        if (InventorySlots != null)
+        {
+            for (int i = 0; i < InventorySlots.Length; i++)
+            {
+                if (InventorySlots[i].equip.activeSelf)
+                {
+                    mat = InventorySlots[i].item.material;
+                }
+            }
+        }
+        return mat;
+    }
+
+
+  /*  string GetItemColorEquipped()
+    {
+        string col = null;
+        if (InventorySlots != null)
+        {
+            for (int i = 0; i < InventorySlots.Length; i++)
+            {
+                if (InventorySlots[i].equip.activeSelf)
+                {
+                    col = InventorySlots[i].item.color;
+                }
+            }
+        }
+        return col;
+    }*/
+
 
     void RightClickUseItemHand()
     {
@@ -143,11 +199,14 @@ public class Inventory : NetworkBehaviour {
                         //Excepto la armadura deseada
                         InventorySlots[i].SetEquippedArmor(true);
                         CmdEquipArmor(i, true);
+                        CmdActiveArmorModel(true);
+                        CmdSetArmorMaterial(InventorySlots[i].color, InventorySlots[i].item.material);
                     }
                     else if (InventorySlots[i].item.GetType().Name.Equals("Armor") && InventorySlots[i].equipArmor.activeSelf == true)
                     { //Si se vuelve a intentar equipar la misma armadura equipada, esta se desequipara
                         InventorySlots[i].SetEquippedArmor(false);
                         CmdEquipArmor(i, false);
+                        CmdActiveArmorModel(false);
                         break;
                     }
 
@@ -158,6 +217,30 @@ public class Inventory : NetworkBehaviour {
         }
     }
 
+    [Command]
+    void CmdSetArmorMaterial(string color, string material)
+    {
+
+        RpcSetArmorMaterial(color, material);
+    }
+
+
+    [ClientRpc]
+    void RpcSetArmorMaterial(string color, string material)
+    {
+        //Debug.Log("Soy null?: " + color);
+        armor.GetComponent<Renderer>().material = GetMaterial(color);
+        armor.GetComponent<Renderer>().material.EnableKeyword("_NORMALMAP");
+        armor.GetComponent<Renderer>().material.SetTexture("_BumpMap", GetNormalMap(material));
+
+        /*Renderer[] rends = armor.GetComponentsInChildren<Renderer>();
+        foreach (Renderer r in rends)
+        {
+            r.GetComponent<Renderer>().material = GetMaterial(color);
+            r.GetComponent<Renderer>().material.EnableKeyword("_NORMALMAP");
+            r.GetComponent<Renderer>().material.SetTexture("_BumpMap", GetNormalMap(material));
+        }*/
+    }
     [Command]
     void CmdEquipArmor(int num, bool e)
     {
@@ -192,6 +275,7 @@ public class Inventory : NetworkBehaviour {
                     InventorySlots[i].SetEquipped(false);
                     CmdSetNumItemEquipped(0);
                     CmdSetSpriteHand(null);
+                    CmdActiveWeaponHand(false);
                     GetComponent<Hit>().CmdSetDamage(1); //Al desequipar el item en mano, el danyo del jugador se restablece a 1 
                     break;
                 }
@@ -221,6 +305,8 @@ public class Inventory : NetworkBehaviour {
             {
                 RemoveItemEquipped(numItemEquipped);
                 GetComponent<Hit>().CmdSetDamage(1);
+                CmdActiveWeaponHand(false);
+                audioManager.PlaySound("Break");
             }
             RpcUpdateHUD();
         }
@@ -249,6 +335,8 @@ public class Inventory : NetworkBehaviour {
                 if(items[i].colorLevel <= 0)
                 {
                     RemoveArmorEquipped(i);
+                    CmdActiveArmorModel(false);
+                    audioManager.PlaySound("Break");
                 }
                 break;
             }
@@ -276,25 +364,77 @@ public class Inventory : NetworkBehaviour {
                 }
                 //...excepto el item deseado
                 InventorySlots[num - 1].SetEquipped(true);
-               // Debug.Log(this.gameObject.transform.Find("itemHand"));
-               // itemHand.GetComponent<SpriteRenderer>().sprite = InventorySlots[num - 1].icon.sprite;
-                CmdSetSpriteHand(InventorySlots[num - 1].icon.sprite.name);
-               // RpcSetHandSprite(num - 1);
                 CmdSetNumItemEquipped(num - 1);
-                Debug.Log("Item equipado num: "+numItemEquipped);
+                Debug.Log("Item equipado num: " + numItemEquipped);
 
                 if (InventorySlots[num - 1].item.GetType().Name.Equals("Weapon")) //Si se equipa en mano un arma, los golpes que ocasione el jugador seran mas fuertes
                 {
                     Weapon weapon = InventorySlots[num - 1].item as Weapon;
                     GetComponent<Hit>().CmdSetDamage(weapon.Damage);
+                    CmdSetSpriteHand(null);
+                    CmdActiveWeaponHand(true);
+                    CmdSetWeaponMaterial(InventorySlots[num - 1].color, InventorySlots[num - 1].item.material);
                 }
                 else
                 {
                     GetComponent<Hit>().CmdSetDamage(1);
+                    CmdSetSpriteHand(InventorySlots[num - 1].icon.sprite.name);
+                    CmdActiveWeaponHand(false);
                 }
+
+               /* for(int i=0; i<InventorySlots.Length; i++)
+                {
+                    Debug.Log("Pos: "+i+","+InventorySlots[i].color);
+                }*/
             }
            
         }
+    }
+
+    [Command]
+    void CmdSetWeaponMaterial(string color, string material)
+    {
+        RpcSetWeaponMaterial(color, material);
+    }
+
+
+    [ClientRpc]
+    void RpcSetWeaponMaterial(string color, string material)
+    {
+        //Debug.Log("Soy null?: " + color);
+        Renderer[] rends = weaponHand.GetComponentsInChildren<Renderer>();
+        foreach (Renderer r in rends)
+        {
+            r.GetComponent<Renderer>().material = GetMaterial(color);
+            r.GetComponent<Renderer>().material.EnableKeyword("_NORMALMAP");
+            r.GetComponent<Renderer>().material.SetTexture("_BumpMap", GetNormalMap(material));
+        }
+    }
+
+
+    [Command]
+    void CmdActiveWeaponHand(bool active)
+    {
+       // weaponHand.gameObject.SetActive(active);
+        RpcUpdateWeaponHand(active);
+    }
+
+    [ClientRpc]
+    void RpcUpdateWeaponHand(bool active)
+    {
+        weaponHand.gameObject.SetActive(active);
+    }
+
+    [Command]
+    void CmdActiveArmorModel(bool active)
+    {
+        RpcUpdateArmorModel(active);
+    }
+
+    [ClientRpc]
+    void RpcUpdateArmorModel(bool active)
+    {
+        armor.gameObject.SetActive(active);
     }
 
     [Command]
@@ -313,7 +453,7 @@ public class Inventory : NetworkBehaviour {
 
             for (int i = 0; i < allitems.Length; i++)
             {
-                Debug.Log(spriteName + " | " + allitems[i].name);
+               // Debug.Log(spriteName + " | " + allitems[i].name);
                 if (spriteName.Equals(allitems[i].name))
                 {
                     Sprite spriteItem = allitems[i] as Sprite;
@@ -343,6 +483,26 @@ public class Inventory : NetworkBehaviour {
             }
         }
         return itemName;
+    }
+
+    bool IsFabricableItemEquipped()
+    {
+        bool isFabricableItem = true;
+        if (InventorySlots != null)
+        {
+            for (int i = 0; i < InventorySlots.Length; i++)
+            {
+                if (InventorySlots[i].equip.activeSelf)
+                {
+                    if (InventorySlots[i].item.GetType().Name.Equals("Resource") || InventorySlots[i].item.GetType().Name.Equals("Consumable"))
+                    {
+                        isFabricableItem = false;
+                        break;
+                    }
+                }
+            }
+        }
+        return isFabricableItem;
     }
 
    /* public int GetItemPosEquipped()
@@ -505,9 +665,16 @@ public class Inventory : NetworkBehaviour {
                 colorLevel=colorLevel,
                 armorEquipped=false
                 });
+
+            
         }
 
-        Debug.Log("Inventario a " + items.Count + " de " + space);
+        
+       // Debug.Log("Inventario a " + items.Count + " de " + space);
+     /*   for (int j = 0; j < items.Count; j++)
+        {
+            Debug.Log("pos: " + j + " nombre: " + items[j].itemName + " color: " + items[j].color);
+        }*/
 
         return true;
     }
@@ -537,6 +704,7 @@ public class Inventory : NetworkBehaviour {
 
             if (wasPickedUp == true)
             {
+                audioManager.PlaySound("Pop01");
                 NetworkServer.Destroy(collision.gameObject);
                 RpcUpdateHUD();
             }
@@ -546,7 +714,7 @@ public class Inventory : NetworkBehaviour {
     bool ItemExist(string itemName)
     {
         bool exist=false;
-        Debug.Log("Intentando coger el objeto " + itemName);
+        //Debug.Log("Intentando coger el objeto " + itemName);
 
         Object[] allitems = Resources.LoadAll("Items", typeof(Item));
 
@@ -554,7 +722,7 @@ public class Inventory : NetworkBehaviour {
         {
             if (itemName.Equals(allitems[i].name))
             {
-                Debug.Log(allitems[i].name + " encontrado");
+                //Debug.Log(allitems[i].name + " encontrado");
                 exist = true;
             }
         }
@@ -562,79 +730,65 @@ public class Inventory : NetworkBehaviour {
         return exist;
     }
 
-    bool DropItem(string itemName)
+    bool DropItem(string itemName, bool isFabricableItem, string material, string color, int quantity)
     {
 
         if (itemName == null) return false;
 
-        Debug.Log("Intentando dejar caer el objeto " + itemName);
+        Debug.Log("Intentando dejar caer el objeto " + itemName+ " de color "+color);
 
         
-        CmdSpawnDropItem(itemName);
+        CmdSpawnDropItem(itemName, isFabricableItem, material, color, quantity);
+
         return true;
     }
 
     [Command]
-    void CmdSpawnDropItem(string itemName)
+    void CmdSpawnDropItem(string itemName, bool isFabricableItem, string material, string color, int quantity)
     {
         Object[] allitems = Resources.LoadAll("Prefabs", typeof(GameObject));
 
-        for (int i = 0; i < allitems.Length; i++)
+        if (!isFabricableItem)
         {
-            GameObject itemGameobject = (GameObject)allitems[i];
-            if (itemName.Equals(itemGameobject.GetComponent<ItemPickup>().item.name))
+            /* Si se trata de un recurso, simplemente con buscar el prefab del recurso en la carpeta de prefabs y hacer el spawn es suficiente*/
+            for (int i = 0; i < allitems.Length; i++)
             {
-                //El Objeto equipado se arroja al suelo
-                if (itemGameobject.GetComponent<ItemPickup>().item.GetType().BaseType.Name.Equals("FabricableItem") == false)
+                GameObject itemGameobject = (GameObject)allitems[i];
+                Debug.Log("Quiero tirar: " + itemName + " / encontrado: " + itemGameobject.GetComponent<ItemPickup>().item.name);
+                if (itemName.Equals(itemGameobject.GetComponent<ItemPickup>().item.name))
                 {
                     Debug.Log(allitems[i].name + " encontrado");
                     NetworkServerSpawnItem((GameObject)allitems[i]);
                     break;
                 }
-                //Si se trata de un item fabricable, el objeto caera al suelo y se rompera, haciendo que aparezca una parte de los recursos empleados para fabricarlo (esto permite hacer que el jugador recupere parte de los recursos antes de que dejar que el objeto se rompa mientras este equipado)
-                else
+            }
+        }
+        else
+        {
+            for (int j = 0; j < allitems.Length; j++)
+            {
+                GameObject go = (GameObject)allitems[j];
+                if (go.GetComponent<ItemPickup>().item.GetType().Name.Equals("Resource") &&
+                    go.GetComponent<ItemPickup>().item.color.Equals(color) &&
+                    go.GetComponent<ItemPickup>().item.material.Equals(material))
                 {
-                    Debug.Log(allitems[i].name + " encontrado");
-                    FabricableItem fabricableItem = itemGameobject.GetComponent<ItemPickup>().item as FabricableItem; //Objeto que se desea tirar al suelo
+                    //Debug.Log(allitems[j].name + " encontrado");
+                    //Debug.Log("CANTIDA!!" + quantity);
+                    int numResources = Random.Range(1, (int)(quantity / 1.5f) + 1); //Los posibles recursos recuperados al destruir el objeto podran ser entre 1 y la cantidad total necesaria entre 1,5 (un 60%) (y +1 porque el valor maximo de Random.Range esta excluido)
+                    //Debug.Log("CANTIDA QUE VOY A ESHA!!" + numResources);
 
-                    GameObject spawnResource = null;
-                    for(int j=0; j<allitems.Length; j++)
+                    int r = 0;
+                    while (r < numResources)
                     {
-                        GameObject go = (GameObject) allitems[j];
-                        //Se busca el material del que esta hecho el objeto fabricable que se desea tirar al suelo
-                        if (go.GetComponent<ItemPickup>().item.color.Equals(items[numItemEquipped].color) && go.GetComponent<ItemPickup>().item.material.Equals(fabricableItem.material)) 
-                        {
-                            spawnResource = go;
-                        }
+                        Debug.Log("r: " + r);
+                        NetworkServerSpawnItem((GameObject)allitems[j]);
+                        r++;
                     }
-
-                    if (spawnResource != null)
-                    {
-
-                        int numResources = Random.Range(1, (int)(fabricableItem.quantityNeeded / 1.5f)+1); //Los posibles recursos recuperados al destruir el objeto podran ser entre 1 y la cantidad total necesaria entre 1,5 (+1 porque el valor maximo de Random.Range esta excluido)
-
-                        int r = 0;
-                        while (r < numResources)
-                        {
-                            Debug.Log("r: " + r);
-                            NetworkServerSpawnItem(spawnResource);
-                            r++;
-                           
-                        }
-                        Debug.Log("Cantidad de recursos recuperados: " + numResources);
-                    }
-
-                    /*Importante resetear el danyo o defensa del jugador en caso de que el item que se arroja al suelo sea un arma o una armadura*/
-                    if(fabricableItem.GetType().Name.Equals("Weapon"))
-                        GetComponent<Hit>().CmdSetDamage(1);
-                    if (fabricableItem.GetType().Name.Equals("Armor"))
-                        GetComponent<Health>().CmdSetDef(0);
-
-                    break;
                 }
             }
-        } 
+        }
     }
+
 
     [Command]
     public void CmdBuildRefuge(string itemName, string color)
@@ -671,6 +825,7 @@ public class Inventory : NetworkBehaviour {
     [ClientRpc]
     void RpcSetRefugeMaterial(GameObject refuge, string color)
     {
+       // Debug.Log("Soy null?: "+refuge);
         refuge.GetComponent<Renderer>().material = GetMaterial(color);
         refuge.GetComponent<Renderer>().material.EnableKeyword("_NORMALMAP");
         refuge.GetComponent<Renderer>().material.SetTexture("_BumpMap", GetNormalMap(refuge.GetComponent<ItemPickup>().item.material));
@@ -739,7 +894,6 @@ public class Inventory : NetworkBehaviour {
                 itemColor = InventorySlots[i].color;
             }
         }
-
         return itemColor;
     }
 
@@ -770,7 +924,7 @@ public class Inventory : NetworkBehaviour {
     void UpdateInventory(SyncListItem items, InventorySlot[] slots)
     {
         Debug.Log("Actualizando inventario");
-
+        
         for (int i = 0; i < slots.Length; i++)
         {
             if (i < items.Count)
@@ -791,23 +945,27 @@ public class Inventory : NetworkBehaviour {
                 {
                     if (inventorySlots[j].item != null)
                     {
-                        if (inventorySlots[j].item.material.Equals(craftingSlots[i].item.material))
+                        if (inventorySlots[j].item.material.Equals(craftingSlots[i].item.material) &&
+                        inventorySlots[j].item.GetType().Name.Equals("Resource"))
                         {
-                        FabricableItem fabricableItem = craftingSlots[i].item as FabricableItem;
+                            FabricableItem fabricableItem = craftingSlots[i].item as FabricableItem;
                             if (int.Parse(inventorySlots[j].quantityText.text) >= fabricableItem.quantityNeeded)
                             {
-                                Debug.Log("El item " + craftingSlots[i].item.name + " ahora es fabricable gracias a " + inventorySlots[j].item.name + " con una cantidad de " + int.Parse(inventorySlots[j].quantityText.text));
-                                fabricable = true;
-                                craftingSlots[i].Fabricable(fabricable);
-                                craftingSlots[i].UpdateColorsCraft(inventorySlots[j].item.color);
+                                //Debug.Log("El item " + craftingSlots[i].item.name + " ahora es fabricable gracias a " + inventorySlots[j].item.name + " con una cantidad de " + int.Parse(inventorySlots[j].quantityText.text));
+                                 fabricable = true;
+                                craftingSlots[i].Fabricable(true);
+                                craftingSlots[i].UpdateColorsCraft(inventorySlots[j].item.color, true);
+                            }
+                            else
+                            {
+                                craftingSlots[i].UpdateColorsCraft(inventorySlots[j].item.color, false);
                             }
                         }
                     }
                 }
                 if (!fabricable)
                 {
-                    craftingSlots[i].Fabricable(fabricable);
-                    craftingSlots[i].UpdateColorsCraft(null);
+                    craftingSlots[i].Fabricable(false);
                 }
         }
     }
@@ -820,6 +978,9 @@ public class Inventory : NetworkBehaviour {
         {
             if (item.itemName.Equals(allitems[i].name))
             {
+                //Item newItem = allitems[i] as Item;
+                //Debug.Log("Add--->" + newItem.name + "/"+item.color);
+                //InventorySlots[pos].ClearSlot();
                 InventorySlots[pos].AddItem((Item)allitems[i], item.quantity, item.color, item.colorLevel, item.armorEquipped);
             }
         }
@@ -850,6 +1011,7 @@ public class Inventory : NetworkBehaviour {
         if (Add(itemName, isResource, color, material, itemType, baseType, colorLevel))
         {
             RpcUpdateHUD();
+            audioManager.PlaySound("Craft");
         }
 
     }
@@ -862,7 +1024,7 @@ public class Inventory : NetworkBehaviour {
         {
             if (items[i].itemName != null)
             {
-                if (items[i].material.Equals(material) && items[i].color.Equals(color))
+                if (items[i].material.Equals(material) && items[i].color.Equals(color) && items[i].itemType.Equals("Resource"))
                 {
                     if (items[i].quantity >= quantityNeeded)
                     {
@@ -880,6 +1042,9 @@ public class Inventory : NetworkBehaviour {
                         if (items[i].quantity == 0)
                         {
                             RemoveItemEquipped(i);
+                            CmdSetSpriteHand(null);
+                            CmdActiveWeaponHand(false);
+                            GetComponent<Hit>().CmdSetDamage(1); //Al desequipar el item en mano, el danyo del jugador se restablece a 1 
                         }
                     }
                 }
@@ -906,9 +1071,12 @@ public class Inventory : NetworkBehaviour {
     void CmdRemoveItemDropped(int num)
     {
         ModifyQuantityItem(num, -1);
-
-        if(items[num].quantity==0)
+        if (items[num].quantity == 0)
+        {
             RemoveItemEquipped(num);
+            CmdSetNumItemEquipped(0);
+            CmdSetSpriteHand(null);
+        }
 
         RpcUpdateHUD();
     }

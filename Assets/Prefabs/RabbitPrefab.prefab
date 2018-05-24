@@ -135,9 +135,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1529133977897490}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 157.64015, y: -7.593359, z: 224.6562}
-  m_LocalScale: {x: 2.5391295, y: 2.5391288, z: 2.5391288}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 783.0478, y: 10.997845, z: 319.04614}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4445701795260486}
   m_Father: {fileID: 0}
@@ -231,7 +231,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.07999999, y: 0.26047924, z: 0.24000001}
+  m_Size: {x: 0.21, y: 0.26047924, z: 0.24000001}
   m_Center: {x: 0, y: 0.12522547, z: 0}
 --- !u!95 &95654483897704724
 Animator:
@@ -442,6 +442,6 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 0.14
-  m_BaseOffset: -0.05
+  m_BaseOffset: -0.1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4

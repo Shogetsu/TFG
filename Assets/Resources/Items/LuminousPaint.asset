@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: LuminousPaint
   m_EditorClassIdentifier: 
   name: LuminousPaint
-  icon: {fileID: 21300000, guid: eb5f6e2757c821940b69cf1456f7865a, type: 3}
+  icon: {fileID: 21300000, guid: 0908a6864b64e6247ba7398b7437b921, type: 3}
   iconBlue: {fileID: 0}
   iconGreen: {fileID: 0}
   color: 

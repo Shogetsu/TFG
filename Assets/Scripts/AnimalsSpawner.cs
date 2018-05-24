@@ -18,19 +18,21 @@ public class AnimalsSpawner : NetworkBehaviour {
 
     public override void OnStartServer()
     {
-        for(int i=0; i<numberOfAnimals; i++)
+       /* for(int i=0; i<numberOfAnimals; i++)
         {
             SpawnAnimals();
-        }
+        }*/
     }
 
     void SpawnAnimals()
     {
-        //counter
-
-       GameObject go = GameObject.Instantiate(animalPrefab, animalSpawn.transform.position, Quaternion.identity) as GameObject;
+        Vector3 origen = new Vector3(Random.Range(2,1024), 0, Random.Range(2, 1024));
+        //animalSpawn.transform.position
+        GameObject go = GameObject.Instantiate(animalPrefab, origen, Quaternion.identity) as GameObject;
        NetworkServer.Spawn(go);
     }
+
+
     // Use this for initialization
     void Start () {
 		

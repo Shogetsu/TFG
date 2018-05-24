@@ -165,7 +165,8 @@ namespace Prototype.NetworkLobby
         public BackButtonDelegate backDelegate;
         public void GoBackButton()
         {
-            backDelegate();
+            GameObject.Find("LobbyManager").GetComponent<LobbyManager>().backDelegate();
+            //backDelegate();
 			topPanel.isInGame = false;
         }
 

@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 114476466295591336}
   - component: {fileID: 114665877921268288}
   m_Layer: 5
-  m_Name: LightBlue
+  m_Name: Cyan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -199,7 +199,7 @@ GameObject:
   - component: {fileID: 114434167915334768}
   - component: {fileID: 114903543832290428}
   m_Layer: 5
-  m_Name: Pink
+  m_Name: Magenta
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -341,7 +341,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 114707890215595584}
-  item: {fileID: 11400000, guid: 88cb5883763b0114b858ee8c57bf4d61, type: 2}
+  item: {fileID: 11400000, guid: 706d753f367e0114195c1653d01dbe6b, type: 2}
   isFabricable: 0
   craftButton: {fileID: 114209501071307324}
   itemsParentColors: {fileID: 0}

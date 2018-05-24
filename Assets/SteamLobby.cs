@@ -182,7 +182,7 @@ namespace Prototype.NetworkLobby
             }
         }
 
-        public void OnClick()
+        public void OnClickInvite()
         {
             Debug.Log("Invitar a la partida con ID: "+current_lobbyID);
             SteamFriends.ActivateGameOverlayInviteDialog((CSteamID)current_lobbyID);

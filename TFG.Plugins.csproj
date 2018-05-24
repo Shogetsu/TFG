@@ -78,6 +78,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Plugins\Pixelplacement\iTween\iTween.cs" />
     <Compile Include="Assets\Plugins\Steamworks.NET\autogen\isteamapplist.cs" />
     <Compile Include="Assets\Plugins\Steamworks.NET\autogen\isteamapps.cs" />
     <Compile Include="Assets\Plugins\Steamworks.NET\autogen\isteamclient.cs" />
@@ -222,6 +223,7 @@
     <None Include="Assets\Lobby\Documentation.txt" />
     <None Include="Assets\Lobby\Instruction.txt" />
     <None Include="Assets\Modelos\PASOS TEXTURIZAR 3DSMAX.txt" />
+    <None Include="Assets\Plugins\Pixelplacement\iTween\ReadMe!\ReadMe!.txt" />
     <None Include="Assets\Plugins\Steamworks.NET\redist\steam_appid.txt" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\HistogramCompute.compute" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\HistogramRender.shader" />

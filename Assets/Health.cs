@@ -13,7 +13,11 @@ public class Health : NetworkBehaviour {
     [SyncVar]
     int def = 0;
 
-   // public int vitMAX = 150;
+
+   /* [SyncVar]
+    bool coroutineIsRunning;*/
+
+    // public int vitMAX = 150;
 
     public RectTransform healthBar;
 
@@ -83,22 +87,23 @@ public class Health : NetworkBehaviour {
         healthBar.sizeDelta = new Vector2(vit, healthBar.sizeDelta.y);
     }
 
+    [Command]
     public void CmdStartLosingHealth()
     {
-        //Esta co-rutina se ejecuta a traves de un Command en ColorLevel
+        //coroutineIsRunning = true;
         StartCoroutine(CmdLosingHealth());
     }
 
-    public void StopLosingHealth()
+    /*public void StopLosingHealth()
     {
         StopCoroutine(CmdLosingHealth());
-    }
+    }*/
 
     IEnumerator CmdLosingHealth()
     {
         for (; ; )
         {
-            if (vit > 0)
+            if (vit > 0 && GetComponent<ColorLevel>().GetColorLevel()<=0)
             {
                 vit = vit - 1;
                 RpcUpdateHealthBar();
@@ -108,9 +113,14 @@ public class Health : NetworkBehaviour {
                 RpcUpdateHealthBar();
                 StopCoroutine(CmdLosingHealth());
                 print("Stopped " + Time.time);
+                //coroutineIsRunning = false;
+
+                if(GetComponent<ColorLevel>().GetColorLevel()>0)
+                    GetComponent<ColorLevel>().CmdStartCoroutine();
+
                 break;
             }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.1f); //PONER 1f!!!!
         }
     }
 
@@ -119,7 +129,11 @@ public class Health : NetworkBehaviour {
     {
         vit = vit + heal;
         RpcUpdateHealthBar();
-
     }
 
+    /*public bool CheckCoroutine()
+    {
+        return coroutineIsRunning;
+    }
+    */
 }

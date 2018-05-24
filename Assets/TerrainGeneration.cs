@@ -34,15 +34,23 @@ public class TerrainGeneration : NetworkBehaviour
 
     bool MapCreated;
 
-    [Header("Tree Settings")]
-    public GameObject treePrefab;
-    public GameObject treePrefab2;
-    public int numForest;
-    public int numTrees;
-    [Range(3f, 50f)]
-    public float maxForestRadius;
+    [Header("Prefab List")]
+    public GameObject ashPrefab;
+    public GameObject palmPrefab;
+    public GameObject pineTreePrefab;
+    public GameObject flowerPrefab;
+    public GameObject bushPrefab;
+    public GameObject rabbitPrefab;
+    public GameObject pigPrefab;
+    public GameObject chickPrefab;
+    public GameObject scissorsPrefab;
 
 
+    int numForest;
+    int numTrees;
+    float maxForestRadius;
+
+/*
     [Header("Mountain Settings")]
     public int numMountains;
     [Range(0.001f, 0.5f)]
@@ -66,7 +74,7 @@ public class TerrainGeneration : NetworkBehaviour
     [Range(0.00001f, 1.0f)]
     public float maxDepth;
     [Range(0.00001f, 0.05f)]
-    public float bankSlope;
+    public float bankSlope;*/
 
     Vector3 RandomCircle(Vector3 center, float radius, int start, int overlap)
     {
@@ -96,58 +104,124 @@ public class TerrainGeneration : NetworkBehaviour
     [Command]
     void CmdSpawnTree()
     {
-        int auxForest = 0;
-        //Se establece el rango de altura donde se van a generar los arboles
-        int start = GetComponent<PaintTerrain2>().splatHeights[2].startingheight; //inicio
-        int overlap = GetComponent<PaintTerrain2>().splatHeights[2].overlap; //solapamiento
-        while (auxForest<numForest) //Se crean los bosques
+        for(int i=1; i<5; i++)
         {
 
-            //Posicion aleatoria del bosque
-            float xpos = Random.Range(2, terrain.terrainData.alphamapWidth - 10);
-            float zpos = Random.Range(2, terrain.terrainData.alphamapHeight - 10);
-            float ypos = terrain.SampleHeight(new Vector3(xpos, 0, zpos)); //Importante situar el bosque a la altura correspondiente del terreno
+            int auxForest = 0;
+            // int i = 1;
+            /*
+             0 -> Palm
+             2 -> Ash
+             */
 
-            Vector3 center = new Vector3(xpos, ypos, zpos); //Se obtiene el centro del terreno
-           if (ypos>=start-overlap && ypos <= start+overlap) // Se comprueba si el bosque se esta situando dentro del rango de altura donde se deben generar los bosques
+            //Se establece el rango de altura donde se van a generar los arboles
+            int maxNumForest = 21;
+            int minNumForest = 10;
+            int maxNumTrees = 21;
+            int minNumTrees = 5;
+
+            if (i == 4 || i == 3)
             {
-                int t = 0;
-                while(t < numTrees) //Se crean los arboles de cada bosque
+                minNumForest = 5;
+                maxNumForest = 11;
+            } 
+
+            numForest = Random.Range(minNumForest, maxNumForest); // 5 16
+            numTrees = Random.Range(minNumTrees, maxNumTrees); // 5 21
+            maxForestRadius = Random.Range(30f, 100f); //10 50
+
+            int start = GetComponent<PaintTerrain2>().splatHeights[i].startingheight; //inicio
+            int overlap = GetComponent<PaintTerrain2>().splatHeights[i].overlap; //solapamiento
+            while (auxForest < numForest) //Se crean los bosques
+            {
+
+                //Posicion aleatoria del bosque
+                float xpos = Random.Range(2, terrain.terrainData.alphamapWidth - 10);
+                float zpos = Random.Range(2, terrain.terrainData.alphamapHeight - 10);
+                float ypos = terrain.SampleHeight(new Vector3(xpos, 0, zpos)); //Importante situar el bosque a la altura correspondiente del terreno
+
+              /*  Debug.Log("Width: " + terrain.terrainData.alphamapWidth);
+                Debug.Log("Height: " + terrain.terrainData.alphamapWidth);*/
+
+
+                Vector3 center = new Vector3(xpos, ypos, zpos); //Se obtiene el centro del terreno
+                if (ypos >= start - overlap && ypos <= start + overlap) // Se comprueba si el bosque se esta situando dentro del rango de altura donde se deben generar los bosques
                 {
-                    //float r = Random.Range(3, maxForestRadius);
-                    Vector3 treePos = RandomCircle(center, maxForestRadius, start, overlap); //Con el centro y un radio, se "traza" un circulo sobre el terreno y se obtienen posiciones aleatorias dentro de ese circulo
-                    if (!Physics.CheckSphere(treePos, 0.5f))
+                    int t = 0;
+                    while (t < numTrees) //Se crean los arboles de cada bosque
                     {
-                        //  Debug.Log("Instancio el arbol...");
+                      //  Vector3 treePos = RandomCircle(center, maxForestRadius, start, overlap); //Con el centro y un radio, se "traza" un circulo sobre el terreno y se obtienen posiciones aleatorias dentro de ese circulo
+                     /*   if (!Physics.CheckSphere(treePos, 1.5f)) //1.5f distancia de separacion entre arboles (esto es para que no se estorben y se monten uno dentro de otro)
+                        {*/
+                           // GameObject treeGO = null;
 
-                        GameObject treeGO = treePrefab as GameObject;
-                        /*
-                        GameObject[] trees =
+                        if (i == 1)
                         {
-                            treePrefab, treePrefab2
-                        };
-                        int rnd = Random.Range(0, 2);
-                       // Debug.Log(rnd);
-                        float rndscale = Random.Range(2f, 5f);
-                        trees[rnd].transform.localScale = new Vector3(rndscale, rndscale, rndscale);
+                            NetworkSpawn(rabbitPrefab as GameObject, center, start, overlap);
+                            NetworkSpawn(palmPrefab as GameObject, center, start, overlap);
+                            NetworkSpawn(flowerPrefab as GameObject, center, start, overlap);
+                        }
 
-                        float rndrota = Random.Range(0f, 5f);
-                        trees[rnd].transform.Rotate(new Vector3(rndrota, 0, 0));*/
+                        if (i == 2)
+                        {
+                            NetworkSpawn(pineTreePrefab as GameObject, center, start, overlap);
+                            NetworkSpawn(flowerPrefab as GameObject, center, start, overlap);
+                            NetworkSpawn(bushPrefab as GameObject, center, start, overlap);
+                            NetworkSpawn(chickPrefab as GameObject, center, start, overlap);
+                        }
 
-                        GameObject tree = Instantiate(treeGO, treePos, Quaternion.identity);
-                       // Debug.Log("...Instanciado con exito");
+                        if (i == 3)
+                        {
+                            NetworkSpawn(ashPrefab as GameObject, center, start, overlap);
+                            NetworkSpawn(bushPrefab as GameObject, center, start, overlap);
+                            NetworkSpawn(pigPrefab as GameObject, center, start, overlap);
+                        }
 
-                        NetworkServer.Spawn(tree);
-                        //Debug.Log("Arbol spawneado");
+                        if (i == 4)
+                        {
+                            NetworkSpawn(ashPrefab as GameObject, center, start, overlap);
+                            NetworkSpawn(scissorsPrefab as GameObject, center, start, overlap);
+                        }
+
+
+                        /* if (treeGO != null)
+                         {
+                             GameObject tree = Instantiate(treeGO, treePos, Quaternion.identity);
+                             NetworkServer.Spawn(tree);
+                         }*/
                         t++;
-                    }                
+                       // }
+                    }
+                    auxForest++;
                 }
-                auxForest++;
+            }
+       }
+    }
+
+    void NetworkSpawn(GameObject go, Vector3 center, int start, int overlap)
+    {
+        bool done = false;
+
+        while (!done)
+        {
+            Vector3 goPos = RandomCircle(center, maxForestRadius, start, overlap); //Con el centro y un radio, se "traza" un circulo sobre el terreno y se obtienen posiciones aleatorias dentro de ese circulo
+            if (go != null 
+                //&& !Physics.CheckSphere(goPos, 1.5f)
+                )
+            {
+                //GameObject tree = Instantiate(go, goPos, Quaternion.identity);
+                if(!Physics.CheckSphere(goPos, 1.5f))
+                {
+                    GameObject tree = GameObject.Instantiate(go, goPos, Quaternion.identity) as GameObject;
+                    NetworkServer.Spawn(tree);
+                }
+
+                done = true;
             }
         }
     }
 
-    void RiverCrawler(int x, int y, float height, float slope)
+    /*void RiverCrawler(int x, int y, float height, float slope)
     {//FUNCION RECURSIVA
         if (x < 0 || x >= terrain.terrainData.alphamapWidth) return;
         if (y < 0 || y >= terrain.terrainData.alphamapHeight) return;
@@ -162,9 +236,9 @@ public class TerrainGeneration : NetworkBehaviour
         RiverCrawler(x - 1, y + 1, height + Random.Range(slope, slope + 0.01f), slope);
         RiverCrawler(x, y - 1, height + Random.Range(slope, slope + 0.01f), slope);
         RiverCrawler(x, y + 1, height + Random.Range(slope, slope + 0.01f), slope);
-    }
+    }*/
 
-    void ApplyRiver()
+  /*  void ApplyRiver()
     {
         for (int i = 0; i < numRivers; i++)
         {
@@ -191,8 +265,8 @@ public class TerrainGeneration : NetworkBehaviour
             }
 
         }
-    }
-    void Mountain(int x, int y, float height, float slope)
+    }*/
+ /*   void Mountain(int x, int y, float height, float slope)
     {
         //Si x o y se van fuera del mapa, se finaliza la funcion
         if (x <= 0 || x >= terrain.terrainData.alphamapWidth) return;
@@ -205,14 +279,14 @@ public class TerrainGeneration : NetworkBehaviour
         //ENTONCES, si no se ha finalizado hasta llegar aqui, se le asigna la nueva altura al terreno (nueva montanya creada)
        heights[x, y] = height;
 
-        /*Construir montanya desde 4 direcciones... estamos en una funcion RECURSIVA*/
+        //Construir montanya desde 4 direcciones... estamos en una funcion RECURSIVA
         Mountain(x - 1, y, height - Random.Range(0.001f, slope), slope);
         Mountain(x + 1, y, height - Random.Range(0.001f, slope), slope);
         Mountain(x, y - 1, height - Random.Range(0.001f, slope), slope);
         Mountain(x, y + 1, height - Random.Range(0.001f, slope), slope);
-
-    }
-    void ApplyMountains()
+        
+    }*/
+   /* void ApplyMountains()
     {
         for (int i = 0; i < numMountains; i++)
         {
@@ -223,9 +297,9 @@ public class TerrainGeneration : NetworkBehaviour
             float newHeight = heights[xpos, ypos] + heightChange; //Se asigna nueva altura al terreno en la posicion aleatoria
             Mountain(xpos, ypos, newHeight, sideSlope); //Se crea la montanya
         }
-    }
+    }*/
 
-    void Hole(int x, int y, float height, float slope)
+   /* void Hole(int x, int y, float height, float slope)
     {
         //Si x o y se van fuera del mapa, se finaliza la funcion
         if (x <= 0 || x >= terrain.terrainData.alphamapWidth) return;
@@ -238,15 +312,16 @@ public class TerrainGeneration : NetworkBehaviour
         //Nueva altura asignada
         heights[x, y] = height;
 
-        /*Construir hoyo desde 4 direcciones... estamos en una funcion RECURSIVA*/
+        //Construir hoyo desde 4 direcciones... estamos en una funcion RECURSIVA
         Hole(x - 1, y, height + Random.Range(slope, slope + 0.01f), slope);
         Hole(x + 1, y, height + Random.Range(slope, slope + 0.01f), slope);
         Hole(x, y - 1, height + Random.Range(slope, slope + 0.01f), slope);
         Hole(x, y + 1, height + Random.Range(slope, slope + 0.01f), slope);
 
 
-    }
-    void ApplyHoles()
+    }*/
+
+   /* void ApplyHoles()
     { //Este metodo es lo opuesto al metodo de las montanyas
         for (int i = 0; i < numHoles; i++)
         {
@@ -257,40 +332,10 @@ public class TerrainGeneration : NetworkBehaviour
             float newHeight = heights[xpos, ypos] - holeChange; //Se asigna nueva altura al terreno en la posicion aleatoria, al ser un hoyo hay que restar la altura
             Hole(xpos, ypos, newHeight, sideSlope); //Se crea el hoyo
         }
-    }
+    }*/
 
     void Start()
     {
-        /*if (isClient && isServer)
-        {
-        }*/
-        /*if (isServer)
-        {
-            offsetX = Random.Range(0, 9999f);
-            offsetY = Random.Range(0, 9999f);
-        }
-        else if (isClient)
-        {
-            Debug.Log("Soy solo un cliente");
-            Debug.Log("Creacion de terreno en cliente con: " + offsetX + ", " + offsetY);
-        }
-
-       
-            
-        
-       // RpcTerrain(offsetX, offsetY);
-        terrain = GetComponent<Terrain>(); //Accedemos al objeto Terreno
-        //Crearemos un nuevo terreno a partir de uno nuevo 
-        if (GenerateTerrain(terrain.terrainData) != null)
-            Debug.Log("Terreno creado");  
-         //terrain.terrainData.SetHeights(0, 0, heights); //Se asigna el array de alturas al terreno  
-
-        if (isClient)
-        {
-            CmdSpawnTree();
-        }
-       
-       Debug.Log("Árboles creados");*/
 
     }
 
@@ -336,140 +381,64 @@ public class TerrainGeneration : NetworkBehaviour
         CmdSpawnTree();
 
         Debug.Log("Árboles creados");
-
+        
         GetComponent<NavMeshSurface>().BuildNavMesh();
     }
-
-  /* [ClientRpc] //El servidor envia un mensaje a todos los clientes, pero queremos que solo 1 respawnee
-    void RpcTerrain(float offX, float offY)//Todos van a llamar a este metodo...
-    {
-        if (isLocalPlayer)
-        {
-            offsetX = offX;
-            offsetY = offY;
-        }*/
-       
-
-      /*  if (isLocalPlayer) //...pero solo el 1 lo ejecutara
-        {
-          Debug.Log("Creacion de terreno en cliente con: " + offsetX + ", " + offsetY);
-            offsetX = offX;
-            offsetY = offY;
-            heights = new float[width, height];
-            for (int x = 0; x < width; x++)
-            {
-                for (int y = 0; y < height; y++)
-                {
-                    float perlinValue;
-
-                    float distance_x = Mathf.Abs(x - width * 0.5f);
-                    float distance_y = Mathf.Abs(y - height * 0.5f);
-                    float distance = Mathf.Max(distance_x, distance_y); 
-
-                    float max_width = width * 0.5f - 10.0f;
-                    float delta = distance / max_width;
-                    float gradient = delta * delta;
-
-                    float xCoord = (float)x / width * scale + offsetX;
-                    float yCoord = (float)y / height * scale + offsetY;
-                    perlinValue = (Mathf.PerlinNoise(xCoord * 4, yCoord * 4) + 0.5f * Mathf.PerlinNoise(xCoord * 8, yCoord * 8) + 0.25f * Mathf.PerlinNoise(xCoord * 16, yCoord * 16)) * Mathf.Max(0.0f, 1.0f - gradient);
-
-                    heights[x, y] = Mathf.Pow(Mathf.Round(perlinValue * 32) / 32, 3);
-                }
-            }
-            terrain = GetComponent<Terrain>();
-            terrain.terrainData.heightmapResolution = width + 1;
-            terrain.terrainData.size = new Vector3(width, depth, height);
-            terrain.terrainData.SetHeights(0, 0, heights);
-            
-        }
-    }*/
 
     TerrainData GenerateTerrain(TerrainData terrainData)
     {
         terrainData.heightmapResolution = width + 1;
         terrainData.size = new Vector3(width, depth, height);
         terrainData.SetHeights(0, 0, GenerateHeights());
-        //spawnTree();
         return terrainData;
     }
 
 
     float[,] GenerateHeights()
     {
-        //Para las alturas, este metodo devuelve un array de dos floats correspondientes al ruido
+        /*Tenemos una cuadricula de puntos, 
+          en los cuales cada punto tiene asociado un float que determina su altura, 
+          usando Perlin Noise */
 
-        heights = new float[width, height]; //Tenemos una cuadricula de puntos, en los cuales cada punto tiene asociado un float que determina su altura, usando Perlin Noise
-        //Debug.Log(Random.Range(0, 10));
+        heights = new float[width, height]; 
+
         //Hacemos un bucle para cada uno de estos puntos
         for (int x=0; x < width; x++)
         {
             for (int y=0; y<height; y++)
-            {
-
-                //heights[x, y] = Mathf.Round(CalculateHeights(x, y) * 21) / 21; //Para crear pequenyas terrazas, sirve para escalar montanyas
-               
+            { 
                 heights[x, y] = Mathf.Pow(Mathf.Round(CalculateHeights(x, y) * 128) / 128,3);
-               // heights[x, y] = Mathf.Pow(CalculateHeights(x, y), 3);
-
-                // Debug.Log("x: " + x +"| y: "+y+ "| altura: "+heights[x,y] );
-                /*  if(x==360 && (y >= 360 && y<=365))
-                  {
-                      SyncListHeightsClient.Add(heights[x, y]);
-                      Debug.Log("NANI??? "+ SyncListHeightsClient.IndexOf(y));
-                  }*/
-                // Debug.Log("indice: "+heightsClient.IndexOf(y) + " | altura: "+ heightsClient.GetItem(y));
-                //heights[x, y] = Mathf.Round(CalculateHeights(x, y) * 12) / 12;
-                //heights[x, y] = Mathf.Pow(CalculateHeights(x, y),3);
-                //e = e + a - b*d^c  ...... a=0.05 b=1 c=2.4
-                // d = 2*max(abs(nx), abs(ny))
-
-                //e = (e + 0.05 ) * (1 - 1.00 *pow(d, 2.00 ))
-
             }
         }
-
-        // ApplyMountains(); *******************************************************************************************************************************************************************************
-        return heights;
+        return heights; //Para las alturas, este metodo devuelve un array de dos floats correspondientes al ruido
     }
 
     float CalculateHeights(int x, int y)
     {
-        /*float xCoord = (float)x / width * scale + offsetX;
-        float yCoord = (float)y / height * scale + offsetY;
-        
-        return Mathf.PerlinNoise(xCoord, yCoord);*/
         float perlinValue;
 
         float distance_x = Mathf.Abs(x - width * 0.5f);
         float distance_y = Mathf.Abs(y - height * 0.5f);
-       // float distance = Mathf.Sqrt(distance_x * distance_x + distance_y * distance_y); // circular mask
-        float distance = Mathf.Max(distance_x, distance_y); // square mask
+        float distance = Mathf.Max(distance_x, distance_y); // mascara cuadrada
 
         float max_width = width * 0.5f - 10.0f;
         float delta = distance / max_width;
         float gradient = delta * delta;
 
-        //noise *= Mathf.Max(0.0f, 1.0f - gradient);
-        /***ESTE ES EL BUENO***/
         float xCoord = (float)x / width * scale + offsetX;
         float yCoord = (float)y / height * scale + offsetY;
-        //        return Mathf.PerlinNoise(xCoord * 4, yCoord * 4) + 0.5f * Mathf.PerlinNoise(xCoord * 8, yCoord * 8) + 0.25f * Mathf.PerlinNoise(xCoord * 16, yCoord * 16);
-        perlinValue = (Mathf.PerlinNoise(xCoord * 4, yCoord * 4) + 0.5f * Mathf.PerlinNoise(xCoord * 8, yCoord * 8) + 0.25f * Mathf.PerlinNoise(xCoord * 16, yCoord * 16)) * Mathf.Max(0.0f, 1.0f - gradient);
+        perlinValue = (Mathf.PerlinNoise(xCoord * 4, yCoord * 4) + 
+                        0.5f * Mathf.PerlinNoise(xCoord * 8, yCoord * 8) + 
+                        0.25f * Mathf.PerlinNoise(xCoord * 16, yCoord * 16)) * 
+                        Mathf.Max(0.0f, 1.0f - gradient);
 
-       // SyncListHeightsClient.Add(perlinValue);
-        //if (x==360 && (y >= 360 && y<=370))
-        //{
-           // SyncListHeightsClient.Add(perlinValue);
-           // Debug.Log("SIN LISTA: "+perlinValue);
-            //Debug.Log(SyncListHeightsClient[0]);
-       // }
         return perlinValue;
-
-       
+     
     }
-
-   
-
 }
+
+// float distance = Mathf.Sqrt(distance_x * distance_x + distance_y * distance_y); // circular mask
+
+//        return Mathf.PerlinNoise(xCoord * 4, yCoord * 4) + 0.5f * Mathf.PerlinNoise(xCoord * 8, yCoord * 8) + 0.25f * Mathf.PerlinNoise(xCoord * 16, yCoord * 16);
+
 

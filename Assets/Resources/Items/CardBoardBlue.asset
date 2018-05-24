@@ -9,11 +9,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbbdf9eef7bcd3f43a65112554c0916b, type: 3}
-  m_Name: CardBoardBlue
+  m_Name: CardboardBlue
   m_EditorClassIdentifier: 
-  name: CardBoardBlue
-  icon: {fileID: 21300000, guid: 64744af73af414d419729664423f19aa, type: 3}
-  iconBlue: {fileID: 21300000, guid: 64744af73af414d419729664423f19aa, type: 3}
+  name: CardboardBlue
+  icon: {fileID: 0}
+  iconBlue: {fileID: 21300000, guid: 8a42e68be56b54646b895f52fb8429ed, type: 3}
   iconGreen: {fileID: 0}
+  iconMagenta: {fileID: 0}
+  iconRed: {fileID: 0}
+  iconCyan: {fileID: 0}
+  iconYellow: {fileID: 0}
   color: Blue
-  material: CardBoard
+  material: Cardboard

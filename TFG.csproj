@@ -87,6 +87,7 @@
     <Compile Include="Assets\ActivePointLight.cs" />
     <Compile Include="Assets\AnimalAttack.cs" />
     <Compile Include="Assets\AnimalIA.cs" />
+    <Compile Include="Assets\AudioManager.cs" />
     <Compile Include="Assets\Billboard.cs" />
     <Compile Include="Assets\Bullet2.cs" />
     <Compile Include="Assets\ColorLevel.cs" />
@@ -218,6 +219,8 @@
     <Compile Include="Assets\Scripts\UNETSteamworks\UI\Console.cs" />
     <Compile Include="Assets\Scripts\UNETSteamworks\UI\FindMatchButton.cs" />
     <Compile Include="Assets\Scripts\UNETSteamworks\UI\InviteFriendButton.cs" />
+    <Compile Include="Assets\Scripts\WaveController.cs" />
+    <Compile Include="Assets\Scripts\WaveController2.cs" />
     <Compile Include="Assets\SetupAnimalPlant.cs" />
     <Compile Include="Assets\SetupLocalPlayer.cs" />
     <Compile Include="Assets\spawnTerrain.cs" />
@@ -237,6 +240,7 @@
     <None Include="Assets\Lobby\Documentation.txt" />
     <None Include="Assets\Lobby\Instruction.txt" />
     <None Include="Assets\Modelos\PASOS TEXTURIZAR 3DSMAX.txt" />
+    <None Include="Assets\Plugins\Pixelplacement\iTween\ReadMe!\ReadMe!.txt" />
     <None Include="Assets\Plugins\Steamworks.NET\redist\steam_appid.txt" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\HistogramCompute.compute" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\HistogramRender.shader" />

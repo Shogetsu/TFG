@@ -5,13 +5,16 @@ using UnityEngine.Networking;
 
 public class Hit : NetworkBehaviour {
 
+    private AudioManager audioManager;
+
     [SyncVar]
     public int damage = 1;
 
 	// Use this for initialization
 	void Start () {
-		
-	}
+        //audioManager
+        audioManager = AudioManager.instance;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -30,7 +33,7 @@ public class Hit : NetworkBehaviour {
 
         if (other.gameObject.GetComponent<NetworkIdentity>() != null)
         {//IMPORTANTE - SOLO los gameObject con NetworkId ya instanciados en el servidor son los unicos gameObject que se pueden pasar por parametro en un Command o Rcp, de lo contrario seran NULL
-            CmdHitted(other.gameObject, damage); 
+            CmdHitted(other.gameObject, damage);
         }   
     }
 
@@ -42,6 +45,7 @@ public class Hit : NetworkBehaviour {
         if (other.gameObject.GetComponent<Health>() != null)
         {
             Debug.Log(this.gameObject.name + " golpea a " + other.name);
+            audioManager.PlaySound("Hit01");
             other.gameObject.GetComponent<Health>().TakeDamage(damage);
 
              if (GetComponent<Inventory>()!=null)

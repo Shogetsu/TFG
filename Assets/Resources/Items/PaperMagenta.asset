@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbbdf9eef7bcd3f43a65112554c0916b, type: 3}
+  m_Name: PaperMagenta
+  m_EditorClassIdentifier: 
+  name: PaperMagenta
+  icon: {fileID: 21300000, guid: da5ab5086b2522a4f839cfc329ad0cd4, type: 3}
+  iconBlue: {fileID: 0}
+  iconGreen: {fileID: 0}
+  iconMagenta: {fileID: 21300000, guid: da5ab5086b2522a4f839cfc329ad0cd4, type: 3}
+  iconRed: {fileID: 0}
+  iconCyan: {fileID: 0}
+  iconYellow: {fileID: 0}
+  color: Magenta
+  material: Paper

@@ -37,8 +37,9 @@ public class SetupAnimalPlant : NetworkBehaviour {
 
         //CmdSetRandomColor();
         //Debug.Log(randomInt);
-        
-        
+
+        colorString = colorsString[randomInt];
+
 
         if (!useTexture)
         {
@@ -49,13 +50,12 @@ public class SetupAnimalPlant : NetworkBehaviour {
         }
         else
         {
-            colorString = colorsString[randomInt];
-            if (colorString.Equals("Green") || colorString.Equals("Blue"))
-            {
+          /*  if (colorString.Equals("Green") || colorString.Equals("Blue"))
+            {*/
                 Renderer[] rends = GetComponentsInChildren<Renderer>(); // Se obtienen todos los renders del GameObject
                 foreach (Renderer r in rends) //Se recorren todos los renders y se les asigna el color del jugador en cuestion
                     r.material = GetMaterial(colorString);
-            }
+            //}
         }
 
     }

@@ -17,15 +17,28 @@ public class InventorySlot : MonoBehaviour {
 
     public void AddItem(Item newItem, int quantity, string color, int newColorLevel, bool armorEquipped)
     {
-        this.color = color;
         item = newItem;
+        this.color = color;
+        //Debug.Log("Tiene color? " + item.color);
+        //item.color = color;
+       // Debug.Log("colorrr " + item.color);
+
         icon.sprite = item.icon; //se asigna el icono del item al slot actual
         if (color.Equals("Blue"))
             icon.sprite = newItem.iconBlue;
         if (color.Equals("Green"))
             icon.sprite = newItem.iconGreen;
+        if (color.Equals("Magenta"))
+            icon.sprite = newItem.iconMagenta;
+        if (color.Equals("Yellow"))
+            icon.sprite = newItem.iconYellow;
+        if (color.Equals("Cyan"))
+            icon.sprite = newItem.iconCyan;
+        if (color.Equals("Red"))
+            icon.sprite = newItem.iconRed;
 
-       icon.enabled = true;
+
+        icon.enabled = true;
        // removeButton.interactable = true;
         quantityText.color = new Color32(50, 50, 50, 255);
         quantityText.text = quantity.ToString();
@@ -34,7 +47,7 @@ public class InventorySlot : MonoBehaviour {
         UpdateColorIcon();
         SetEquippedArmor(armorEquipped);
 
-        Debug.Log("Anyadido item: " + item.name+" con colorLevel: "+colorLevel);
+        //Debug.Log("Anyadido item: " + item.name+" con colorLevel: "+colorLevel);
     }
 
     public void ClearSlot() //vaciar el slot

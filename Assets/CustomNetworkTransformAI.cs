@@ -17,7 +17,13 @@ public class CustomNetworkTransformAI : NetworkBehaviour
 
     private void FixedUpdate()
     {
-        TransmitirTransform(); //Sincronizacion con Cmd de la posicion y rotacion
+        if (isServer)
+        {
+            SyncPos = transform.position;
+            SyncRot = transform.rotation;
+        }
+           // TransmitirTransform(); //Sincronizacion con Cmd de la posicion y rotacion
+
         Lerp(); //Interpolacion de posicion y rotacion
     }
 

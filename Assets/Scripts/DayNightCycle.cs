@@ -7,6 +7,8 @@ using UnityEngine.Networking;
 
 public class DayNightCycle : NetworkBehaviour {
 
+    private AudioManager audioManager;
+
     [SyncVar]
     public float time;
     public TimeSpan currentTime; //Hora actual en el juego
@@ -14,7 +16,7 @@ public class DayNightCycle : NetworkBehaviour {
     public Light sun; //Sol. Lo necesitamos para cambiar su intensidad
     public Text timeText; //Texto en el que se ve reflejada la hora del juego
 
-    [SyncVar]
+    [SyncVar (hook = "OnUpdateDaysScreen")]
     public int days; //Contador de dias que han transcurrido en el juego
 
     public float intensity;
@@ -31,6 +33,12 @@ public class DayNightCycle : NetworkBehaviour {
 
     float auxTime;
 
+    public Text gameOverDaysText;
+    public Text daysText;
+
+    [SyncVar (hook = "OnGameOverTrue")]
+    public bool gameOver;
+
     [SyncVar]
     bool rainyDay;
 
@@ -39,6 +47,9 @@ public class DayNightCycle : NetworkBehaviour {
 
     [SyncVar]
     int rainDuration;
+
+    bool playingMusic;
+    string currentMusic;
 
     void Start()
     {
@@ -53,9 +64,97 @@ public class DayNightCycle : NetworkBehaviour {
                 CalculeRainHour();
         }
 
+        daysText.text = "Day " + days.ToString();
         currentAmbientLight = NewAmbientLight(0.45f); //Esta luz ambiental es con la que empieza la partida, con sincronizar la variable time, se sincronizara la luz ambiental al mismo tiempo
+        gameOverDaysText.text = "You have survived "+days.ToString()+" days";
+        //RenderSettings.ambientLight = NewAmbientLight(0.45f); //pa probar
 
-       //RenderSettings.ambientLight = NewAmbientLight(0.45f); //pa probar
+        //audioManager
+        audioManager = AudioManager.instance;
+        playingMusic = false;
+
+        audioManager.PlaySound("Sea");
+
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        ChangeTime();
+
+        if (rainyDay)
+            Rain();
+
+
+        //gameOverDaysText.text.Replace("X", "0");
+        UpdateMusic();
+    }
+
+    void UpdateMusic()
+    {
+        StopCurrentMusic();
+        ChangeMusic();
+    }
+
+    void StopCurrentMusic()
+    {
+        if (currentMusic == null) return;
+
+        if (time >= HourToSeconds(12) && currentMusic.Equals("Morning"))
+        {
+            audioManager.StopSound("Morning");
+            playingMusic = false;
+        }
+
+        if (time >= HourToSeconds(18) && currentMusic.Equals("Afternoon"))
+        {
+            audioManager.StopSound("Afternoon");
+            playingMusic = false;
+        }
+
+        if (time >= HourToSeconds(23) && currentMusic.Equals("Evening"))
+        {
+            audioManager.StopSound("Evening");
+            playingMusic = false;
+        }
+
+        if (time >= HourToSeconds(6) && currentMusic.Equals("Night"))
+        {
+            audioManager.StopSound("Night");
+            playingMusic = false;
+        }
+    }
+
+    void ChangeMusic()
+    {
+        if ((time >= HourToSeconds(6) && time < HourToSeconds(12)) && !playingMusic)
+        {
+            audioManager.PlaySound("Morning");
+            currentMusic = "Morning";
+            playingMusic = true;
+        }
+
+        if ((time >= HourToSeconds(12) && time < HourToSeconds(18)) && !playingMusic)
+        {
+            audioManager.PlaySound("Afternoon");
+            currentMusic = "Afternoon";
+            playingMusic = true;
+        }
+
+        if ((time >= HourToSeconds(18) && time < HourToSeconds(23)) && !playingMusic)
+        {
+            audioManager.PlaySound("Evening");
+            currentMusic = "Evening";
+            playingMusic = true;
+        }
+
+        if ((time >= HourToSeconds(0) && time < HourToSeconds(6)) && !playingMusic)
+        {
+            audioManager.PlaySound("Night");
+            currentMusic = "Night";
+            playingMusic = true;
+        }
     }
 
     bool ItsRainToday()
@@ -71,11 +170,16 @@ public class DayNightCycle : NetworkBehaviour {
             rain = true;
 
         /*TRUCO!!!!!!*/
-       // rain = true;
+       rain = true;
 
 
         Debug.Log("Va a llover hoy? " + rain);
         return rain;
+    }
+
+    void OnUpdateDaysScreen(int d)
+    {
+        gameOverDaysText.text = "You have survived " + d.ToString() + " days";
     }
 
     void CalculeRainHour()
@@ -84,10 +188,15 @@ public class DayNightCycle : NetworkBehaviour {
         rainDuration = UnityEngine.Random.Range(1, 4); //1 a 3h
 
         /*TRUCO!!!!!!*/
-       // rainHour = 10;
+       rainHour = 10;
 
 
         Debug.Log("Va a llover a las: " + rainHour + " y va a durar "+rainDuration);
+    }
+
+    void OnGameOverTrue(bool value)
+    {
+        if (value) speed = 0;
     }
 
     void Rain()
@@ -97,13 +206,18 @@ public class DayNightCycle : NetworkBehaviour {
         if (time > HourToSeconds(rainHour) && time < HourToSeconds(rainHour + rainDuration))
         {
             if (GetLocalPlayer().transform.Find("Rain").gameObject.activeSelf == false)
+            {
                 GetLocalPlayer().transform.Find("Rain").gameObject.SetActive(true);
-
-        }else if(time > HourToSeconds(rainHour + rainDuration))
+                audioManager.PlaySound("Rain");
+            }
+        }
+        else if(time > HourToSeconds(rainHour + rainDuration))
         {
             if (GetLocalPlayer().transform.Find("Rain").gameObject.activeSelf == true)
+            {
                 GetLocalPlayer().transform.Find("Rain").gameObject.SetActive(false);
-
+                audioManager.StopSound("Rain");
+            }
         }
     }
 
@@ -112,15 +226,6 @@ public class DayNightCycle : NetworkBehaviour {
     {
         time = HourToSeconds(t);
     }
-
-    // Update is called once per frame
-    void Update ()
-    {
-        ChangeTime();
-
-        if (rainyDay)
-            Rain();
-	}
 
     GameObject GetLocalPlayer()
     {
@@ -153,6 +258,7 @@ public class DayNightCycle : NetworkBehaviour {
                 time = 0; //Importante resetear la variable time a 0
                           //Cada 24h se avanza 1 día
                 days += 1;
+                daysText.text = "Day "+days.ToString();
                 rainyDay = ItsRainToday();
 
                 if(rainyDay)
@@ -173,7 +279,7 @@ public class DayNightCycle : NetworkBehaviour {
 
         currentTime = TimeSpan.FromSeconds(time);
         string[] temptime = currentTime.ToString().Split(":"[0]);
-        timeText.text = temptime[0] + ":" + temptime[1];
+        timeText.text = temptime[0] + ":" + temptime[1][0]+"0";
 
         sunTransform.rotation = Quaternion.Euler(new Vector3((time - 21600) / 86400 * 360, 0, 0));
         if (time < HourToSeconds(12))

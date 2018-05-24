@@ -38,8 +38,10 @@ public class SetupLocalPlayer : NetworkBehaviour {
         Renderer[] rends = GetComponentsInChildren<Renderer>(); // Se obtienen todos los renders del GameObject
         foreach (Renderer r in rends)//Se recorren todos los renders y se les asigna el color del jugador en cuestion
         {
-            if(r.name.Equals("itemHand")==false)
+            if(r.name.Equals("Object001") || r.name.Equals("Object002"))
+            {
                 r.material.color = playerColor;
+            }
         }
             
 

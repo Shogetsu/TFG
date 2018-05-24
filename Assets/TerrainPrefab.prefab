@@ -23,10 +23,9 @@ GameObject:
   - component: {fileID: 218517658172291518}
   - component: {fileID: 154446740218035818}
   - component: {fileID: 114281558162396996}
-  - component: {fileID: 114113724704739520}
   - component: {fileID: 114748054724106770}
   - component: {fileID: 114284777595107550}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TerrainPrefab
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -46,51 +45,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114113724704739520
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1387001489608526}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 746e0e04c412f11498abd0e524ac57db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  splatHeights:
-  - textureIndex: 0
-    startingheight: 0
-    overlap: 0
-  - textureIndex: 1
-    startingheight: 1
-    overlap: 0
-  - textureIndex: 2
-    startingheight: 2
-    overlap: 3
-  - textureIndex: 3
-    startingheight: 10
-    overlap: 2
-  - textureIndex: 4
-    startingheight: 20
-    overlap: 3
-  scale: 20
-  offsetX: 100
-  offsetY: 100
-  bumpiness: 0
-  damp: 0
-  numMountains: 0
-  heightChange: 0
-  sideSlope: 0
-  numHoles: 0
-  holeDepth: 0
-  holeChange: 0
-  holeSlope: 0
-  numRivers: 0
-  digDepth: 0
-  maxDepth: 0
-  bankSlope: 0
-  roughAmount: 0
-  smoothAmount: 0
 --- !u!114 &114281558162396996
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -102,29 +56,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97c0e51facf46974bb3ac7570b7a8e16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  depth: 20
-  width: 256
-  height: 256
+  depth: 40
+  width: 1024
+  height: 1024
   scale: 2
   offsetX: 100.89
   offsetY: 100
-  treePrefab: {fileID: 1148186193318646, guid: e3d022510f9571047a2ba6ffe986771a, type: 2}
-  treePrefab2: {fileID: 1148186193318646, guid: 728e5235d785dc741b057e5294f68d0b,
+  ashPrefab: {fileID: 1148186193318646, guid: e3d022510f9571047a2ba6ffe986771a, type: 2}
+  palmPrefab: {fileID: 1754908547573860, guid: d876a1364ae617d408ac77734e89f5d3, type: 2}
+  pineTreePrefab: {fileID: 1062134779315988, guid: c88c98a62e754264f89c2db3f4ef68c2,
     type: 2}
-  numForest: 10
-  numTrees: 20
-  maxForestRadius: 10.6
-  numMountains: 0
-  heightChange: 0.001
-  sideSlope: 0.0001
-  numHoles: 0
-  holeDepth: 0.0001
-  holeChange: 0.001
-  holeSlope: 0.0001
-  numRivers: 0
-  digDepth: 0.00001
-  maxDepth: 0.00001
-  bankSlope: 0.00001
+  flowerPrefab: {fileID: 1714021282932642, guid: d4f2dd7a62fe11345af81e7f05a4f63a,
+    type: 2}
+  bushPrefab: {fileID: 1403608362741500, guid: 4191ca7f67e399c478afab2a7811dedd, type: 2}
+  rabbitPrefab: {fileID: 1529133977897490, guid: fc97083ac24207644b218b9f1de63ac4,
+    type: 2}
+  pigPrefab: {fileID: 1603625410944240, guid: 263d4a81fea2d044a9419b5c1a7391b3, type: 2}
+  chickPrefab: {fileID: 1868494021918522, guid: 00d2027b78b9b1146b89ab1965d78357,
+    type: 2}
+  scissorsPrefab: {fileID: 1565454956576060, guid: e8e3735dadf6e3c40885614dce49082a,
+    type: 2}
 --- !u!114 &114284777595107550
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -174,7 +125,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4294967279
   m_UseGeometry: 0
   m_DefaultArea: 0
   m_IgnoreNavMeshAgent: 1
@@ -201,14 +152,14 @@ MonoBehaviour:
     startingheight: 0
     overlap: 5
   - textureIndex: 1
-    startingheight: 5
+    startingheight: 3
     overlap: 1
   - textureIndex: 2
     startingheight: 6
-    overlap: 2
+    overlap: 1
   - textureIndex: 3
     startingheight: 15
-    overlap: 3
+    overlap: 1
   - textureIndex: 4
     startingheight: 40
     overlap: 3
@@ -231,7 +182,7 @@ Terrain:
   m_Enabled: 1
   serializedVersion: 3
   m_TerrainData: {fileID: 15600000, guid: 800b571f1f6e8e1459b12221c2fa033b, type: 2}
-  m_TreeDistance: 5000
+  m_TreeDistance: 2000
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
   m_TreeMaximumFullLODCount: 50

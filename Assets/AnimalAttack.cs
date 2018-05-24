@@ -5,6 +5,8 @@ using UnityEngine.Networking;
 
 public class AnimalAttack : NetworkBehaviour {
 
+    private AudioManager audioManager;
+
     [SerializeField] float attackRate = 3;
     float nextAttack;
     [SerializeField] int dmg = 5;
@@ -25,7 +27,10 @@ public class AnimalAttack : NetworkBehaviour {
         StartCoroutine(Attack());
 
         Debug.Log("AL ATAQUERL!");*/
-	}
+
+        //audioManager
+        audioManager = AudioManager.instance;
+    }
 
     private void OnEnable() //Importante usar OnEnable, este trozo de codigo se debe de ejecutar siempre que el script se active
     {
@@ -58,6 +63,7 @@ public class AnimalAttack : NetworkBehaviour {
     void RpcHitting()
     {
         transform.GetChild(0).GetComponent<Animator>().SetTrigger("isHitting");
+        audioManager.PlaySound("Hit01");
     }
 
     IEnumerator Attack()

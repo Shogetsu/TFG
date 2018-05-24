@@ -1,5 +1,5 @@
 WindowsStandalone
-92d08a146a7d717885a8498dbaca0168 Assembly-CSharp.dll:.Item
+8ecfc1dfdbdd05564d51e866dec431d8 Assembly-CSharp.dll:.Item
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.NetworkLobbyHook
 fa4b83c80c7ca53ee38c7f6eec291dc7 Assembly-CSharp.dll:Prototype.NetworkLobby.LobbyMainMenu
 0e88b11bb7d62f0f509e2adad7e5743b Assembly-CSharp.dll:.AnimalAttack
@@ -22,8 +22,9 @@ a71e89494a00540356e3247bc0ed0342 Assembly-CSharp.dll:UnityEngine.AI.NavMeshLink
 7481472d4e57e8477d484d43a43b79dc Assembly-CSharp-firstpass.dll:UnityStandardAssets.Characters.FirstPerson.FirstPersonController
 ce09cb02e2f857c8aa562f2552261f90 Assembly-CSharp.dll:.Hit
 2b4ee1fc14f90ef2465230265b6864ae Assembly-CSharp.dll:.NetworkSpaceshipBullet
+609883ba9b3462e00c79080cdb51d119 Assembly-CSharp-firstpass.dll:.iTween
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:Prototype.NetworkLobby.EventSystemChecker
-2540508137c38dfe9f501f6ba9528c01 Assembly-CSharp.dll:.RefugeCraft
+a802e62d947668db83204b0db6876b6c Assembly-CSharp.dll:.RefugeCraft
 ac7eaf50f08f01f911a75dffdb4ebb71 Assembly-CSharp.dll:.ItemPickup
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Billboard
 a35dc9cca2faebc5f5f1aeb9e8e47bbe UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
@@ -154,6 +155,7 @@ c8ece97148673d8a5a7eca09bc546fd4 Assembly-CSharp.dll:.Respawn
 78ebae5ed9b3edeb216da437b99754a4 Assembly-CSharp-firstpass.dll:UnityStandardAssets.CrossPlatformInput.Joystick
 ff6ae78c3346e782ba725255eb7e189d Assembly-CSharp.dll:.SteamNetworkManager2
 90f09d132c3eb7d3b66eae9ff3642b3e Assembly-CSharp.dll:.textureRandom
+fda955ed0521f6c40f3c06b737e7c16e Assembly-CSharp.dll:.WaveController
 149e538468c9a609cf26b23682c996c7 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.PlatformSpecificContent
 d78da10fc6fe2ebb0bfa7bfae15012c5 Assembly-CSharp.dll:UnityEngine.AI.NavMeshModifierVolume
 37bf4d6a6d424731cb4a9b998783e5c6 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Characters.ThirdPerson.ThirdPersonCharacter
@@ -166,8 +168,8 @@ fe76270bd84ec3b6f2f6f92c69cf69da Assembly-CSharp-firstpass.dll:UnityStandardAsse
 0c773c42754daaad5c732d560376f383 Assembly-CSharp.dll:.NetworkPlayer
 96e7294f11e4ae1fe77dd4bcd658b56d Assembly-CSharp-firstpass.dll:UnityStandardAssets.Cameras.LookatTarget
 e902b37cfb4c2c79cc3fe88c1130e5b8 Assembly-CSharp-firstpass.dll:.ThirdPersonCamera
-4fd07a64f619d3062f2c67f60954e0ef Assembly-CSharp.dll:.Weapon
-2540508137c38dfe9f501f6ba9528c01 Assembly-CSharp.dll:.FabricableItem
+e5c79431243d3356f5659491a4932f91 Assembly-CSharp.dll:.Weapon
+a802e62d947668db83204b0db6876b6c Assembly-CSharp.dll:.FabricableItem
 c99104cca6f33db39d236f8efb9aafb4 Assembly-CSharp.dll:Prototype.NetworkLobby.LobbyCountdownPanel
 a7d3c6c6948d99dd4116e659ddcf5ac4 Assembly-CSharp-firstpass.dll:UnityStandardAssets.CrossPlatformInput.ButtonHandler
 121792a7a7969d4c226de1f1af0932ab Assembly-CSharp.dll:.PjControl
@@ -175,6 +177,7 @@ a7d3c6c6948d99dd4116e659ddcf5ac4 Assembly-CSharp-firstpass.dll:UnityStandardAsse
 81f1a7b485ed7c17904c4739b2d0d8d7 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Characters.ThirdPerson.ThirdPersonUserControl
 a90e94673f50d2237c1b971c138660c6 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.AutoMoveAndRotate
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:.ForcedReset
+a7b097692cb6833d368335195960c2aa Assembly-CSharp.dll:.CustomNetworkTransformAI
 57fde8e76fc7bce23deb0e799d336be7 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.SmoothFollow
 cfa93710d56cd4da2a3b2eec27bc1139 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Water.PlanarReflection
 205965134a5874db410d674ebdf33ba7 Assembly-CSharp.dll:.ExampleWheelController
@@ -248,9 +251,10 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.VR.WSA.Spa
 dc5fa02202409049bc420a7b6efe5183 Assembly-CSharp.dll:.NetworkSpaceship
 1be52fb541d1fe19688de133e6306e00 Assembly-CSharp.dll:UnityEngine.AI.NavMeshSurface
 f671a42aea5f34fec6a4450a3668c615 Assembly-CSharp.dll:UnityEngine.PostProcessing.PostProcessingProfile
-92d08a146a7d717885a8498dbaca0168 Assembly-CSharp.dll:.Consumable
-283a4c0bdf54c54723fb028114c5cde4 Assembly-CSharp.dll:.Inventory
+8ecfc1dfdbdd05564d51e866dec431d8 Assembly-CSharp.dll:.Consumable
+61861722d6d95e0de66eb39a07875f85 Assembly-CSharp.dll:.Inventory
 0fa7f28da581ff5a02071c9e17ddf6e4 Assembly-CSharp.dll:.Drop
+58bb308891a86ce0a5bbd278ba7c9e13 Assembly-CSharp.dll:.WaveController2
 db3b233e35a88802fed1717d19c3d9ec Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.FollowTarget
 a8796ecdc9d5c260bbe32f30c4b10708 Assembly-CSharp-firstpass.dll:UnityStandardAssets.CrossPlatformInput.TouchPad
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ActivePointLight
@@ -266,13 +270,13 @@ d0ee1e6819011e6810b3e81ffc447a6a Assembly-CSharp.dll:.SpawnFruit
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Prototype.NetworkLobby.DraggablePanel
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Bullet2
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.AnimalsMotionSync
-80c4ae352588c3ba59eab03abad389f0 Assembly-CSharp.dll:.DayNightCycle
-92d08a146a7d717885a8498dbaca0168 Assembly-CSharp.dll:.Resource
-fdde746c8a70b313aaaf7867917e1982 Assembly-CSharp.dll:.TerrainGeneration
-4bd8aff5d1f2e9857198fd2e8ae87b9f Assembly-CSharp.dll:.Armor
+bd29602d8058a50f45db7fae2da15505 Assembly-CSharp.dll:.DayNightCycle
+8ecfc1dfdbdd05564d51e866dec431d8 Assembly-CSharp.dll:.Resource
+45fdf04a799ad5b47a8e357a29965770 Assembly-CSharp.dll:.TerrainGeneration
+9c2edf827fdf6d1b8d72db438373492c Assembly-CSharp.dll:.Armor
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SteamManager
 239d2cc8d353bbfcbefc27fa8f0221cc Assembly-CSharp.dll:Prototype.NetworkLobby.LobbyServerList
 efe78774255e0887a40e19922e277bad Assembly-CSharp.dll:.InventoryPlayer
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.KeyboardInventory
 0f3d4bb7128a287827d041c696039525 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.AutoMobileShaderSwitch
-a7b097692cb6833d368335195960c2aa Assembly-CSharp.dll:.CustomNetworkTransformAI
+88866018958f136196b5018a1b82e3bc Assembly-CSharp.dll:.AudioManager

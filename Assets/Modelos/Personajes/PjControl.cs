@@ -5,12 +5,13 @@ using UnityEngine.Networking;
 
 public class PjControl : NetworkBehaviour
 {
+    private AudioManager audioManager;
 
     static Animator anim;
     public float rotationSpeed = 100.0f;
 
     public float speed;
-   // public Rigidbody RB;
+    // public Rigidbody RB;
     public float jumpForce;
     public CharacterController controller;
     public Rigidbody rb;
@@ -26,32 +27,49 @@ public class PjControl : NetworkBehaviour
     CursorLockMode wantedMode;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         if (!isLocalPlayer) //Si no se trata del jugador, se desactivan gameObject del resto de jugadores
         {
             transform.GetChild(0).gameObject.SetActive(false); //camara
             return;
         }
-           
+
+      /*  if (isServer)
+            gameOver = false;*/
 
         //RB = GetComponent<Rigidbody>();
         //controller = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         //GetComponent<Health>().CmdSetVITMAX();
-        
+
         //transform.GetChild(0).GetComponent<Camera>().enabled = false;
+
+        //audioManager
+        audioManager = AudioManager.instance;
 
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
 
-        if (!isLocalPlayer)
+
+        if (!isLocalPlayer || GameObject.Find("GameManager").GetComponent<DayNightCycle>().gameOver)
             return;
 
-        if(anim.GetBool("isDead"))
-            return;
+
+        /* Vector3 pos = transform.position;
+         Vector3 dir = Vector3.down;
+         float dis = 1.0f;*/
+
+        //isGrounded = Physics.Raycast(pos, dir, dis, LayerMask.NameToLayer("Ground"));
+        // Debug.DrawRay((new Vector3(rb.transform.position.x, rb.transform.position.y + 1f, rb.transform.position.z)), Vector3.down, Color.green, 5);
+
+        // isGrounded = CheckGround();
+
+
 
 
         /* if (_thirdPCam.target != transform.GetChild(0)) //Se obtiene la posicion del gameobject target dentro del body del modelo
@@ -65,8 +83,8 @@ public class PjControl : NetworkBehaviour
 
         ShowMouse();
 
-        float translation = Input.GetAxis("Vertical")*speed;
-         float rotation = Input.GetAxis("Horizontal")*speed;
+        float translation = Input.GetAxis("Vertical") * speed;
+        float rotation = Input.GetAxis("Horizontal") * speed;
         /*translation *= Time.deltaTime;
         rotation *= Time.deltaTime;
         transform.Translate(0, 0, translation);
@@ -88,25 +106,26 @@ public class PjControl : NetworkBehaviour
 
         moveDirection = (transform.forward * translation) + (transform.right * rotation);
         //Si el jugador corre en diagonal corre mas PERO ASI correra normal
-        if (translation!=0 && rotation != 0)
+        if (translation != 0 && rotation != 0)
         {
             moveDirection = moveDirection.normalized * speed;
         }
-            
-        moveDirection.y =yStore;
+
+        moveDirection.y = yStore;
 
         /* moveDirection = (transform.forward * translation) + (transform.right * rotation);
          moveDirection = moveDirection.normalized * speed;*/
 
-          if (isGrounded)
-          {
-              moveDirection.y = 0f;
-              if (Input.GetButtonDown("Jump")) //La tecla "espacio" es por defecto Jump
-              {
+      /*  if (isGrounded)
+        {*/
+            moveDirection.y = 0f;
+            if (Input.GetButtonDown("Jump")) //La tecla "espacio" es por defecto Jump
+            {
                 // RB.velocity = new Vector3(RB.velocity.x, jumpForce, RB.velocity.z);
-                  rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
+                rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
                 // moveDirection.y = jumpForce;
                 GetComponent<NetworkAnimator>().SetTrigger("isJumping");
+                audioManager.PlaySound("Jump");
 
                 if (isServer) //El host ejecuta las animaciones Trigger 2 veces, esto lo soluciona
                 {
@@ -114,19 +133,19 @@ public class PjControl : NetworkBehaviour
                 }
 
                 //  anim.SetTrigger("isJumping");
-              }
+            }
 
             if (Input.GetMouseButtonDown(0) && Input.GetButton("ShowMouse") == false)
             {
                 //El jugador golpea si presiona clic izquierdo y el raton no se esta mostrando en pantalla
                 GetComponent<NetworkAnimator>().SetTrigger("isHitting");
-                
+
                 if (isServer) //El host ejecuta las animaciones Trigger 2 veces, esto lo soluciona
                 {
                     GetComponent<NetworkAnimator>().animator.ResetTrigger("isHitting");
                 }
             }
-        }
+        //}
 
         /*  if (Input.GetButtonDown("Jump")) //La tecla "espacio" es por defecto JUMP
           {
@@ -135,16 +154,32 @@ public class PjControl : NetworkBehaviour
               anim.SetTrigger("isJumping");
           }*/
 
-        if (GetComponent<Health>().GetVit() <= 0)
+        if (GetComponent<Health>().GetVit() <= 0 && GameObject.Find("GameManager").GetComponent<DayNightCycle>().gameOver == false)
         {
             anim.SetBool("isDead", true);
+
+            //ACTIVAR VENTANA DE GAMEOVER AQUI!!!
+            CmdGameOver();
+            audioManager.StopSound("Footstep");
+            // GameObject.Find("LobbyManager").transform.Find("TopPanel").GetComponent<Lobby>
         }
 
-        if (translation != 0 || rotation !=0)
+        if (translation != 0 || rotation != 0)
         {
+            if (!anim.GetBool("isRunning"))
+            {
+                audioManager.PlaySound("Footstep");
+            }
             anim.SetBool("isRunning", true);
             anim.SetBool("isIdle", false);
-        }else{
+            
+        }
+        else
+        {
+            if (anim.GetBool("isRunning"))
+            {
+                audioManager.StopSound("Footstep");
+            }
             anim.SetBool("isRunning", false);
             anim.SetBool("isIdle", true);
         }
@@ -156,10 +191,10 @@ public class PjControl : NetworkBehaviour
 
         //Vector3 mov = new Vector3(rotation, 0, translation) * speed * Time.deltaTime;
         rb.MovePosition(transform.position + moveDirection);
-        
-        
+
+
         //Mover al jugador en diferentes direcciones basadas en la direccion de la camara
-        if (Input.GetAxis("Horizontal")!=0 || Input.GetAxis("Vertical") != 0) // !=0 ---> si esta siendo pulsada la tecla
+        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) // !=0 ---> si esta siendo pulsada la tecla
         {
             transform.rotation = Quaternion.Euler(0f, pivot.rotation.eulerAngles.y, 0f);
             Quaternion newRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0f, moveDirection.z));
@@ -168,6 +203,21 @@ public class PjControl : NetworkBehaviour
         }
     }
 
+    [Command]
+    void CmdGameOver()
+    {
+        GameObject.Find("GameManager").GetComponent<DayNightCycle>().gameOver = true;
+        RpcGameOver();
+    }
+
+    [ClientRpc]
+    void RpcGameOver()
+    {
+        GameObject.Find("Canvas").transform.Find("GameOver").gameObject.SetActive(true);
+        Cursor.lockState = wantedMode = CursorLockMode.None;
+        SetCursorState();
+        //Debug.Log("Holacaracola: "+GameObject.Find("Canvas").transform.Find("GameOver").gameObject.activeSelf);
+    }
     // Apply requested cursor state
     void SetCursorState()
     {
@@ -190,7 +240,7 @@ public class PjControl : NetworkBehaviour
         SetCursorState();
     }
 
-    
+
     public Animator GetAnimator()
     {
         return anim;
@@ -238,22 +288,41 @@ public class PjControl : NetworkBehaviour
 
          SetCursorState();
      }*/
-
+   
     void OnCollisionEnter(Collision collision)
-    {
-       // Debug.Log("Entered");
-        if (collision.gameObject.CompareTag("ground"))
-        {
-            isGrounded = true;
-        }
-    }
+     {
+        // Debug.Log("Entered");
+         if (collision.gameObject.CompareTag("ground"))
+         {
+             isGrounded = true;
+         }
+     }
 
-    void OnCollisionExit(Collision collision)
+     void OnCollisionExit(Collision collision)
+     {
+        // Debug.Log("Exited");
+         if (collision.gameObject.CompareTag("ground"))
+         {
+             isGrounded = false;
+         }
+     }
+
+    /*   void CheckGrounded()
+       {
+           if (Physics.Raycast(transform.position + (Vector3.up * 0.1f), Vector3.down, out hitInfo, m_GroundCheckDistance))
+           {
+               m_IsGrounded = true;
+           }
+       }*/
+
+    /*public bool CheckGround()
     {
-       // Debug.Log("Exited");
-        if (collision.gameObject.CompareTag("ground"))
-        {
-            isGrounded = false;
-        }
-    }
+        Vector3 position = transform.position;
+        position.y = GetComponent<CapsuleCollider>().bounds.min.y + 0.1f;
+        float length = isGroundedRayLength + 0.1f;
+        Debug.DrawRay(position, Vector3.down * length);
+        bool grounded = Physics.Raycast(position, Vector3.down, length, 1 << LayerMask.NameToLayer("Ground"));
+        return grounded;
+    }*/
+
 }
